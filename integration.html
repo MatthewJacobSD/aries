@@ -1,128 +1,347 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Integrations — Aries</title>
-  <meta name="description" content="Connect the tools you already run. Aries sends and receives events so you do not copy status by hand." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/index.css" />
-</head>
-<body>
-  <header class="site">
-    <a class="logo" href="index.html">Aries</a>
-    <nav class="primary" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="creators.html">Creators</a>
-      <a href="campaigns.html">Campaigns</a>
-      <a href="tasks.html">Tasks</a>
-      <a href="integrations.html">Integrations</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="login.html">Sign in</a>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integrations — Aries</title>
+    <meta
+      name="description"
+      content="Connect Aries to the tools you already use and keep revenue, campaign, and workspace events moving between systems."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
 
-  <section class="hero" id="desert">
-    <img src="images/dashboard-desk.jpg" alt="Operations desk with monitor and ledger" />
-    <div class="hero-copy">
-      <p class="eyebrow">Explainer · hooks and connected apps</p>
-      <h1>Integrations</h1>
-      <p class="lede">Keep the stack you already trust. Aries listens for events and sends them on — revenue, campaigns, access — so Slack, the ledger, and the pager stay in step without another manual paste.</p>
-      <div class="cta-row">
-        <a class="cta solid" href="dashboard.html#hooks">Open the working view</a>
-        <a class="cta" href="#events">What a hook looks like</a>
+  <body>
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="tasks.html">Tasks</a>
+        <a href="clients.html">Clients</a>
+        <a href="revenue.html">Revenue</a>
+        <a href="campaigns.html">Campaigns</a>
+        <a href="integration.html" aria-current="page">Integrations</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Sign in</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="desert">
+      <img src="images/dashboard-desk.jpg" alt="Operations desk with monitor and ledger" />
+
+      <div class="hero-copy">
+        <p class="eyebrow">Connections · events · delivery</p>
+
+        <h1>Integrations</h1>
+
+        <p class="lede">
+          Connect Aries to the systems already running your business. Revenue, campaign, client, and
+          workspace events can move between services without relying on manual updates.
+        </p>
+
+        <div class="cta-row">
+          <a class="cta solid" href="dashboard.html#integrations"> Open the working view </a>
+
+          <a class="cta" href="#events"> See how events work </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="hero-bridge" id="heroBridge">
-    <div class="glow"></div>
-    <div class="line"></div>
-    <span class="label">Same event, many desks</span>
-  </div>
+    <div class="hero-bridge" id="heroBridge">
+      <div class="glow"></div>
+      <div class="line"></div>
+      <span class="label">Connect · Deliver · Verify · Retry</span>
+    </div>
 
-  <section class="section" id="stack">
-    <p class="kicker">What you can attach</p>
-    <h2>Finance rails, project tools, and the night pager.</h2>
-    <p class="intro">You do not rebuild those products inside Aries. You point them at a signed endpoint and keep a log of what landed.</p>
-    <div class="grid-3">
-      <article class="card reveal">
-        <span class="tag">Finance</span>
-        <h3>Ledger and payout rails</h3>
-        <p>When a payout is ready or a refund opens, treasury and accounting tools can hear it the same minute the desk does.</p>
-      </article>
-      <article class="card reveal" data-delay="80">
-        <span class="tag">Campaigns</span>
-        <h3>Approvals and briefs</h3>
-        <p>Content approved, brief updated, task reassigned. Project boards stay current without a status meeting.</p>
-      </article>
-      <article class="card reveal" data-delay="160">
-        <span class="tag">Access</span>
-        <h3>Who opened the file</h3>
-        <p>Session rotate, key revoked, room assumed. Security tools get the line; the payload stays off the marketing site.</p>
-      </article>
-    </div>
-    <div class="partners" style="margin-top:1.2rem;">
-      <div class="partner">Stripe / Paxum</div>
-      <div class="partner">Ledger bridge</div>
-      <div class="partner">Project bus</div>
-      <div class="partner">Pager</div>
-      <div class="partner">Treasury bus</div>
-      <div class="partner">Night desk</div>
-    </div>
-  </section>
+    <section class="section" id="stack">
+      <p class="kicker">The connected stack</p>
 
-  <section class="section alt" id="events">
-    <p class="kicker">How a hook reads</p>
-    <h2>JSON on the wire. A log on the desk.</h2>
-    <p class="intro">Systems still exchange a signed payload. People read one compact line — time, source, status, message.</p>
-    <div class="log-stream reveal">
-      <div class="log-row"><span class="ts">16:02:11</span><span class="src audit">AUDIT</span><span class="msg">campaign.content.approved  atlas-september  creator_4821  assets 3  by user_0192</span></div>
-      <div class="log-row"><span class="ts">16:02:11</span><span class="src deliver">DELIVER</span><span class="ok">200</span><span class="msg">hook campaign.content.approved → project-bus  36ms</span></div>
-      <div class="log-row"><span class="ts">16:07:03</span><span class="src deliver">DELIVER</span><span class="ok">200</span><span class="msg">hook revenue.payout.ready → treasury-bus  29ms</span></div>
-      <div class="log-row warn"><span class="ts">16:22:51</span><span class="src deliver">DELIVER</span><span class="retry">RETRY</span><span class="msg">hook client.brief.updated → pager  attempt 2</span></div>
-    </div>
-    <div class="grid-3" style="margin-top:1rem;">
-      <article class="card reveal">
-        <span class="tag">revenue.*</span>
-        <h3>Money events</h3>
-        <p>Posted, adjusted, refunded, ready to pay, cleared. Always named to a creator or campaign.</p>
-      </article>
-      <article class="card reveal" data-delay="80">
-        <span class="tag">campaign.*</span>
-        <h3>Work events</h3>
-        <p>Assigned, submitted, approved, revised, done. Enough for a board. Not a dump of the file.</p>
-      </article>
-      <article class="card reveal" data-delay="160">
-        <span class="tag">client.* / team.*</span>
-        <h3>Room events</h3>
-        <p>Brief updated, member removed, conversation needs a person. The pager only fires when a rule says so.</p>
-      </article>
-    </div>
-  </section>
+      <h2>Keep the tools that already do their job.</h2>
 
-  <section class="section" id="trust">
-    <p class="kicker">What does not leave</p>
-    <h2>A hook is signed. A retry is visible. A secret stays put.</h2>
-    <p class="intro">Failed delivery stays on the log until it succeeds. You can show a partner the line without handing them the whole workspace.</p>
-    <div class="grid-2">
-      <article class="card reveal">
-        <h3>Signed payloads</h3>
-        <p>Each event carries a signature. Downstream tools can reject a body that does not match. Demo pages never show the live key.</p>
-      </article>
-      <article class="card reveal" data-delay="80">
-        <h3>Delivery you can audit</h3>
-        <p>200, retry, or held. If the pager missed twice, that is a row — not a rumour in chat.</p>
-      </article>
-    </div>
-  </section>
+      <p class="intro">
+        Aries is the operational layer between your workspace and the services around it. Connect
+        the systems you need, define what they should receive, and keep delivery visible from one
+        place.
+      </p>
 
-  <footer class="site">
-    <span>Aries · Integrations</span>
-    <span><a href="dashboard.html#hooks">Working view</a> · Events · Delivery</span>
-  </footer>
-  <script src="js/main.js"></script>
-</body>
+      <div class="grid-3">
+        <article class="card reveal">
+          <span class="tag">Finance</span>
+
+          <h3>Revenue and payouts</h3>
+
+          <p>
+            Pass relevant revenue and payout events to financial systems so the operational record
+            and the financial workflow stay aligned.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Campaigns</span>
+
+          <h3>Projects and approvals</h3>
+
+          <p>
+            Send campaign, content, assignment, and approval events to project tools without
+            maintaining the same status in multiple places.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="160">
+          <span class="tag">Operations</span>
+
+          <h3>Alerts and automation</h3>
+
+          <p>
+            Route important events to the people or systems that need to act on them, while keeping
+            the original event available in the Aries record.
+          </p>
+        </article>
+      </div>
+
+      <div class="partners" style="margin-top: 1.2rem">
+        <div class="partner">Payment platforms</div>
+        <div class="partner">Accounting tools</div>
+        <div class="partner">Project management</div>
+        <div class="partner">Messaging</div>
+        <div class="partner">Webhooks</div>
+        <div class="partner">Custom APIs</div>
+      </div>
+    </section>
+
+    <section class="section alt" id="events">
+      <p class="kicker">Event delivery</p>
+
+      <h2>One event can keep several systems informed.</h2>
+
+      <p class="intro">
+        Aries records an event once, then delivers it to the destinations configured for that event.
+        Each delivery can be tracked independently instead of disappearing into a background
+        process.
+      </p>
+
+      <div class="log-stream reveal">
+        <div class="log-row">
+          <span class="ts">16:02:11</span>
+          <span class="src audit">EVENT</span>
+          <span class="msg"> campaign.content.approved · atlas-september · assets 3 </span>
+        </div>
+
+        <div class="log-row">
+          <span class="ts">16:02:11</span>
+          <span class="src deliver">DELIVER</span>
+          <span class="ok">200</span>
+          <span class="msg"> campaign.content.approved → project-system · 36ms </span>
+        </div>
+
+        <div class="log-row">
+          <span class="ts">16:07:03</span>
+          <span class="src deliver">DELIVER</span>
+          <span class="ok">200</span>
+          <span class="msg"> revenue.payout.ready → finance-system · 29ms </span>
+        </div>
+
+        <div class="log-row warn">
+          <span class="ts">16:22:51</span>
+          <span class="src deliver">DELIVER</span>
+          <span class="retry">RETRY</span>
+          <span class="msg"> client.brief.updated → alert-system · attempt 2 </span>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top: 1rem">
+        <article class="card reveal">
+          <span class="tag">revenue.*</span>
+
+          <h3>Financial events</h3>
+
+          <p>
+            Revenue posted, fees recorded, refunds opened, payouts prepared, and payouts cleared.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">campaign.*</span>
+
+          <h3>Work events</h3>
+
+          <p>Assignments, submissions, approvals, revisions, and completed campaign work.</p>
+        </article>
+
+        <article class="card reveal" data-delay="160">
+          <span class="tag">client.* / team.*</span>
+
+          <h3>Workspace events</h3>
+
+          <p>
+            Changes to clients, teams, access, briefs, and other operational records that need to
+            reach another system.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="flow">
+      <p class="kicker">How it works</p>
+
+      <h2>Simple enough to understand. Structured enough to automate.</h2>
+
+      <p class="intro">
+        An integration should not require a second operational workflow. Aries keeps the process
+        around four steps: connect the destination, choose the events, deliver them, and monitor
+        what happened.
+      </p>
+
+      <div class="grid-2 steps">
+        <article class="card reveal">
+          <h3>1. Connect a destination</h3>
+
+          <p>
+            Add the service or endpoint that should receive Aries events. Keep connection details
+            separate from the event history.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>2. Choose what it receives</h3>
+
+          <p>
+            Subscribe a destination to the event types it actually needs instead of sending the
+            entire workspace to every connected system.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <h3>3. Deliver the event</h3>
+
+          <p>
+            When an event occurs, Aries sends the configured payload and records the resulting
+            delivery status.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>4. Resolve exceptions</h3>
+
+          <p>
+            Failed deliveries remain visible so they can be retried, investigated, or disabled
+            without losing the original event.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt" id="trust">
+      <p class="kicker">Delivery and security</p>
+
+      <h2>Make the connection observable, not mysterious.</h2>
+
+      <p class="intro">
+        Integrations become difficult to trust when failures disappear or credentials are exposed.
+        Aries should keep connection state, delivery history, and sensitive configuration clearly
+        separated.
+      </p>
+
+      <div class="grid-2">
+        <article class="card reveal">
+          <h3>Verify what you receive</h3>
+
+          <p>
+            Webhook signatures and request validation can help connected services confirm that an
+            incoming event came from the expected source and has not been altered in transit.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>See what was delivered</h3>
+
+          <p>
+            Record successful responses, failures, and retry attempts so operators can understand
+            the state of an integration without searching through another system.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <h3>Keep secrets out of the UI</h3>
+
+          <p>
+            API keys, signing secrets, and other credentials belong in protected configuration, not
+            in public pages, event logs, or client-side code.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>Fail without losing the event</h3>
+
+          <p>
+            A destination going offline should not erase the underlying event. The event remains
+            part of the Aries record while delivery can be retried or reviewed.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="api">
+      <p class="kicker">Built for extension</p>
+
+      <h2>Use a connector when one exists. Use an endpoint when it does not.</h2>
+
+      <p class="intro">
+        Aries can start with the services your workspace needs most and leave room for custom
+        integrations. Standard event structures make it possible to connect another system without
+        rebuilding the underlying workflow.
+      </p>
+
+      <div class="grid-3">
+        <article class="card reveal">
+          <span class="tag">Connectors</span>
+
+          <h3>Known services</h3>
+
+          <p>
+            Use a dedicated integration when Aries supports the service directly and can manage its
+            connection lifecycle.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Webhooks</span>
+
+          <h3>External endpoints</h3>
+
+          <p>
+            Send selected events to a compatible HTTPS endpoint when a dedicated connector is not
+            necessary.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="160">
+          <span class="tag">API</span>
+
+          <h3>Custom workflows</h3>
+
+          <p>
+            Build against a documented interface when your operation needs behaviour that a
+            pre-built integration does not provide.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="site">
+      <span>Aries · Integrations</span>
+      <span>
+        <a href="dashboard.html#integrations">Working view</a> · Events · Delivery · Security
+      </span>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
 </html>

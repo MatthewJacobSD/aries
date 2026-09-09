@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aries — Agency operations, revenue, and client management</title>
+    <title>Aries — The operating workspace for creator agencies</title>
     <meta
       name="description"
-      content="Aries brings creator operations, revenue tracking, team workflows, and client communication into one workspace."
+      content="Aries connects creator management, campaigns, tasks, client workspaces, and revenue in one operational workspace."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,34 +16,56 @@
     />
     <link rel="stylesheet" href="css/index.css" />
   </head>
+
   <body>
     <header class="site">
-      <a class="logo" href="#desert">Aries</a>
-      <nav class="primary">
-        <a href="#platform">Platform</a>
-        <a href="#how">How it works</a>
-        <a href="#trust">Trust</a>
-        <a href="#partners">Partners</a>
-        <a href="integration.html">Integrations</a>
-        <a href="#chat">Live desk</a>
+      <a class="logo" href="index.html">Aries</a>
+
+      <nav class="primary" aria-label="Primary">
+        <div class="nav-dropdown">
+          <button
+            class="nav-dropdown-trigger"
+            type="button"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            Product
+            <span class="nav-chevron"></span>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="#platform" role="menuitem">Platform</a>
+            <a href="#how" role="menuitem">How it works</a>
+            <a href="#trust" role="menuitem">Trust</a>
+            <a href="#partners" role="menuitem">Partners</a>
+            <a href="integration.html" role="menuitem">Integrations</a>
+          </div>
+        </div>
+        <a href="tasks.html">Tasks</a>
+        <a href="clients.html">Clients</a>
+        <a href="revenue.html">Revenue</a>
+        <a href="campaigns.html">Campaigns</a>
+        <a href="dashboard.html">Dashboard</a>
         <a href="login.html">Sign in</a>
-        <a href="register.html">Register</a>
       </nav>
     </header>
 
     <section class="hero" id="desert">
       <img src="images/desert.jpg" alt="Golden desert dunes at dusk" />
+
       <div class="hero-copy">
-        <p class="eyebrow">Agency operations · Revenue · Client workspaces</p>
+        <p class="eyebrow">Creator operations · Campaigns · Revenue · Client workspaces</p>
+
         <h1>ARIES</h1>
+
         <p class="lede">
-          One workspace for the people, content, revenue, and client work behind a modern creator
-          business. Keep campaigns moving, understand where the money goes, and give every client a
-          clear place to work with your team.
+          The operating workspace for modern creator agencies. Keep creators, campaigns, tasks,
+          clients, and revenue connected so your team can see what is happening and act on what
+          comes next.
         </p>
+
         <div class="cta-row">
-          <a class="cta solid" href="/dashboard.html">Open the dashboard</a>
-          <a class="cta" href="#how">Walk through the flow</a>
+          <a class="cta solid" href="dashboard.html"> Open the dashboard </a>
+          <a class="cta" href="#how"> See how it works </a>
         </div>
       </div>
     </section>
@@ -51,101 +73,139 @@
     <div class="hero-bridge" id="heroBridge">
       <div class="glow"></div>
       <div class="line"></div>
-      <span class="label">From scattered tools to one operating desk</span>
+      <span class="label"> People · Work · Money · Connected </span>
     </div>
 
     <section class="hero" id="mountain">
       <img src="images/mountain.jpg" alt="Snow-capped mountain range at first light" />
+
       <div class="hero-copy">
-        <p class="eyebrow">Know what happened</p>
-        <h2 class="display">Clear numbers.<br />Clear ownership.</h2>
+        <p class="eyebrow">Know what is happening</p>
+
+        <h2 class="display">
+          Clear work.<br />
+          Clear ownership.
+        </h2>
+
         <p class="lede">
-          Content assignments, campaign activity, revenue events, approvals, and client
-          conversations stay connected. When something changes, your team can see what changed, who
-          handled it, and what happens next.
+          A creator joins the team. A campaign is briefed. Tasks are assigned. Assets are reviewed.
+          Revenue arrives. Aries keeps those events connected so the team does not have to
+          reconstruct the story from separate tools.
         </p>
+
         <div class="cta-row">
-          <a class="cta" href="#trust">How trust is built</a>
+          <a class="cta" href="#platform"> Explore the platform </a>
         </div>
       </div>
     </section>
 
     <section class="section" id="platform">
-      <p class="kicker">What you run on</p>
-      <h2>Everything behind the business, without another pile of spreadsheets.</h2>
+      <p class="kicker">The platform</p>
+
+      <h2>One operational layer for the work behind the business.</h2>
+
       <p class="intro">
-        Aries gives agencies one operating layer for creator management, revenue operations, team
-        workflows, and client communication. Keep the tools you already use and bring the important
-        activity into one place.
+        Aries brings the records and workflows around your creator business into one place. Each
+        part of the platform has a purpose, while the relationships between them give the team the
+        bigger picture.
       </p>
+
       <div class="grid-3">
         <article class="card reveal">
+          <span class="tag">Creators</span>
+
+          <h3>Know who you work with</h3>
+
+          <p>
+            Keep creator profiles, active work, campaign history, tasks, and relevant financial
+            records connected to the relationship they belong to.
+          </p>
+
+          <a class="cta" href="creators.html"> Explore creators </a>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Campaigns</span>
+
+          <h3>Know what is being delivered</h3>
+
+          <p>
+            Turn briefs into structured work with deliverables, owners, deadlines, approvals, and
+            campaign activity kept together.
+          </p>
+
+          <a class="cta" href="campaigns.html"> Explore campaigns </a>
+        </article>
+
+        <article class="card reveal" data-delay="160">
+          <span class="tag">Tasks</span>
+
+          <h3>Know what needs attention</h3>
+
+          <p>
+            Give work an owner, a due date, and enough context to act. Blocked, pending, and
+            completed work stays visible to the people responsible.
+          </p>
+
+          <a class="cta" href="tasks.html"> Explore tasks </a>
+        </article>
+
+        <article class="card reveal">
+          <span class="tag">Clients</span>
+
+          <h3>Give every client a workspace</h3>
+
+          <p>
+            Keep briefs, files, approvals, requests, and campaign communication together while
+            keeping internal agency operations private.
+          </p>
+
+          <a class="cta" href="clients.html"> Explore clients </a>
+        </article>
+
+        <article class="card reveal" data-delay="80">
           <span class="tag">Revenue</span>
-          <h3>Know what actually came in</h3>
+
+          <h3>Follow the money</h3>
+
           <p>
-            Track gross revenue, platform fees, agency shares, creator payouts, refunds, and
-            outstanding amounts. See the numbers for an individual creator or the entire workspace
-            without rebuilding the report every month.
+            Connect revenue, fees, adjustments, shares, and payouts to the creator or campaign they
+            came from so financial activity can be reviewed instead of reconstructed.
           </p>
+
+          <a class="cta" href="revenue.html"> Explore revenue </a>
         </article>
-        <article class="card reveal" data-delay="80">
-          <span class="tag">Operations</span>
-          <h3>Keep the team moving</h3>
-          <p>
-            Assign creators, campaigns, content tasks, and follow-ups from the same workspace.
-            Everyone can see what is waiting, what is being worked on, and what needs attention
-            next.
-          </p>
-        </article>
+
         <article class="card reveal" data-delay="160">
-          <span class="tag">Creator management</span>
-          <h3>One profile per creator</h3>
+          <span class="tag">Integrations</span>
+
+          <h3>Connect the systems around you</h3>
+
           <p>
-            Keep creator details, campaign history, performance notes, payout information, and
-            active work together. Stop searching through messages to find the last agreement or
-            campaign update.
+            Bring relevant events between Aries and the services your agency already depends on
+            without making manual updates the only source of truth.
           </p>
-        </article>
-        <article class="card reveal" data-delay="0">
-          <span class="tag">Access</span>
-          <h3>Give people the access they need</h3>
-          <p>
-            Separate owners, managers, operators, finance users, and external collaborators. People
-            see the work relevant to their role without opening the entire business by default.
-          </p>
-        </article>
-        <article class="card reveal" data-delay="80">
-          <span class="tag">Client workspaces</span>
-          <h3>Give every client their own room</h3>
-          <p>
-            Share campaign updates, requests, files, approvals, and financial information without
-            exposing another client's workspace. Keep external communication attached to the work it
-            belongs to.
-          </p>
-        </article>
-        <article class="card reveal" data-delay="160">
-          <span class="tag">Activity history</span>
-          <h3>See how the work got there</h3>
-          <p>
-            Important changes can be recorded with the user, timestamp, and affected resource. When
-            a number or status looks different, your team has a place to start looking.
-          </p>
+
+          <a class="cta" href="integration.html"> Explore integrations </a>
         </article>
       </div>
+
       <div class="trust-banner">
-        <span class="pill">One source of operational truth</span>
-        <span class="pill">Creator and campaign history</span>
-        <span class="pill">Revenue you can reconcile</span>
-        <span class="pill">Role-based access</span>
+        <span class="pill">Connected operational records</span>
+        <span class="pill">Clear ownership</span>
+        <span class="pill">Role-aware access</span>
+        <span class="pill">Traceable financial activity</span>
       </div>
     </section>
 
     <section class="section alt" id="dashboard-preview">
       <p class="kicker">Working view</p>
+
       <h2>The business at a glance.</h2>
+
       <p class="intro">
-        A sample agency workspace showing the kind of information an operations lead can see without
-        opening five different tools. Figures below are demo data.
+        A sample agency workspace showing how operational information can come together in one view.
+        Figures below are demo data.
       </p>
 
       <div class="preview-metrics reveal">
@@ -154,16 +214,19 @@
           <strong>€48,290</strong>
           <small class="positive">↑ 12.8%</small>
         </div>
+
         <div class="preview-metric">
           <span>Net revenue</span>
           <strong>€39,824</strong>
           <small>after fees</small>
         </div>
+
         <div class="preview-metric">
           <span>Active creators</span>
           <strong>24</strong>
           <small>18 active · 6 onboarding</small>
         </div>
+
         <div class="preview-metric">
           <span>Tasks this week</span>
           <strong>17</strong>
@@ -177,37 +240,49 @@
             <span class="kicker">Operations</span>
             <h3>Recent activity</h3>
           </div>
+
           <div class="preview-timeline">
             <div class="timeline-item">
               <span class="timeline-dot success"></span>
+
               <div class="timeline-content">
                 <strong>Payment received</strong>
                 <p>M. Voss · €2,840.00</p>
               </div>
+
               <time>4m</time>
             </div>
+
             <div class="timeline-item">
               <span class="timeline-dot"></span>
+
               <div class="timeline-content">
                 <strong>Campaign updated</strong>
                 <p>Autumn / Private Collection</p>
               </div>
+
               <time>18m</time>
             </div>
+
             <div class="timeline-item">
               <span class="timeline-dot warning"></span>
+
               <div class="timeline-content">
                 <strong>Task requires attention</strong>
                 <p>Creator payout verification</p>
               </div>
+
               <time>42m</time>
             </div>
+
             <div class="timeline-item">
               <span class="timeline-dot"></span>
+
               <div class="timeline-content">
                 <strong>Creator connected</strong>
                 <p>L. Hart · Fanvue</p>
               </div>
+
               <time>1h</time>
             </div>
           </div>
@@ -218,6 +293,7 @@
             <span class="kicker">Ledger</span>
             <h3>Recent transactions</h3>
           </div>
+
           <table class="preview-table">
             <thead>
               <tr>
@@ -227,29 +303,53 @@
                 <th class="align-right">Amount</th>
               </tr>
             </thead>
+
             <tbody>
               <tr>
-                <td><strong>Subscription</strong> <span class="table-id">TXN-8492</span></td>
+                <td>
+                  <strong>Subscription</strong>
+                  <span class="table-id">TXN-8492</span>
+                </td>
                 <td>M. Voss</td>
-                <td><span class="table-status completed">Completed</span></td>
+                <td>
+                  <span class="table-status completed"> Completed </span>
+                </td>
                 <td class="amount align-right">€2,840.00</td>
               </tr>
+
               <tr>
-                <td><strong>Message revenue</strong> <span class="table-id">TXN-8491</span></td>
+                <td>
+                  <strong>Message revenue</strong>
+                  <span class="table-id">TXN-8491</span>
+                </td>
                 <td>L. Hart</td>
-                <td><span class="table-status completed">Completed</span></td>
+                <td>
+                  <span class="table-status completed"> Completed </span>
+                </td>
                 <td class="amount align-right">€1,280.40</td>
               </tr>
+
               <tr>
-                <td><strong>Subscription</strong> <span class="table-id">TXN-8488</span></td>
+                <td>
+                  <strong>Subscription</strong>
+                  <span class="table-id">TXN-8488</span>
+                </td>
                 <td>A. Vale</td>
-                <td><span class="table-status pending">Pending</span></td>
+                <td>
+                  <span class="table-status pending"> Pending </span>
+                </td>
                 <td class="amount align-right">€940.00</td>
               </tr>
+
               <tr>
-                <td><strong>Tip revenue</strong> <span class="table-id">TXN-8484</span></td>
+                <td>
+                  <strong>Tip revenue</strong>
+                  <span class="table-id">TXN-8484</span>
+                </td>
                 <td>N. Cole</td>
-                <td><span class="table-status completed">Completed</span></td>
+                <td>
+                  <span class="table-status completed"> Completed </span>
+                </td>
                 <td class="amount align-right">€620.50</td>
               </tr>
             </tbody>
@@ -262,143 +362,180 @@
           <span class="kicker">Today</span>
           <h3>Priority tasks</h3>
         </div>
+
         <div class="preview-task-list">
           <label class="preview-task">
             <input type="checkbox" />
             <span class="task-check"></span>
+
             <span class="task-copy">
               <strong>Review creator payout</strong>
               <small>Finance · Due today</small>
             </span>
+
             <span class="task-priority high">High</span>
           </label>
+
           <label class="preview-task">
             <input type="checkbox" />
             <span class="task-check"></span>
+
             <span class="task-copy">
               <strong>Approve campaign assets</strong>
               <small>Campaigns · Due today</small>
             </span>
+
             <span class="task-priority medium">Medium</span>
           </label>
+
           <label class="preview-task">
             <input type="checkbox" />
             <span class="task-check"></span>
+
             <span class="task-copy">
               <strong>Connect Fanvue account</strong>
               <small>Onboarding · Tomorrow</small>
             </span>
+
             <span class="task-priority medium">Medium</span>
           </label>
         </div>
       </div>
 
       <div class="cta-row" style="margin-top: 2rem">
-        <a class="cta solid" href="/dashboard.html">Open full dashboard</a>
+        <a class="cta solid" href="dashboard.html"> Open full dashboard </a>
       </div>
     </section>
 
     <section class="section" id="how">
-      <p class="kicker">How the work actually moves</p>
-      <h2>From onboarding to payout, keep the chain connected.</h2>
+      <p class="kicker">How Aries fits together</p>
+
+      <h2>The work stays connected from onboarding to payout.</h2>
+
       <p class="intro">
-        Aries does not ask your team to replace every tool they already use. It gives the
-        operational work around those tools a single place to live.
+        Aries is not another tool your team has to remember to update. The platform is built around
+        the relationships between the work your agency already does.
       </p>
+
       <div class="grid-2 steps">
         <article class="card reveal">
-          <h3>Bring the creator in</h3>
+          <h3>1. Build the relationship</h3>
+
           <p>
-            Start with a creator profile, collect the information your team needs, assign the right
-            people, and keep onboarding tasks visible until they are complete.
+            Create the creator or client record, establish the people involved, and give the
+            relationship a clear operational home.
           </p>
         </article>
+
         <article class="card reveal" data-delay="80">
-          <h3>Turn campaigns into work</h3>
+          <h3>2. Create the work</h3>
+
           <p>
-            Create a campaign, define deliverables, assign tasks, and track approvals. Everyone
-            involved can see what has been requested, submitted, approved, or delayed.
+            Turn a brief into a campaign with deliverables, owners, tasks, deadlines, and the
+            context people need to move it forward.
           </p>
         </article>
-        <article class="card reveal" data-delay="0">
-          <h3>Keep conversations with the work</h3>
+
+        <article class="card reveal">
+          <h3>3. Move the work forward</h3>
+
           <p>
-            Client and creator conversations stay next to the campaign, task, or request they relate
-            to. A handoff does not require someone to explain six weeks of messages again.
+            Track assignments, submissions, feedback, approvals, blockers, and changes without
+            separating the activity from the campaign.
           </p>
         </article>
+
         <article class="card reveal" data-delay="80">
-          <h3>Reconcile the money</h3>
+          <h3>4. Understand the result</h3>
+
           <p>
-            Revenue events, fees, shares, adjustments, and payouts can be reviewed against their
-            source. Finance gets a clearer picture of what is owed, what is pending, and what has
-            already settled.
+            Connect completed work with relevant revenue and activity so the team can understand
+            what happened, what remains outstanding, and what needs attention next.
           </p>
         </article>
       </div>
     </section>
 
     <section class="section alt" id="trust">
-      <p class="kicker">Why teams stay</p>
-      <h2>Trust comes from knowing what happened.</h2>
+      <p class="kicker">Trust by design</p>
+
+      <h2>Good operations make the state of the business understandable.</h2>
+
       <p class="intro">
-        Growing agencies rarely lose information because nobody is working. They lose it because
-        work is spread across personal inboxes, spreadsheets, chat apps, and disconnected
-        dashboards. Aries gives important operational activity a shared home.
+        Trust is not created by putting more information on a screen. It comes from clear ownership,
+        appropriate access, consistent records, and a useful history of what changed.
       </p>
+
       <div class="grid-3">
         <article class="card reveal">
           <span class="tag">Visibility</span>
+
           <h3>See the current state</h3>
+
           <p>
-            Campaign status, creator activity, outstanding tasks, and revenue figures are visible to
-            the people responsible for them. Fewer status meetings. Fewer "where are we with this?"
-            messages.
+            Know which campaigns are moving, which tasks need attention, which creators are active,
+            and which financial records require review.
           </p>
         </article>
+
         <article class="card reveal" data-delay="80">
           <span class="tag">Accountability</span>
-          <h3>Know who handled it</h3>
+
+          <h3>Know who owns the work</h3>
+
           <p>
-            Important changes can be associated with the team member who made them. Ownership
-            becomes part of the workflow instead of something reconstructed from chat history.
+            Assign responsibility directly to the work. When ownership changes, the history remains
+            with the record rather than disappearing into someone's inbox.
           </p>
         </article>
+
         <article class="card reveal" data-delay="160">
-          <span class="tag">Control</span>
-          <h3>Keep sensitive work contained</h3>
+          <span class="tag">Access</span>
+
+          <h3>Share without overexposing</h3>
+
           <p>
-            Workspaces, roles, and permissions help separate internal operations from external
-            collaboration. Access can be reviewed as teams and client relationships change.
+            Clients, creators, operators, and external partners do not need access to the entire
+            business. Keep visibility aligned with the work and responsibility of each role.
           </p>
         </article>
       </div>
+
       <div class="grid-2" style="margin-top: 1rem">
-        <blockquote class="quote card reveal">
+        <article class="card reveal">
+          <span class="tag">History</span>
+
+          <h3>Understand what changed</h3>
+
           <p>
-            "We used to have campaign notes in Slack, revenue in Sheets, and client updates in
-            email. Aries gives the team somewhere to put the actual work."
+            Important activity can remain associated with the relevant record, giving the team a
+            starting point when a status, number, or responsibility changes.
           </p>
-          <cite>Operations lead · creator agency</cite>
-        </blockquote>
-        <blockquote class="quote card reveal" data-delay="120">
+        </article>
+
+        <article class="card reveal" data-delay="120">
+          <span class="tag">Reconciliation</span>
+
+          <h3>Know what the numbers mean</h3>
+
           <p>
-            "The biggest difference is knowing what still needs attention. I can open the dashboard
-            in the morning and see where the team is blocked."
+            Financial activity should remain traceable to its source and status, making outstanding
+            amounts and exceptions easier to review.
           </p>
-          <cite>Agency manager · multi-creator workspace</cite>
-        </blockquote>
+        </article>
       </div>
     </section>
 
     <section class="section" id="partners">
       <p class="kicker">Built around your relationships</p>
-      <h2>Creators, clients, operators, and external partners.</h2>
+
+      <h2>Everyone involved gets the context they need.</h2>
+
       <p class="intro">
-        Not everyone needs the same view of the business. Aries lets teams collaborate around a
-        specific creator, campaign, or client without turning every external collaborator into an
-        internal user.
+        Aries separates collaboration from unrestricted access. Bring the right people into the
+        right workspace and keep the wider operation protected.
       </p>
+
       <div class="partners">
         <div class="partner">North Atelier</div>
         <div class="partner">Helix Media</div>
@@ -407,134 +544,135 @@
         <div class="partner">Orion Management</div>
         <div class="partner">Plainfield Creative</div>
       </div>
+
       <div class="grid-3" style="margin-top: 1rem">
         <article class="card reveal">
-          <h3>Creators</h3>
+          <span class="tag">Creators</span>
+
+          <h3>Work with the agency</h3>
+
           <p>
-            Give creators visibility into their campaigns, requests, approvals, and relevant
-            financial information without exposing internal agency operations.
+            Give creators access to their assignments, campaigns, feedback, and relevant financial
+            information without exposing internal operations.
           </p>
         </article>
+
         <article class="card reveal" data-delay="80">
-          <h3>Clients</h3>
+          <span class="tag">Clients</span>
+
+          <h3>Work with the team</h3>
+
           <p>
-            Keep briefs, deliverables, feedback, files, and campaign communication in a dedicated
-            client workspace. The relationship stays organized from kickoff to completion.
+            Give clients a dedicated place for briefs, deliverables, files, approvals, and campaign
+            communication.
           </p>
         </article>
+
         <article class="card reveal" data-delay="160">
-          <h3>External partners</h3>
+          <span class="tag">Partners</span>
+
+          <h3>Bring in outside expertise</h3>
+
           <p>
-            Bring accountants, production teams, contractors, or other partners into the specific
-            work they need. Their access can remain separate from the rest of the organization.
+            Accountants, production teams, contractors, and other partners can work within the
+            specific areas relevant to them.
           </p>
         </article>
       </div>
     </section>
 
-    <section class="section alt" id="webhooks">
-      <p class="kicker">Hooks into your stack</p>
-      <h2>Connect the systems you already depend on.</h2>
+    <section class="section alt" id="integrations">
+      <p class="kicker">Connected systems</p>
+
+      <h2>Keep Aries connected to the tools around it.</h2>
+
       <p class="intro">
-        Aries can receive and send structured events so your operational data does not have to be
-        copied manually between systems. Use integrations where they make sense and keep a record of
-        what was received.
+        Your agency already relies on other services. Aries provides an operational layer around
+        them so important events can move between systems without making manual copying the default
+        workflow.
       </p>
-      <div class="log-stream">
-        <div class="log-row">
-          <span class="ts">16:02:11</span><span class="src audit">AUDIT</span
-          ><span class="msg"
-            >campaign.content.approved atlas-september creator_4821 assets 3 by user_0192</span
-          >
-        </div>
-        <div class="log-row">
-          <span class="ts">16:02:11</span><span class="src deliver">DELIVER</span
-          ><span class="ok">200</span
-          ><span class="msg">hook campaign.content.approved → project-bus 36ms</span>
-        </div>
-        <div class="log-row">
-          <span class="ts">16:04:18</span><span class="src access">ACCESS</span
-          ><span class="msg">user_0192 campaign atlas-september approve 3 assets</span>
-        </div>
-        <div class="log-row">
-          <span class="ts">16:07:02</span><span class="src audit">AUDIT</span
-          ><span class="msg">payout.ready creator M.Voss net $4,820 waiting finance</span>
-        </div>
-        <div class="log-row">
-          <span class="ts">16:07:03</span><span class="src deliver">DELIVER</span
-          ><span class="ok">200</span
-          ><span class="msg">hook revenue.payout.ready → treasury-bus 29ms</span>
-        </div>
-        <div class="log-row">
-          <span class="ts">16:11:44</span><span class="src access">ACCESS</span
-          ><span class="msg">night-desk assumed room sla on_time</span>
-        </div>
-        <div class="log-row">
-          <span class="ts">16:18:03</span><span class="src sys">SYS</span
-          ><span class="info">INFO</span
-          ><span class="msg">session rotate workstation-4 key revoked</span>
-        </div>
-        <div class="log-row warn">
-          <span class="ts">16:22:51</span><span class="src deliver">DELIVER</span
-          ><span class="retry">RETRY</span
-          ><span class="msg">hook client.brief.updated → pager attempt 2</span>
-        </div>
-      </div>
-      <div class="grid-3" style="margin-top: 1rem">
+
+      <div class="grid-3">
         <article class="card reveal">
-          <span class="tag">revenue</span>
-          <h3>Revenue events</h3>
+          <span class="tag">Revenue</span>
+
+          <h3>Financial events</h3>
+
           <p>
-            Record new revenue, adjustments, fees, refunds, and payout status changes. Keep
-            financial activity connected to the creator or campaign that generated it.
+            Keep revenue, adjustments, fees, refunds, and payout-related activity associated with
+            the records they affect.
           </p>
         </article>
+
         <article class="card reveal" data-delay="80">
-          <span class="tag">campaign</span>
-          <h3>Campaign events</h3>
+          <span class="tag">Campaigns</span>
+
+          <h3>Work events</h3>
+
           <p>
-            Track assignments, submissions, approvals, revisions, and completion. Your project tools
-            can stay connected without another manual status report.
+            Connect assignments, submissions, approvals, revisions, and completion events to the
+            campaign and people involved.
           </p>
         </article>
+
         <article class="card reveal" data-delay="160">
-          <span class="tag">team / client</span>
-          <h3>Workspace events</h3>
+          <span class="tag">Workspace</span>
+
+          <h3>Relationship events</h3>
+
           <p>
-            Know when a client is onboarded, a team member is removed, a task changes ownership, or
-            a conversation needs attention.
+            Keep relevant creator, client, team, and access changes visible to the systems and
+            people responsible for them.
           </p>
         </article>
+      </div>
+
+      <div class="cta-row">
+        <a class="cta" href="integration.html"> Explore integrations </a>
       </div>
     </section>
 
     <section class="section" id="chat">
       <p class="kicker">Live desk</p>
-      <h2>Keep the conversation attached to the work.</h2>
+
+      <h2>Keep conversations attached to the work.</h2>
+
       <p class="intro">
-        Messages should not disappear into someone's personal inbox. Aries keeps client and creator
-        conversations alongside the campaigns, tasks, files, and updates they are discussing.
+        Questions, approvals, requests, and updates are easier to act on when they stay connected to
+        the campaign, client, creator, or task they belong to.
       </p>
+
       <div class="grid-3">
         <article class="card reveal">
-          <h3>Direct line</h3>
+          <span class="tag">Context</span>
+
+          <h3>Talk where the work lives</h3>
+
           <p>
-            Keep questions, approvals, updates, and requests in the relevant workspace. Clients get
-            a clear place to communicate with the people working on their account.
+            Keep conversations close to the campaign, task, or client request they relate to instead
+            of scattering context across personal inboxes.
           </p>
         </article>
+
         <article class="card reveal" data-delay="80">
-          <h3>Clean handoff</h3>
+          <span class="tag">Handoffs</span>
+
+          <h3>Make transitions easier</h3>
+
           <p>
-            When another team member takes over, the important context stays with the workspace. No
-            private message archaeology required.
+            When another team member takes over, the relevant context stays with the work rather
+            than depending on a private message history.
           </p>
         </article>
+
         <article class="card reveal" data-delay="160">
-          <h3>Context that lasts</h3>
+          <span class="tag">Continuity</span>
+
+          <h3>Keep the history useful</h3>
+
           <p>
-            Conversations can remain associated with the campaign or client work they belong to,
-            making it easier to understand decisions after the original conversation happened.
+            Decisions and updates can remain associated with the work they affected, giving the team
+            useful context after the conversation ends.
           </p>
         </article>
       </div>
@@ -542,23 +680,29 @@
 
     <footer class="site">
       <span>Aries · Agency Operations</span>
-      <span>Creators · Revenue · Campaigns · Client Workspaces</span>
+      <span> Creators · Campaigns · Tasks · Clients · Revenue </span>
     </footer>
 
     <div class="live-panel" id="livePanel" aria-hidden="true">
       <div class="head">
         <span class="live-dot">Aries desk</span>
+
         <button type="button" id="closeChat" aria-label="Close chat">×</button>
       </div>
+
       <div class="msgs" id="liveMsgs">
         <div class="bubble in">Aries desk here. How can we help?</div>
       </div>
+
       <form class="composer" id="liveForm">
         <input id="liveInput" type="text" placeholder="Message the desk…" autocomplete="off" />
+
         <button type="submit">Send</button>
       </form>
     </div>
+
     <button class="chat-fab" id="openChat" type="button">Live desk</button>
+
     <script src="js/main.js"></script>
   </body>
 </html>

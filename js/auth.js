@@ -1,52 +1,77 @@
 (function () {
   "use strict";
 
+  /* ------------------------[Storage Keys]------------------------ */
   const USERS_KEY = "aries_users";
   const SESSION_KEY = "aries_session";
   const ONBOARD_KEY = "aries_onboarding";
 
-  function users() {
-    try { return JSON.parse(localStorage.getItem(USERS_KEY) || "[]"); }
-    catch (e) { return []; }
-  }
-  function saveUsers(list) { localStorage.setItem(USERS_KEY, JSON.stringify(list)); }
-  function session() {
-    try { return JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); }
-    catch (e) { return null; }
-  }
-  function setSession(user) {
-    localStorage.setItem(SESSION_KEY, JSON.stringify({
-      email: user.email,
-      name: user.name,
-      provider: user.provider || "email",
-      at: Date.now()
-    }));
-  }
-  function needsOnboarding() {
-    return localStorage.getItem(ONBOARD_KEY) !== "complete";
-  }
-  function afterAuth() {
-    window.location.href = needsOnboarding() ? "onboarding.html" : "dashboard.html";
-  }
-  function showAlert(el, type, text) {
-    if (!el) {return;}
-    el.className = `alert show ${ type}`;
-    el.textContent = text;
-  }
+  /* ------------------------[Helpers]------------------------ */
+  const users = () => {
+    try {
+      return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  };
 
-  function upsertSocial(provider, name) {
-    const email = `${provider }.user@aries.local`;
+  const saveUsers = (list) => {
+    localStorage.setItem(USERS_KEY, JSON.stringify(list));
+  };
+
+  const session = () => {
+    try {
+      return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+    } catch {
+      return null;
+    }
+  };
+
+  const setSession = (user) => {
+    localStorage.setItem(
+      SESSION_KEY,
+      JSON.stringify({
+        email: user.email,
+        name: user.name,
+        provider: user.provider || "email",
+        at: Date.now()
+      })
+    );
+  };
+
+  const needsOnboarding = () => {
+    return localStorage.getItem(ONBOARD_KEY) !== "complete";
+  };
+
+  const afterAuth = () => {
+    window.location.href = needsOnboarding() ? "onboarding.html" : "dashboard.html";
+  };
+
+  const showAlert = (el, type, text) => {
+    if (!el) {
+      return;
+    }
+    el.className = `alert show ${type}`;
+    el.textContent = text;
+  };
+
+  /* ------------------------[Social Auth]------------------------ */
+  const upsertSocial = (provider, name) => {
+    const email = `${provider}.user@aries.local`;
     const list = users();
-    let found = list.find((u) => { return u.email === email; });
+    let found = list.find((u) => {
+      return u.email === email;
+    });
     if (!found) {
-      found = { name, email, password: "", provider };
+      found = {name, email, password: "", provider};
       list.push(found);
       saveUsers(list);
     }
     setSession(found);
     afterAuth();
-  }
+  };
 
+  /* ------------------------[Login Form]------------------------ */
   const loginForm = document.getElementById("loginForm");
   const registerForm = document.getElementById("registerForm");
   const alertBox = document.getElementById("authAlert");
@@ -56,9 +81,15 @@
       e.preventDefault();
       const email = (document.getElementById("email").value || "").trim().toLowerCase();
       const password = document.getElementById("password").value || "";
-      const found = users().find((u) => { return u.email === email && u.password === password; });
+      const found = users().find((u) => {
+        return u.email === email && u.password === password;
+      });
       if (!found) {
-        showAlert(alertBox, "err", "No matching account. Check the email and password, or create one.");
+        showAlert(
+          alertBox,
+          "err",
+          "No matching account. Check the email and password, or create one."
+        );
         return;
       }
       setSession(found);
@@ -67,6 +98,7 @@
     });
   }
 
+  /* ------------------------[Register Form]------------------------ */
   if (registerForm) {
     registerForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -83,11 +115,15 @@
         return;
       }
       const list = users();
-      if (list.some((u) => { return u.email === email; })) {
+      if (
+        list.some((u) => {
+          return u.email === email;
+        })
+      ) {
         showAlert(alertBox, "err", "That email already has an account. Sign in instead.");
         return;
       }
-      const user = { name, email, password, provider: "email" };
+      const user = {name, email, password, provider: "email"};
       list.push(user);
       saveUsers(list);
       localStorage.removeItem(ONBOARD_KEY);
@@ -97,19 +133,27 @@
     });
   }
 
+  /* ------------------------[Social Buttons]------------------------ */
   document.querySelectorAll("[data-provider]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const provider = btn.getAttribute("data-provider");
       const label = provider === "google" ? "Google workspace user" : "Facebook workspace user";
-      showAlert(alertBox, "ok", `Demo sign-in with ${ provider }. Real Google/Facebook login needs app keys from those platforms.`);
-      window.setTimeout(() => { upsertSocial(provider, label); }, 500);
+      showAlert(
+        alertBox,
+        "ok",
+        `Demo sign-in with ${provider}. Real Google/Facebook login needs app keys from those platforms.`
+      );
+      window.setTimeout(() => {
+        upsertSocial(provider, label);
+      }, 500);
     });
   });
 
+  /* ------------------------[Export]------------------------ */
   window.AriesAuth = {
     session,
     needsOnboarding,
-    signOut () {
+    signOut() {
       localStorage.removeItem(SESSION_KEY);
       window.location.href = "login.html";
     }

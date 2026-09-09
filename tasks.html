@@ -1,71 +1,211 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tasks — Aries</title>
-  <meta name="description" content="See what is waiting, who owns it, and when it is due — next to the campaign it belongs to." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/index.css" />
-</head>
-<body>
-  <header class="site">
-    <a class="logo" href="index.html">Aries</a>
-    <nav class="primary">
-      <a href="index.html">Home</a>
-      <a href="tasks.html">Tasks</a>
-      <a href="clients.html">Clients</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="login.html">Sign in</a>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tasks — Aries</title>
+    <meta
+      name="description"
+      content="See what needs doing, who owns it, what it belongs to, and what is holding it up — all from one working queue."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="tasks.html" aria-current="page">Tasks</a>
+        <a href="clients.html">Clients</a>
+        <a href="revenue.html">Revenue</a>
+        <a href="campaigns.html">Campaigns</a>
+        <a href="integration.html">Integrations</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Sign in</a>
+      </nav>
+    </header>
 
-  <section class="hero" id="desert">
-    <img src="images/partners-hall.jpg" alt="Quiet corridor" />
-    <div class="hero-copy">
-      <p class="eyebrow">Explainer · work that still needs a person</p>
-      <h1>Tasks</h1>
-      <p class="lede">A task is a named piece of work with an owner and a date. It sits on the campaign or creator it belongs to, so the morning view is a list — not a scavenger hunt.</p>
-      <div class="cta-row">
-        <a class="cta solid" href="dashboard.html#tasks">Open the working view</a>
-        <a class="cta" href="#anatomy">What a task holds</a>
+    <section class="hero" id="desert">
+      <img src="images/partners-hall.jpg" alt="Quiet corridor" />
+      <div class="hero-copy">
+        <p class="eyebrow">Work that still needs a person</p>
+        <h1>Tasks</h1>
+        <p class="lede">
+          A task is a clear piece of work with an owner, a status, and enough context to act on it.
+          Keep it attached to the campaign, creator, or client it belongs to, so the desk can see
+          what needs attention without searching across separate lists.
+        </p>
+        <div class="cta-row">
+          <a class="cta solid" href="dashboard.html#tasks">Open the working view</a>
+          <a class="cta" href="#anatomy">What a task holds</a>
+        </div>
       </div>
+    </section>
+
+    <div class="hero-bridge" id="heroBridge">
+      <div class="glow"></div>
+      <div class="line"></div>
+      <span class="label">Owned · Due · Moving</span>
     </div>
-  </section>
 
-  <div class="hero-bridge" id="heroBridge">
-    <div class="glow"></div>
-    <div class="line"></div>
-    <span class="label">Waiting, owned, done</span>
-  </div>
+    <section class="section" id="anatomy">
+      <p class="kicker">On the task</p>
+      <h2>Enough context to pick it up.</h2>
+      <div class="grid-3">
+        <article class="card reveal">
+          <span class="tag">Owner</span>
+          <h3>Who is responsible</h3>
+          <p>
+            Every task has a clear owner. Responsibility is visible at a glance, while changes
+            remain part of the task history rather than disappearing into chat.
+          </p>
+        </article>
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Due</span>
+          <h3>When it matters</h3>
+          <p>
+            A useful due date turns an open item into something the desk can prioritise. Upcoming
+            work stays visible without forcing every task into the same urgency.
+          </p>
+        </article>
+        <article class="card reveal" data-delay="160">
+          <span class="tag">Context</span>
+          <h3>Where the work belongs</h3>
+          <p>
+            Attach the task to the campaign, creator, or client it concerns. "Confirm the payout
+            rail" should open in the right room, with the right context already there.
+          </p>
+        </article>
+      </div>
+    </section>
 
-  <section class="section" id="anatomy">
-    <p class="kicker">On the task</p>
-    <h2>Enough to pick it up without a briefing.</h2>
-    <div class="grid-3">
-      <article class="card reveal"><span class="tag">Owner</span><h3>Who has it</h3><p>Finance, desk, or onboarding. If the person changes, the history stays on the row.</p></article>
-      <article class="card reveal" data-delay="80"><span class="tag">Due</span><h3>When it matters</h3><p>This week versus parked. The overview count is this list, not a separate tracker.</p></article>
-      <article class="card reveal" data-delay="160"><span class="tag">Context</span><h3>What it sits on</h3><p>Tied to a campaign, creator, or client room so “confirm the payout rail” is never a floating note.</p></article>
-    </div>
-  </section>
+    <section class="section alt">
+      <p class="kicker">How work moves</p>
+      <h2>A small workflow with no hidden states.</h2>
+      <div class="grid-2 steps">
+        <article class="card reveal">
+          <h3>Create from the work</h3>
+          <p>
+            Start a task from the campaign, creator, or client it belongs to. The relevant context
+            comes with it, so the task does not become another disconnected note.
+          </p>
+        </article>
+        <article class="card reveal" data-delay="80">
+          <h3>Assign the work</h3>
+          <p>
+            Give the task one accountable owner. Other people can contribute, but responsibility
+            should remain clear.
+          </p>
+        </article>
+        <article class="card reveal">
+          <h3>Mark what is blocking it</h3>
+          <p>
+            If progress stops, record why. A missing form, unanswered client message, or pending
+            approval is useful information; an unexplained "waiting" state is not.
+          </p>
+        </article>
+        <article class="card reveal" data-delay="80">
+          <h3>Close when finished</h3>
+          <p>
+            When the work is complete, close the task where it lives. The status becomes part of the
+            record instead of requiring a second checklist or private reminder.
+          </p>
+        </article>
+      </div>
+    </section>
 
-  <section class="section alt">
-    <p class="kicker">How work is closed</p>
-    <h2>Open, blocked, or done — in language the desk already uses.</h2>
-    <div class="grid-2 steps">
-      <article class="card reveal"><h3>Create from the file</h3><p>Open a task from the campaign or creator. It inherits the room and the people already on that work.</p></article>
-      <article class="card reveal" data-delay="80"><h3>Assign and date it</h3><p>Someone is responsible. A due date is optional but the queue is honest without one.</p></article>
-      <article class="card reveal"><h3>Block only with a reason</h3><p>Waiting on a form or a client is a status, not silence.</p></article>
-      <article class="card reveal" data-delay="80"><h3>Close on the same row</h3><p>Done is recorded. Hooks can tell a board without a second checklist.</p></article>
-    </div>
-  </section>
+    <section class="section" id="queue">
+      <p class="kicker">The morning view</p>
+      <h2>See the work before it becomes urgent.</h2>
+      <p class="intro">
+        The task queue should make the next decision obvious: do it, hand it over, follow up, or
+        leave it alone. Filter by status, owner, or due date without losing the campaign or creator
+        behind the task.
+      </p>
 
-  <footer class="site">
-    <span>Aries · Tasks</span>
-    <span><a href="dashboard.html#tasks">Working view</a></span>
-  </footer>
-  <script src="js/main.js"></script>
-</body>
+      <div class="task-filters reveal">
+        <button class="task-filter active" type="button">All tasks</button>
+        <button class="task-filter" type="button">Mine</button>
+        <button class="task-filter" type="button">Due today</button>
+        <button class="task-filter" type="button">Upcoming</button>
+        <button class="task-filter" type="button">Blocked</button>
+        <button class="task-filter" type="button">Completed</button>
+      </div>
+
+      <div class="task-queue reveal" data-delay="80">
+        <div class="task-row">
+          <div class="task-row-main">
+            <strong>Confirm payout rail</strong>
+            <span class="task-row-context">Campaign · Creator name</span>
+          </div>
+          <div class="task-row-meta">
+            <span class="task-row-owner">Finance</span>
+            <span class="task-row-due">Due: Today</span>
+            <span class="task-row-status open">Open</span>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task-row-main">
+            <strong>Approve campaign assets</strong>
+            <span class="task-row-context">Campaigns · Atlas</span>
+          </div>
+          <div class="task-row-meta">
+            <span class="task-row-owner">Desk</span>
+            <span class="task-row-due">Due: Today</span>
+            <span class="task-row-status open">Open</span>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task-row-main">
+            <strong>Collect L. Vale tax form</strong>
+            <span class="task-row-context">Onboarding · L. Vale</span>
+          </div>
+          <div class="task-row-meta">
+            <span class="task-row-owner">Onboarding</span>
+            <span class="task-row-due">Due: Tomorrow</span>
+            <span class="task-row-status blocked">Blocked · Waiting for client approval</span>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task-row-main">
+            <strong>Connect Fanvue account</strong>
+            <span class="task-row-context">Onboarding · K. Ren</span>
+          </div>
+          <div class="task-row-meta">
+            <span class="task-row-owner">Onboarding</span>
+            <span class="task-row-due">Due: Tomorrow</span>
+            <span class="task-row-status open">Open</span>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task-row-main">
+            <strong>Send monthly report</strong>
+            <span class="task-row-context">Reporting · North Atelier</span>
+          </div>
+          <div class="task-row-meta">
+            <span class="task-row-owner">Finance</span>
+            <span class="task-row-due">Due: Friday</span>
+            <span class="task-row-status open">Open</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-empty-state reveal" data-delay="160" style="display: none">
+        <p><strong>Nothing needs attention right now.</strong></p>
+        <p>Your active queue is clear. Completed work remains in the record.</p>
+      </div>
+    </section>
+
+    <footer class="site">
+      <span>Aries · Tasks</span>
+      <span><a href="dashboard.html#tasks">Working view</a></span>
+    </footer>
+    <script src="js/main.js"></script>
+  </body>
 </html>

@@ -1,73 +1,325 @@
+/**------------------------[Dashboard foundation]--------------------**/
+
 body.app {
   min-height: 100vh;
-  background: #0c0b09;
+  background: var(--ink);
 }
+
 body.app header.site {
   background: rgba(12, 11, 9, 0.9);
   border-bottom-color: var(--line);
 }
+
 .app-shell {
-  padding: 4.6rem 1rem 1rem;
   min-height: 100vh;
+  padding: 4.6rem 1rem 1rem;
 }
+
 .app-shell .dash {
   min-height: calc(100vh - 5.6rem);
   grid-template-columns: 210px minmax(0, 1fr) 300px;
   box-shadow: none;
 }
-.app-shell .pane { display: none; }
-.app-shell .pane.on { display: block; }
-.app-shell .dash-main { overflow: auto; }
+
+.app-shell .pane {
+  display: none;
+}
+
+.app-shell .pane.on {
+  display: block;
+}
+
+.app-shell .dash-main {
+  min-width: 0;
+  overflow: auto;
+}
+
+/**------------------------[Dashboard navigation]--------------------**/
+
+.app-shell .dash-side {
+  min-width: 0;
+}
+
+.app-shell .dash-nav {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.app-shell .dash-nav button {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  padding: 0.65rem 0.7rem;
+  text-align: left;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.app-shell .dash-nav button:hover {
+  color: var(--cream);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.app-shell .dash-nav button.active {
+  color: var(--cream);
+  background: rgba(214, 179, 106, 0.08);
+  border-color: rgba(214, 179, 106, 0.18);
+}
+
+/**------------------------[Dashboard header]--------------------**/
+
+.dash-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.dash-top h3 {
+  margin: 0;
+}
+
 .subhead {
+  max-width: 48rem;
+  margin: -0.4rem 0 1rem;
   color: var(--muted);
   font-size: 0.78rem;
-  margin: -0.4rem 0 1rem;
+  line-height: 1.55;
 }
+
+/**------------------------[Queue]--------------------**/
+
 .queue {
   display: grid;
   gap: 0.55rem;
   margin-top: 0.8rem;
 }
+
 .queue-item {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   border: 1px solid var(--line);
   padding: 0.75rem 0.85rem;
   font-size: 0.82rem;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease;
 }
-.queue-item b { font-weight: 500; }
-.queue-item span { color: var(--muted); }
+
+.queue-item:hover {
+  border-color: rgba(214, 179, 106, 0.28);
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.queue-item b {
+  min-width: 0;
+  font-weight: 500;
+}
+
+.queue-item b a {
+  text-decoration: none;
+}
+
+.queue-item span {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
 .badge {
+  color: var(--gold);
   font-size: 0.62rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
 }
+
+/**------------------------[Empty states]--------------------**/
+
 .empty-state {
-  border: 1px dashed var(--line);
-  padding: 1.4rem 1.2rem;
   margin-top: 0.4rem;
+  padding: 1.4rem 1.2rem;
+  border: 1px dashed var(--line);
 }
+
 .empty-state h3 {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 400;
-  font-size: 1.4rem;
   margin-bottom: 0.4rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.4rem;
+  font-weight: 400;
 }
-.empty-state p { color: var(--muted); font-size: 0.9rem; line-height: 1.55; max-width: 36rem; }
-.empty-state .cta { margin-top: 1rem; }
-body.app[data-desk="empty"] .filled { display: none !important; }
-body.app[data-desk="demo"] .empty-state { display: none !important; }
+
+.empty-state p {
+  max-width: 36rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.empty-state .cta {
+  margin-top: 1rem;
+}
+
+/**------------------------[Desk states]--------------------**/
+
+body.app[data-desk="empty"] .filled {
+  display: none !important;
+}
+
+body.app[data-desk="demo"] .empty-state {
+  display: none !important;
+}
+
+/**------------------------[Dashboard metrics]--------------------**/
+
+.app-shell .metrics {
+  margin-bottom: 1rem;
+}
+
+.app-shell .metric {
+  min-width: 0;
+}
+
+.app-shell .metric span {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.app-shell .metric strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/**------------------------[Dashboard ledger]--------------------**/
+
+.app-shell table.ledger {
+  width: 100%;
+}
+
+.app-shell table.ledger th,
+.app-shell table.ledger td {
+  padding: 0.75rem 0.65rem;
+}
+
+.app-shell table.ledger th:first-child,
+.app-shell table.ledger td:first-child {
+  padding-left: 0;
+}
+
+.app-shell table.ledger th:last-child,
+.app-shell table.ledger td:last-child {
+  padding-right: 0;
+}
+
+/**------------------------[Dashboard chat]--------------------**/
+
+.app-shell .dash-chat {
+  min-width: 0;
+}
+
+.app-shell .chat-head {
+  flex-shrink: 0;
+}
+
+.app-shell .msgs {
+  min-height: 0;
+}
+
+.app-shell .composer {
+  flex-shrink: 0;
+}
+
+/**------------------------[Responsive dashboard]--------------------**/
 
 @media (max-width: 1080px) {
   body.app .dash-side,
-  body.app .dash-chat { display: flex; flex-direction: column; }
-  body.app .dash {
+  body.app .dash-chat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-shell .dash {
     grid-template-columns: 1fr;
     min-height: auto;
   }
+
+  .app-shell .dash-side {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .app-shell .dash-nav {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .app-shell .dash-main {
+    overflow: visible;
+  }
+
+  .app-shell .dash-chat {
+    min-height: 320px;
+  }
 }
+
 @media (max-width: 800px) {
-  body.app nav.primary { display: flex; }
+  body.app nav.primary {
+    display: flex;
+  }
+
+  .app-shell {
+    padding: 4.4rem 0.7rem 0.7rem;
+  }
+
+  .app-shell .dash-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dash-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  .app-shell .dash-nav {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .app-shell .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .queue-item {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .app-shell table.ledger {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/**------------------------[Reduced motion]--------------------**/
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell .dash-nav button,
+  .queue-item {
+    transition: none;
+  }
 }

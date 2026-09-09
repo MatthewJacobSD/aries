@@ -1,67 +1,220 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Settings — Aries</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/dashboard.css" />
-</head>
-<body class="app">
-  <header class="site">
-    <a class="logo" href="index.html">Aries</a>
-    <nav class="primary">
-      <a href="dashboard.html">Dashboard</a>
-      <a href="settings.html">Settings</a>
-      <a href="login.html">Sign in</a>
-    </nav>
-  </header>
-  <div class="app-shell">
-    <div class="dash" style="grid-template-columns:210px minmax(0,1fr);">
-      <aside class="dash-side">
-        <div class="mark">ARIES</div>
-        <nav class="dash-nav">
-          <a href="dashboard.html" style="display:block;padding:.62rem .6rem;font-size:.78rem;opacity:.58;">Overview</a>
-          <button class="active" type="button">Settings</button>
-        </nav>
-      </aside>
-      <div class="dash-main">
-        <div class="dash-top">
-          <h3>Workspace · North Atelier · Settings</h3>
-          <span class="live-dot">Demo</span>
-        </div>
-        <p class="subhead">Who may enter, what they see, and how this workspace is named. Demo only — nothing is saved to a server.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings — Aries</title>
 
-        <h3 style="font-size:1rem;margin:1.2rem 0 .6rem;">Workspace</h3>
-        <div class="field" style="max-width:28rem;">
-          <label style="display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;">Name</label>
-          <input value="North Atelier" readonly style="width:100%;background:#0c0b09;border:1px solid var(--line);color:var(--cream);padding:.7rem .8rem;" />
-        </div>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
-        <h3 style="font-size:1rem;margin:1.6rem 0 .6rem;">People and roles</h3>
-        <table class="ledger">
-          <thead><tr><th>Person</th><th>Role</th><th>Access</th><th></th></tr></thead>
-          <tbody>
-            <tr><td>A. Quinn</td><td>Owner</td><td>Full desk</td><td class="mono">you</td></tr>
-            <tr><td>Night desk</td><td>Operator</td><td>Campaigns, rooms</td><td class="mono">active</td></tr>
-            <tr><td>Vesper Finance</td><td>Finance</td><td>Ledger only</td><td class="mono">invited</td></tr>
-            <tr><td>M. Voss</td><td>Creator</td><td>Own file</td><td><a href="creator-voss.html">Open</a></td></tr>
-          </tbody>
-        </table>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/settings.css" />
+  </head>
 
-        <h3 style="font-size:1rem;margin:1.6rem 0 .6rem;">Sessions</h3>
-        <div class="queue">
-          <div class="queue-item"><b>workstation-4</b><span>Current</span></div>
-          <div class="queue-item"><b>phone · last seen 2d</b><span>Revoke (demo)</span></div>
-        </div>
+  <body class="app">
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
 
-        <p class="subhead" style="margin-top:1.4rem;">Keys and hook secrets stay off this page in a live build. Here they are named only.</p>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="settings.html" aria-current="page">Settings</a>
+      </nav>
+    </header>
+
+    <div class="app-shell">
+      <div class="dash settings-shell">
+        <aside class="dash-side">
+          <div class="mark">ARIES</div>
+
+          <nav class="dash-nav" aria-label="Settings navigation">
+            <a class="dash-nav-link" href="dashboard.html">Overview</a>
+            <button class="active" type="button">Settings</button>
+          </nav>
+        </aside>
+
+        <main class="dash-main">
+          <div class="dash-top">
+            <div>
+              <h3>Workspace · Settings</h3>
+              <p class="subhead">North Atelier</p>
+            </div>
+
+            <span class="live-dot">Demo</span>
+          </div>
+
+          <div class="settings-notice">
+            <span class="badge">Demo workspace</span>
+            <p>
+              These settings describe the workspace structure but are not currently saved to a
+              server.
+            </p>
+          </div>
+
+          <section class="settings-section" aria-labelledby="workspace-heading">
+            <div class="settings-section-head">
+              <div>
+                <span class="kicker">Workspace</span>
+                <h3 id="workspace-heading">Where the work lives</h3>
+              </div>
+
+              <span class="settings-status">Configured</span>
+            </div>
+
+            <div class="settings-field">
+              <label for="workspace-name">Workspace name</label>
+
+              <input
+                id="workspace-name"
+                name="workspace-name"
+                type="text"
+                value="North Atelier"
+                readonly
+              />
+
+              <p>The name shown across the workspace and its internal records.</p>
+            </div>
+          </section>
+
+          <section class="settings-section" aria-labelledby="people-heading">
+            <div class="settings-section-head">
+              <div>
+                <span class="kicker">Access</span>
+                <h3 id="people-heading">People and roles</h3>
+              </div>
+
+              <span class="settings-status">4 members</span>
+            </div>
+
+            <p class="settings-description">
+              Roles determine which parts of the workspace each person can access. Keep internal
+              operations separate from creator and client visibility.
+            </p>
+
+            <div class="table-wrap">
+              <table class="ledger settings-table">
+                <thead>
+                  <tr>
+                    <th>Person</th>
+                    <th>Role</th>
+                    <th>Access</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>A. Quinn</td>
+                    <td>Owner</td>
+                    <td>Full workspace</td>
+                    <td class="mono">you</td>
+                  </tr>
+
+                  <tr>
+                    <td>Night desk</td>
+                    <td>Operator</td>
+                    <td>Campaigns, rooms</td>
+                    <td class="mono">active</td>
+                  </tr>
+
+                  <tr>
+                    <td>Vesper Finance</td>
+                    <td>Finance</td>
+                    <td>Revenue records</td>
+                    <td class="mono">invited</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <a href="creator-voss.html">M. Voss</a>
+                    </td>
+                    <td>Creator</td>
+                    <td>Own workspace data</td>
+                    <td class="mono">active</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="settings-footnote">
+              <p>
+                Client and creator access should expose only the records they need to work with.
+                Internal notes, other clients, credentials, and agency-wide financial information
+                remain restricted.
+              </p>
+            </div>
+          </section>
+
+          <section class="settings-section" aria-labelledby="sessions-heading">
+            <div class="settings-section-head">
+              <div>
+                <span class="kicker">Security</span>
+                <h3 id="sessions-heading">Sessions</h3>
+              </div>
+
+              <span class="settings-status">2 sessions</span>
+            </div>
+
+            <p class="settings-description">Review where the workspace is currently signed in.</p>
+
+            <div class="queue settings-sessions">
+              <div class="queue-item">
+                <div>
+                  <b>workstation-4</b>
+                  <span>Current session</span>
+                </div>
+
+                <span class="badge">Current</span>
+              </div>
+
+              <div class="queue-item">
+                <div>
+                  <b>Phone</b>
+                  <span>Last seen 2 days ago</span>
+                </div>
+
+                <button class="settings-action" type="button">Revoke</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-section" aria-labelledby="credentials-heading">
+            <div class="settings-section-head">
+              <div>
+                <span class="kicker">Connections</span>
+                <h3 id="credentials-heading">Credentials</h3>
+              </div>
+
+              <span class="settings-status">Restricted</span>
+            </div>
+
+            <p class="settings-description">
+              API keys, integration secrets, session tokens, and signing credentials should never be
+              displayed directly in the workspace.
+            </p>
+
+            <div class="settings-security">
+              <div>
+                <strong>Secrets stay outside the interface.</strong>
+                <p>
+                  A live implementation should expose actions for rotating or revoking credentials
+                  without revealing their stored values.
+                </p>
+              </div>
+
+              <a class="cta" href="integration.html"> Manage integrations </a>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
-  </div>
-  <script src="js/dashboard.js"></script>
-</body>
+
+    <script src="js/dashboard.js"></script>
+  </body>
 </html>

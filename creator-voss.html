@@ -1,62 +1,262 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M. Voss — Aries</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/dashboard.css" />
-</head>
-<body class="app">
-  <header class="site">
-    <a class="logo" href="index.html">Aries</a>
-    <nav class="primary">
-      <a href="dashboard.html#creators">Creators</a>
-      <a href="campaign-atlas.html">Atlas</a>
-      <a href="settings.html">Settings</a>
-    </nav>
-  </header>
-  <div class="app-shell">
-    <div class="dash" style="grid-template-columns:minmax(0,1fr) 300px;">
-      <div class="dash-main">
-        <div class="dash-top">
-          <h3>Creator · M. Voss</h3>
-          <span class="live-dot">Active</span>
-        </div>
-        <p class="subhead"><a href="dashboard.html#creators">All creators</a> · file creator_4821 · workspace North Atelier</p>
-        <div class="metrics">
-          <div class="metric"><span>Net due</span><strong>$4,820</strong></div>
-          <div class="metric"><span>Campaigns</span><strong>2</strong></div>
-          <div class="metric"><span>Open tasks</span><strong>1</strong></div>
-        </div>
-        <table class="ledger">
-          <thead><tr><th>Area</th><th>Event</th><th>Status</th><th></th></tr></thead>
-          <tbody>
-            <tr><td>Atlas</td><td class="mono">content.approved</td><td>Approved</td><td><a href="campaign-atlas.html">Open</a></td></tr>
-            <tr><td>Solstice</td><td class="mono">campaign.review</td><td>In review</td><td>—</td></tr>
-            <tr><td>Payout</td><td class="mono">payout.ready</td><td>Ready</td><td>$4,820</td></tr>
-          </tbody>
-        </table>
-        <div class="queue" style="margin-top:1rem;">
-          <div class="queue-item"><b>Reply in this room</b><span class="badge">Desk</span></div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>M. Voss — Aries</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/creator.css" />
+  </head>
+
+  <body class="app">
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="dashboard.html#creators">Creators</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+    </header>
+
+    <div class="app-shell">
+      <div class="dash creator-shell">
+        <main class="dash-main">
+          <div class="dash-top">
+            <div>
+              <h3>Creator · M. Voss</h3>
+              <p class="subhead">
+                <a href="dashboard.html#creators">All creators</a>
+                <span aria-hidden="true">·</span>
+                North Atelier
+              </p>
+            </div>
+
+            <span class="live-dot">Active</span>
+          </div>
+
+          <section class="creator-profile">
+            <div class="creator-avatar" aria-hidden="true">MV</div>
+
+            <div class="creator-identity">
+              <span class="kicker">Creator record</span>
+              <h1>M. Voss</h1>
+              <p>
+                Active creator working across current campaigns and associated operational tasks.
+              </p>
+
+              <div class="creator-meta">
+                <span>Creator</span>
+                <span>Active</span>
+                <span class="mono">creator_4821</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="creator-section" aria-labelledby="overview-heading">
+            <div class="creator-section-head">
+              <div>
+                <span class="kicker">At a glance</span>
+                <h3 id="overview-heading">Current position</h3>
+              </div>
+            </div>
+
+            <div class="metrics creator-metrics">
+              <div class="metric">
+                <span>Net due</span>
+                <strong>$4,820</strong>
+              </div>
+
+              <div class="metric">
+                <span>Campaigns</span>
+                <strong>2</strong>
+              </div>
+
+              <div class="metric">
+                <span>Open tasks</span>
+                <strong>1</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="creator-section" aria-labelledby="work-heading">
+            <div class="creator-section-head">
+              <div>
+                <span class="kicker">Work</span>
+                <h3 id="work-heading">Campaign activity</h3>
+              </div>
+
+              <a class="cta" href="dashboard.html#campaigns">View campaigns</a>
+            </div>
+
+            <div class="table-wrap">
+              <table class="ledger creator-table">
+                <thead>
+                  <tr>
+                    <th>Campaign</th>
+                    <th>Activity</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      <a href="campaign-atlas.html">Atlas</a>
+                    </td>
+                    <td class="mono">content.approved</td>
+                    <td>Approved</td>
+                    <td>
+                      <a href="campaign-atlas.html">Open</a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Solstice</td>
+                    <td class="mono">campaign.review</td>
+                    <td>In review</td>
+                    <td>—</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="creator-section" aria-labelledby="finance-heading">
+            <div class="creator-section-head">
+              <div>
+                <span class="kicker">Financial</span>
+                <h3 id="finance-heading">Creator earnings</h3>
+              </div>
+
+              <a class="cta" href="revenue.html">Open revenue</a>
+            </div>
+
+            <div class="creator-finance">
+              <div>
+                <span>Current amount due</span>
+                <strong>$4,820</strong>
+              </div>
+
+              <div>
+                <span>Latest activity</span>
+                <strong>Ready</strong>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table class="ledger creator-table">
+                <thead>
+                  <tr>
+                    <th>Record</th>
+                    <th>Event</th>
+                    <th>Status</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Payout</td>
+                    <td class="mono">payout.ready</td>
+                    <td>Ready</td>
+                    <td>$4,820</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="creator-section" aria-labelledby="tasks-heading">
+            <div class="creator-section-head">
+              <div>
+                <span class="kicker">Tasks</span>
+                <h3 id="tasks-heading">Work that needs attention</h3>
+              </div>
+
+              <a class="cta" href="tasks.html">View tasks</a>
+            </div>
+
+            <div class="queue creator-queue">
+              <div class="queue-item">
+                <div>
+                  <b>Reply in this room</b>
+                  <span>Creator communication</span>
+                </div>
+
+                <span class="badge">Open</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="creator-section" aria-labelledby="record-heading">
+            <div class="creator-section-head">
+              <div>
+                <span class="kicker">Record</span>
+                <h3 id="record-heading">Operational boundaries</h3>
+              </div>
+            </div>
+
+            <div class="creator-boundaries">
+              <div>
+                <strong>Work</strong>
+                <p>
+                  Campaigns, deliverables, tasks, approvals, and relevant financial records stay
+                  connected to this creator.
+                </p>
+              </div>
+
+              <div>
+                <strong>Access</strong>
+                <p>
+                  Creator visibility should be limited to their own records, shared work, and
+                  information required to collaborate.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <p class="creator-demo-note">
+            Demo workspace · Sample creator data shown for interface purposes.
+          </p>
+        </main>
+
+        <aside class="dash-chat">
+          <div class="chat-head">Room · M. Voss</div>
+
+          <div class="msgs" id="deskMsgs">
+            <div class="bubble in">When does the next payout leave?</div>
+
+            <div class="bubble out">Marked ready. Finance has the last look.</div>
+          </div>
+
+          <form class="composer" id="deskForm">
+            <input
+              id="deskInput"
+              type="text"
+              placeholder="Write in this room…"
+              autocomplete="off"
+            />
+
+            <button type="submit">Send</button>
+          </form>
+        </aside>
       </div>
-      <aside class="dash-chat">
-        <div class="chat-head">Room · M. Voss</div>
-        <div class="msgs" id="deskMsgs">
-          <div class="bubble in">When does the next payout leave?</div>
-          <div class="bubble out">Marked ready. Finance has the last look.</div>
-        </div>
-        <form class="composer" id="deskForm">
-          <input id="deskInput" type="text" placeholder="Write in this room…" />
-          <button type="submit">Send</button>
-        </form>
-      </aside>
     </div>
-  </div>
-  <script src="js/dashboard.js"></script>
-</body>
+
+    <script src="js/dashboard.js"></script>
+  </body>
 </html>

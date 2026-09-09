@@ -126,6 +126,85 @@ nav.primary a:hover::after {
   transform-origin: left;
 }
 
+/* ------------------------[Nav Dropdown]------------------------ */
+.nav-dropdown {
+  position: relative;
+}
+.nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.72;
+  cursor: pointer;
+  transition:
+    opacity 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+.nav-dropdown-trigger:hover {
+  opacity: 1;
+  color: var(--gold);
+}
+.nav-chevron {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 4px solid currentColor;
+  transition: transform 0.25s var(--ease);
+}
+.nav-dropdown.open .nav-chevron {
+  transform: rotate(180deg);
+}
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 0;
+  min-width: 12rem;
+  padding: 0.4rem 0;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.2s var(--ease),
+    transform 0.2s var(--ease),
+    visibility 0.2s;
+  z-index: 100;
+}
+.nav-dropdown.open .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.nav-dropdown-menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  opacity: 1;
+  transition:
+    color 0.15s var(--ease),
+    background 0.15s var(--ease);
+}
+.nav-dropdown-menu a::after {
+  display: none;
+}
+.nav-dropdown-menu a:hover {
+  color: var(--cream);
+  background: rgba(255, 255, 255, 0.04);
+}
+
 /* ------------------------[Hero]------------------------ */
 .hero {
   position: relative;
@@ -858,6 +937,118 @@ table.ledger th:last-child {
   letter-spacing: 0.08em;
   color: var(--muted);
   z-index: 1;
+}
+
+/* ------------------------[Task Queue]------------------------ */
+.task-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.task-filter {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    border-color 0.25s var(--ease),
+    color 0.25s var(--ease),
+    background 0.25s var(--ease);
+}
+.task-filter:hover {
+  border-color: var(--gold-line);
+  color: var(--cream);
+}
+.task-filter.active {
+  border-color: var(--gold-line);
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+.task-queue {
+  display: grid;
+  gap: 0.55rem;
+}
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  transition:
+    border-color 0.25s var(--ease),
+    background 0.25s var(--ease);
+}
+.task-row:hover {
+  border-color: var(--gold-line);
+  background: rgba(255, 255, 255, 0.04);
+}
+.task-row-main {
+  min-width: 0;
+}
+.task-row-main strong {
+  display: block;
+  color: var(--cream);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.task-row-context {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+.task-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+.task-row-owner,
+.task-row-due {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+.task-row-status {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.task-row-status.open {
+  border-color: rgba(125, 206, 160, 0.2);
+  background: rgba(125, 206, 160, 0.05);
+  color: var(--good);
+}
+.task-row-status.blocked {
+  border-color: rgba(216, 184, 120, 0.2);
+  background: rgba(216, 184, 120, 0.05);
+  color: var(--warning);
+}
+.task-row-status.done {
+  border-color: var(--line);
+  color: var(--muted);
+}
+.task-empty-state {
+  padding: 2rem;
+  border: 1px solid var(--line);
+  text-align: center;
+}
+.task-empty-state p {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.task-empty-state p + p {
+  margin-top: 0.4rem;
 }
 
 /* ------------------------[Integration Log]------------------------ */

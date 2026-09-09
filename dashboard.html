@@ -1,164 +1,243 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard — Aries</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/dashboard.css" />
-</head>
-<body class="app">
-  <header class="site">
-    <a class="logo" href="index.html">Aries</a>
-    <nav class="primary">
-      <a href="index.html">Home</a>
-      <a href="settings.html">Settings</a>
-      <span id="authSlot"></span>
-    </nav>
-  </header>
-  <div class="app-shell">
-    <div class="dash" aria-label="Aries workspace">
-      <aside class="dash-side">
-        <div class="mark">ARIES</div>
-        <nav class="dash-nav">
-          <button class="active" type="button" data-pane="overview">Overview</button>
-          <button type="button" data-pane="revenue">Revenue</button>
-          <button type="button" data-pane="creators">Creators</button>
-          <button type="button" data-pane="campaigns">Campaigns</button>
-          <button type="button" data-pane="tasks">Tasks</button>
-          <button type="button" data-pane="clients">Clients</button>
-          <button type="button" data-pane="hooks">Integrations</button>
-          <button type="button" data-pane="settings">Settings</button>
-        </nav>
-      </aside>
-      <div class="dash-main">
-        <div class="dash-top">
-          <h3 id="deskTitle">Workspace · Overview</h3>
-          <span class="live-dot">Desk</span>
-        </div>
-
-        <div class="pane on" id="pane-overview">
-          <p class="subhead">Cash, work in flight, and rooms that need a reply.</p>
-          <div class="empty-state">
-            <h3>This desk is empty</h3>
-            <p>No creators or payouts yet. That is expected after setup. Load the sample North Atelier desk if you want to see a full period.</p>
-            <button class="cta solid" type="button" data-load-demo>Load sample desk</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard — Aries</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body class="app">
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html" aria-current="page">Dashboard</a>
+        <a href="settings.html">Settings</a>
+        <span id="authSlot"></span>
+      </nav>
+    </header>
+    <div class="app-shell">
+      <div class="dash" aria-label="Aries workspace">
+        <aside class="dash-side">
+          <div class="mark">ARIES</div>
+          <nav class="dash-nav">
+            <button class="active" type="button" data-pane="overview">Overview</button>
+            <button type="button" data-pane="revenue">Revenue</button>
+            <button type="button" data-pane="creators">Creators</button>
+            <button type="button" data-pane="campaigns">Campaigns</button>
+            <button type="button" data-pane="tasks">Tasks</button>
+            <button type="button" data-pane="clients">Clients</button>
+            <button type="button" data-pane="integrations">Integrations</button>
+            <button type="button" data-pane="settings">Settings</button>
+          </nav>
+        </aside>
+        <div class="dash-main">
+          <div class="dash-top">
+            <h3 id="deskTitle">Workspace · Overview</h3>
+            <span class="live-dot">Desk</span>
           </div>
-          <div class="filled">
-            <div class="metrics">
-              <div class="metric"><span>Net this period</span><strong>$184,220</strong></div>
-              <div class="metric"><span>Open rooms</span><strong>12</strong></div>
-              <div class="metric"><span>Tasks due</span><strong>18</strong></div>
+
+          <div class="pane on" id="pane-overview">
+            <p class="subhead">Cash, work in flight, and rooms that need a reply.</p>
+            <div class="empty-state">
+              <h3>This desk is empty</h3>
+              <p>
+                No creators or payouts yet. That is expected after setup. Load the sample North
+                Atelier desk if you want to see a full period.
+              </p>
+              <button class="cta solid" type="button" data-load-demo>Load sample desk</button>
             </div>
-            <table class="ledger">
-              <thead><tr><th>Area</th><th>Activity</th><th>Status</th><th>Value</th></tr></thead>
-              <tbody>
-                <tr><td><a href="creator-voss.html">M. Voss</a></td><td class="mono">payout.ready</td><td>Ready</td><td>$4,820</td></tr>
-                <tr><td><a href="campaign-atlas.html">Atlas</a></td><td class="mono">content.approved</td><td>Approved</td><td>$2,400</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="pane" id="pane-revenue">
-          <p class="subhead">Gross, fees, and what is still sitting.</p>
-          <div class="empty-state"><h3>No lines this period</h3><p>When intake posts, it will show here.</p></div>
-          <div class="filled">
-            <div class="metrics">
-              <div class="metric"><span>Gross</span><strong>$212,480</strong></div>
-              <div class="metric"><span>Fees</span><strong>$18,260</strong></div>
-              <div class="metric"><span>Open</span><strong>$14,420</strong></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pane" id="pane-creators">
-          <p class="subhead">People on the book.</p>
-          <div class="empty-state"><h3>No creators yet</h3><p>Open a profile when someone joins.</p></div>
-          <div class="filled">
-            <table class="ledger">
-              <thead><tr><th>Creator</th><th>Status</th><th>Net due</th></tr></thead>
-              <tbody>
-                <tr><td><a href="creator-voss.html">M. Voss</a></td><td>Active</td><td>$4,820</td></tr>
-                <tr><td>L. Vale</td><td>Review</td><td>$1,140</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="pane" id="pane-campaigns">
-          <p class="subhead">Work with a name.</p>
-          <div class="empty-state"><h3>No campaigns</h3><p>Name the first piece of work.</p></div>
-          <div class="filled">
-            <div class="queue">
-              <div class="queue-item"><b><a href="campaign-atlas.html">Atlas · September</a></b><span>Approved</span></div>
-              <div class="queue-item"><b>Solstice drop</b><span>In review</span></div>
+            <div class="filled">
+              <div class="metrics">
+                <div class="metric"><span>Net this period</span><strong>$184,220</strong></div>
+                <div class="metric"><span>Open rooms</span><strong>12</strong></div>
+                <div class="metric"><span>Tasks due</span><strong>18</strong></div>
+              </div>
+              <table class="ledger">
+                <thead>
+                  <tr>
+                    <th>Area</th>
+                    <th>Activity</th>
+                    <th>Status</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="creator-voss.html">M. Voss</a></td>
+                    <td class="mono">payout.ready</td>
+                    <td>Ready</td>
+                    <td>$4,820</td>
+                  </tr>
+                  <tr>
+                    <td><a href="campaign-atlas.html">Atlas</a></td>
+                    <td class="mono">content.approved</td>
+                    <td>Approved</td>
+                    <td>$2,400</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
 
-        <div class="pane" id="pane-tasks">
-          <p class="subhead">What still needs an owner.</p>
-          <div class="empty-state"><h3>Nothing waiting</h3><p>Tasks appear when a file needs a person.</p></div>
-          <div class="filled">
-            <div class="queue">
-              <div class="queue-item"><b>Confirm Atlas payout rail</b><span class="badge">Finance</span></div>
+          <div class="pane" id="pane-revenue">
+            <p class="subhead">Gross, fees, and what is still sitting.</p>
+            <div class="empty-state">
+              <h3>No lines this period</h3>
+              <p>When intake posts, it will show here.</p>
+            </div>
+            <div class="filled">
+              <div class="metrics">
+                <div class="metric"><span>Gross</span><strong>$212,480</strong></div>
+                <div class="metric"><span>Fees</span><strong>$18,260</strong></div>
+                <div class="metric"><span>Open</span><strong>$14,420</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-creators">
+            <p class="subhead">People on the book.</p>
+            <div class="empty-state">
+              <h3>No creators yet</h3>
+              <p>Open a profile when someone joins.</p>
+            </div>
+            <div class="filled">
+              <table class="ledger">
+                <thead>
+                  <tr>
+                    <th>Creator</th>
+                    <th>Status</th>
+                    <th>Net due</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="creator-voss.html">M. Voss</a></td>
+                    <td>Active</td>
+                    <td>$4,820</td>
+                  </tr>
+                  <tr>
+                    <td>L. Vale</td>
+                    <td>Review</td>
+                    <td>$1,140</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-campaigns">
+            <p class="subhead">Work with a name.</p>
+            <div class="empty-state">
+              <h3>No campaigns</h3>
+              <p>Name the first piece of work.</p>
+            </div>
+            <div class="filled">
+              <div class="queue">
+                <div class="queue-item">
+                  <b><a href="campaign-atlas.html">Atlas · September</a></b
+                  ><span>Approved</span>
+                </div>
+                <div class="queue-item"><b>Solstice drop</b><span>In review</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-tasks">
+            <p class="subhead">What still needs an owner.</p>
+            <div class="empty-state">
+              <h3>Nothing waiting</h3>
+              <p>Tasks appear when a file needs a person.</p>
+            </div>
+            <div class="filled">
+              <div class="queue">
+                <div class="queue-item">
+                  <b>Confirm Atlas payout rail</b><span class="badge">Finance</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-clients">
+            <p class="subhead">Rooms, not inboxes.</p>
+            <div class="empty-state">
+              <h3>No client rooms</h3>
+              <p>Invite a client when a brief exists.</p>
+            </div>
+            <div class="filled">
+              <div class="queue">
+                <div class="queue-item"><b>North Atelier</b><span>Brief updated</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-integrations">
+            <p class="subhead">Connected services and event delivery.</p>
+            <div class="empty-state">
+              <h3>No integrations yet</h3>
+              <p>Connect a service when your workspace is ready.</p>
+            </div>
+            <div class="filled">
+              <div class="queue">
+                <div class="queue-item"><b>treasury-bus</b><span class="badge">Live</span></div>
+                <div class="queue-item"><b>pager</b><span>Retry</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-settings">
+            <p class="subhead"><a href="settings.html">Open full settings</a></p>
+            <div class="empty-state">
+              <h3>Only you are on this desk</h3>
+              <p>Invite operators and finance when the work needs them.</p>
+            </div>
+            <div class="filled">
+              <table class="ledger">
+                <thead>
+                  <tr>
+                    <th>Person</th>
+                    <th>Role</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>A. Quinn</td>
+                    <td>Owner</td>
+                  </tr>
+                  <tr>
+                    <td><a href="creator-voss.html">M. Voss</a></td>
+                    <td>Creator</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="subhead" style="margin-top: 1rem">
+                <button class="cta" type="button" data-clear-desk>Clear sample desk</button>
+              </p>
             </div>
           </div>
         </div>
-
-        <div class="pane" id="pane-clients">
-          <p class="subhead">Rooms, not inboxes.</p>
-          <div class="empty-state"><h3>No client rooms</h3><p>Invite a client when a brief exists.</p></div>
-          <div class="filled">
-            <div class="queue">
-              <div class="queue-item"><b>North Atelier</b><span>Brief updated</span></div>
+        <aside class="dash-chat">
+          <div class="chat-head">Desk room</div>
+          <div class="msgs" id="deskMsgs">
+            <div class="bubble in">
+              This room stays empty until a client is invited — or you load the sample desk.
             </div>
           </div>
-        </div>
-
-        <div class="pane" id="pane-hooks">
-          <p class="subhead">Connected endpoints.</p>
-          <div class="empty-state"><h3>No hooks attached</h3><p>Point a signed URL here when you are ready.</p></div>
-          <div class="filled">
-            <div class="queue">
-              <div class="queue-item"><b>treasury-bus</b><span class="badge">Live</span></div>
-              <div class="queue-item"><b>pager</b><span>Retry</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pane" id="pane-settings">
-          <p class="subhead"><a href="settings.html">Open full settings</a></p>
-          <div class="empty-state"><h3>Only you are on this desk</h3><p>Invite operators and finance when the work needs them.</p></div>
-          <div class="filled">
-            <table class="ledger">
-              <thead><tr><th>Person</th><th>Role</th></tr></thead>
-              <tbody>
-                <tr><td>A. Quinn</td><td>Owner</td></tr>
-                <tr><td><a href="creator-voss.html">M. Voss</a></td><td>Creator</td></tr>
-              </tbody>
-            </table>
-            <p class="subhead" style="margin-top:1rem;"><button class="cta" type="button" data-clear-desk>Clear sample desk</button></p>
-          </div>
-        </div>
+          <form class="composer" id="deskForm">
+            <input id="deskInput" type="text" placeholder="Write in this room…" />
+            <button type="submit">Send</button>
+          </form>
+        </aside>
       </div>
-      <aside class="dash-chat">
-        <div class="chat-head">Desk room</div>
-        <div class="msgs" id="deskMsgs">
-          <div class="bubble in">This room stays empty until a client is invited — or you load the sample desk.</div>
-        </div>
-        <form class="composer" id="deskForm">
-          <input id="deskInput" type="text" placeholder="Write in this room…" />
-          <button type="submit">Send</button>
-        </form>
-      </aside>
     </div>
-  </div>
-  <script src="js/session.js"></script>
-  <script src="js/dashboard.js"></script>
-</body>
+    <script src="js/session.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
 </html>

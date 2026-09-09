@@ -4,13 +4,18 @@
   const MODE_KEY = "aries_desk_mode";
 
   function session() {
-    try { return JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); }
-    catch (_e) { return null; }
+    try {
+      return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+    } catch (_e) {
+      return null;
+    }
   }
   function mode() {
     return localStorage.getItem(MODE_KEY) || "demo";
   }
-  function setMode(m) { localStorage.setItem(MODE_KEY, m); }
+  function setMode(m) {
+    localStorage.setItem(MODE_KEY, m);
+  }
   function signOut() {
     localStorage.removeItem(SESSION_KEY);
     window.location.href = "login.html";
@@ -27,7 +32,7 @@
   if (slot) {
     const s = session();
     if (s) {
-      slot.innerHTML = `<a href="settings.html">${ s.name || s.email }</a><a href="#" data-sign-out>Sign out</a>`;
+      slot.innerHTML = `<a href="settings.html">${s.name || s.email}</a><a href="#" data-sign-out>Sign out</a>`;
       slot.querySelector("[data-sign-out]").addEventListener("click", (e) => {
         e.preventDefault();
         signOut();
@@ -37,5 +42,5 @@
     }
   }
 
-  window.AriesSession = { session, mode, setMode, signOut };
+  window.AriesSession = {session, mode, setMode, signOut};
 })();

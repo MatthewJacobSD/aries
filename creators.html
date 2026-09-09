@@ -1,87 +1,302 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creators — Aries</title>
-  <meta name="description" content="One profile per creator: campaigns, payouts, and the work in flight." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/index.css" />
-</head>
-<body>
-  <header class="site">
-    <a class="logo" href="index.html">Aries</a>
-    <nav class="primary">
-      <a href="index.html">Home</a>
-      <a href="creators.html">Creators</a>
-      <a href="campaigns.html">Campaigns</a>
-      <a href="tasks.html">Tasks</a>
-      <a href="clients.html">Clients</a>
-      <a href="revenue.html">Revenue</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="login.html">Sign in</a>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creators — Aries</title>
+    <meta
+      name="description"
+      content="Manage creator profiles, campaigns, tasks, payouts, and relationships from one operational workspace."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
 
-  <section class="hero" id="desert">
-    <img src="images/auth-desk.jpg" alt="Private desk at dusk" />
-    <div class="hero-copy">
-      <p class="eyebrow">Explainer · people on the book</p>
-      <h1>Creators</h1>
-      <p class="lede">One file per person: who they are, what they are shooting, what they are owed, and who on the desk owns the relationship. Stop hunting that in six chats.</p>
-      <div class="cta-row">
-        <a class="cta solid" href="dashboard.html#creators">Open the working view</a>
-        <a class="cta" href="#profile">What lives on a profile</a>
+  <body>
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="tasks.html">Tasks</a>
+        <a href="clients.html">Clients</a>
+        <a href="revenue.html">Revenue</a>
+        <a href="campaigns.html">Campaigns</a>
+        <a href="integration.html">Integrations</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Sign in</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="desert">
+      <img src="images/auth-desk.jpg" alt="Private desk at dusk" />
+
+      <div class="hero-copy">
+        <p class="eyebrow">Creator management · profiles · relationships</p>
+
+        <h1>Creators</h1>
+
+        <p class="lede">
+          Give every creator a clear operational record. Keep their work, campaigns, tasks, payouts,
+          and relationship history connected without turning the profile into a private-life
+          archive.
+        </p>
+
+        <div class="cta-row">
+          <a class="cta solid" href="dashboard.html#creators"> Open the working view </a>
+
+          <a class="cta" href="#profile"> Explore the profile </a>
+        </div>
       </div>
+    </section>
+
+    <div class="hero-bridge" id="heroBridge">
+      <div class="glow"></div>
+      <div class="line"></div>
+      <span class="label">One creator · one operational record</span>
     </div>
-  </section>
 
-  <div class="hero-bridge" id="heroBridge">
-    <div class="glow"></div>
-    <div class="line"></div>
-    <span class="label">One person, one file</span>
-  </div>
+    <section class="section" id="profile">
+      <p class="kicker">The creator profile</p>
 
-  <section class="section" id="profile">
-    <p class="kicker">On the profile</p>
-    <h2>Enough to run the month. Not the whole private life.</h2>
-    <p class="intro">A creator record is operational: campaigns, payout rail, open tasks, and the room they share with the desk.</p>
-    <div class="grid-3">
-      <article class="card reveal">
-        <span class="tag">Identity</span>
-        <h3>Who this is</h3>
-        <p>Name, workspace role, and the platforms they already work on. Access stays limited to what their role allows.</p>
-      </article>
-      <article class="card reveal" data-delay="80">
-        <span class="tag">Work</span>
-        <h3>What is in flight</h3>
-        <p>Active campaigns, waiting approvals, and tasks with an owner. A handoff does not require a verbal history.</p>
-      </article>
-      <article class="card reveal" data-delay="160">
-        <span class="tag">Money</span>
-        <h3>What is owed</h3>
-        <p>Net due this period, last cleared payout, and anything held. The figure matches the revenue pane.</p>
-      </article>
-    </div>
-  </section>
+      <h2>Everything the desk needs. Nothing it does not.</h2>
 
-  <section class="section alt">
-    <p class="kicker">How they arrive</p>
-    <h2>Onboarding is a checklist, not a memory.</h2>
-    <div class="grid-2 steps">
-      <article class="card reveal"><h3>Open the file</h3><p>Create the profile, attach the right operator, and list what is still missing.</p></article>
-      <article class="card reveal" data-delay="80"><h3>Collect what finance needs</h3><p>Payout destination and tax details stay on the record until they are complete.</p></article>
-      <article class="card reveal"><h3>Assign the first campaign</h3><p>Work has a name from day one. The creator sees only their slice.</p></article>
-      <article class="card reveal" data-delay="80"><h3>Keep the room attached</h3><p>Questions live next to the profile, not in someone’s personal inbox.</p></article>
-    </div>
-  </section>
+      <p class="intro">
+        A creator profile brings the operational pieces together: identity, active work, financial
+        status, assigned people, and relevant history. Access should follow the user's role, not
+        curiosity.
+      </p>
 
-  <footer class="site">
-    <span>Aries · Creators</span>
-    <span><a href="dashboard.html#creators">Working view</a></span>
-  </footer>
-  <script src="js/main.js"></script>
-</body>
+      <div class="grid-3">
+        <article class="card reveal">
+          <span class="tag">Identity</span>
+
+          <h3>Know who you are working with</h3>
+
+          <p>
+            Keep the creator's essential profile information, connected platforms, relationship
+            owner, and account status in one place.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Work</span>
+
+          <h3>See what is moving</h3>
+
+          <p>
+            Active campaigns, assignments, approvals, and open tasks stay attached to the creator
+            instead of being scattered across separate workflows.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="160">
+          <span class="tag">Money</span>
+
+          <h3>Understand the financial position</h3>
+
+          <p>
+            See relevant revenue, expected share, payout status, and outstanding amounts without
+            leaving the creator record.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt" id="relationship">
+      <p class="kicker">Relationship management</p>
+
+      <h2>A relationship should have a history.</h2>
+
+      <p class="intro">
+        The person managing a creator should not have to reconstruct the relationship from private
+        messages and scattered notes. Keep meaningful operational activity connected to the record.
+      </p>
+
+      <div class="grid-2">
+        <article class="card reveal">
+          <span class="tag">Ownership</span>
+
+          <h3>Always know who is responsible</h3>
+
+          <p>
+            Assign a relationship owner and keep responsibility visible when work moves between
+            operators.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">History</span>
+
+          <h3>Keep the important context</h3>
+
+          <p>
+            Campaign activity, approvals, tasks, and relevant changes provide a shared operational
+            history without requiring someone to remember every conversation.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <span class="tag">Access</span>
+
+          <h3>Show only what the role needs</h3>
+
+          <p>
+            Creator information should be visible according to workspace permissions, keeping
+            restricted financial or administrative information away from unauthorised users.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Status</span>
+
+          <h3>Know where the relationship stands</h3>
+
+          <p>
+            Active, onboarding, paused, or archived gives the desk an immediate understanding of the
+            creator's current relationship with the workspace.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="onboarding">
+      <p class="kicker">Creator onboarding</p>
+
+      <h2>Turn the first week into a visible workflow.</h2>
+
+      <p class="intro">
+        New creators should move through defined steps rather than relying on one person to remember
+        what still needs to happen.
+      </p>
+
+      <div class="grid-2 steps">
+        <article class="card reveal">
+          <h3>1. Create the profile</h3>
+
+          <p>
+            Establish the creator record, assign the responsible operator, and identify the
+            information still required before work begins.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>2. Complete required details</h3>
+
+          <p>
+            Track the operational and financial information required by the workspace while keeping
+            restricted information protected by role.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <h3>3. Start the first campaign</h3>
+
+          <p>
+            Connect the creator to their first campaign, brief, or assignment so their work has
+            context from the beginning.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>4. Keep the relationship active</h3>
+
+          <p>
+            Continue recording relevant work, tasks, approvals, and payout activity against the same
+            profile as the relationship develops.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt" id="workspace">
+      <p class="kicker">The working record</p>
+
+      <h2>Open a creator and understand the situation quickly.</h2>
+
+      <p class="intro">
+        The profile should answer the questions an operator has before taking action: who is this,
+        what are they working on, what needs attention, and what is the current financial state?
+      </p>
+
+      <div class="grid-3">
+        <article class="card reveal">
+          <span class="tag">Today</span>
+
+          <h3>What needs attention?</h3>
+
+          <p>
+            Surface overdue tasks, pending approvals, missing onboarding steps, and other items that
+            require an operator.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">In flight</span>
+
+          <h3>What are they working on?</h3>
+
+          <p>
+            Connect active campaigns and assignments directly to the creator so current work can be
+            understood without another search.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="160">
+          <span class="tag">Financial</span>
+
+          <h3>What has been paid?</h3>
+
+          <p>
+            Keep relevant revenue and payout information aligned with the financial ledger rather
+            than maintaining a separate creator spreadsheet.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="privacy">
+      <p class="kicker">Data boundaries</p>
+
+      <h2>A creator profile is an operational record, not a dossier.</h2>
+
+      <p class="intro">
+        Store the information required to operate the relationship and protect everything else.
+        Sensitive fields should have a clear purpose, appropriate access controls, and a defined
+        retention policy.
+      </p>
+
+      <div class="grid-2">
+        <article class="card reveal">
+          <h3>Collect with a purpose</h3>
+
+          <p>
+            Information should exist because the workspace needs it for a defined operational,
+            contractual, financial, or administrative purpose.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>Restrict by role</h3>
+
+          <p>
+            Not every team member needs access to every creator field. Permissions should determine
+            what each role can view or change.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="site">
+      <span>Aries · Creators</span>
+      <span> <a href="dashboard.html#creators">Working view</a> · Profiles · Work · Payouts </span>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
 </html>

@@ -1,52 +1,275 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Atlas · September — Aries</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/dashboard.css" />
-</head>
-<body class="app">
-  <header class="site">
-    <a class="logo" href="index.html">Aries</a>
-    <nav class="primary">
-      <a href="dashboard.html#campaigns">Campaigns</a>
-      <a href="creator-voss.html">M. Voss</a>
-      <a href="settings.html">Settings</a>
-    </nav>
-  </header>
-  <div class="app-shell">
-    <div class="dash" style="grid-template-columns:1fr;">
-      <div class="dash-main">
-        <div class="dash-top">
-          <h3>Campaign · Atlas · September</h3>
-          <span class="live-dot">Approved</span>
-        </div>
-        <p class="subhead"><a href="dashboard.html#campaigns">All campaigns</a> · 3 assets approved · posted $12,400</p>
-        <div class="metrics">
-          <div class="metric"><span>Posted</span><strong>$12,400</strong></div>
-          <div class="metric"><span>Assets</span><strong>3</strong></div>
-          <div class="metric"><span>Approved by</span><strong>user_0192</strong></div>
-        </div>
-        <table class="ledger">
-          <thead><tr><th>Item</th><th>Owner</th><th>Status</th><th></th></tr></thead>
-          <tbody>
-            <tr><td>Final three assets</td><td><a href="creator-voss.html">M. Voss</a></td><td>Approved</td><td class="mono">16:02</td></tr>
-            <tr><td>Payout share</td><td>Finance</td><td>Ready</td><td>$4,820</td></tr>
-            <tr><td>Client brief</td><td>North Atelier</td><td>Updated</td><td>—</td></tr>
-          </tbody>
-        </table>
-        <div class="log-stream" style="margin-top:1rem;">
-          <div class="log-row"><span class="ts">16:02:11</span><span class="src audit">AUDIT</span><span class="msg">campaign.content.approved  atlas-september  creator_4821  assets 3</span></div>
-          <div class="log-row"><span class="ts">16:02:11</span><span class="src deliver">DELIVER</span><span class="ok">200</span><span class="msg">hook campaign.content.approved → project-bus</span></div>
-        </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Atlas · September — Aries</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/campaign.css" />
+  </head>
+
+  <body class="app">
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="dashboard.html#campaigns">Campaigns</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+    </header>
+
+    <div class="app-shell">
+      <div class="dash campaign-shell">
+        <main class="dash-main">
+          <div class="dash-top">
+            <div>
+              <h3>Campaign · Atlas · September</h3>
+
+              <p class="subhead">
+                <a href="dashboard.html#campaigns">All campaigns</a>
+                <span aria-hidden="true">·</span>
+                North Atelier
+              </p>
+            </div>
+
+            <span class="live-dot">Approved</span>
+          </div>
+
+          <section class="campaign-hero">
+            <div>
+              <span class="kicker">Campaign record</span>
+
+              <h1>Atlas · September</h1>
+
+              <p>
+                A completed campaign record connecting the client brief, creator deliverables,
+                approvals, tasks, and associated financial activity.
+              </p>
+            </div>
+
+            <div class="campaign-status">
+              <span class="badge">Approved</span>
+              <span>3 assets approved</span>
+            </div>
+          </section>
+
+          <section class="campaign-section" aria-labelledby="overview-heading">
+            <div class="campaign-section-head">
+              <div>
+                <span class="kicker">At a glance</span>
+                <h3 id="overview-heading">Campaign position</h3>
+              </div>
+            </div>
+
+            <div class="metrics campaign-metrics">
+              <div class="metric">
+                <span>Campaign value</span>
+                <strong>$12,400</strong>
+              </div>
+
+              <div class="metric">
+                <span>Assets</span>
+                <strong>3</strong>
+              </div>
+
+              <div class="metric">
+                <span>Approval</span>
+                <strong>Complete</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="campaign-section" aria-labelledby="work-heading">
+            <div class="campaign-section-head">
+              <div>
+                <span class="kicker">Delivery</span>
+                <h3 id="work-heading">Work and ownership</h3>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table class="ledger campaign-table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Final three assets</td>
+                    <td>
+                      <a href="creator-voss.html">M. Voss</a>
+                    </td>
+                    <td>Approved</td>
+                    <td class="mono">16:02</td>
+                  </tr>
+
+                  <tr>
+                    <td>Payout share</td>
+                    <td>Finance</td>
+                    <td>Ready</td>
+                    <td>
+                      <a href="revenue.html">$4,820</a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Client brief</td>
+                    <td>North Atelier</td>
+                    <td>Updated</td>
+                    <td>—</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="campaign-section" aria-labelledby="people-heading">
+            <div class="campaign-section-head">
+              <div>
+                <span class="kicker">People</span>
+                <h3 id="people-heading">Who is involved</h3>
+              </div>
+            </div>
+
+            <div class="campaign-people">
+              <div class="campaign-person">
+                <span class="campaign-person-role">Creator</span>
+                <strong>
+                  <a href="creator-voss.html">M. Voss</a>
+                </strong>
+                <span>Deliverables and approvals</span>
+              </div>
+
+              <div class="campaign-person">
+                <span class="campaign-person-role">Client</span>
+                <strong>North Atelier</strong>
+                <span>Brief and final approval</span>
+              </div>
+
+              <div class="campaign-person">
+                <span class="campaign-person-role">Finance</span>
+                <strong>Finance</strong>
+                <span>Payout tracking</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="campaign-section" aria-labelledby="tasks-heading">
+            <div class="campaign-section-head">
+              <div>
+                <span class="kicker">Tasks</span>
+                <h3 id="tasks-heading">Campaign work</h3>
+              </div>
+
+              <a class="cta" href="tasks.html">View tasks</a>
+            </div>
+
+            <div class="queue campaign-queue">
+              <div class="queue-item">
+                <div>
+                  <b>Confirm Atlas payout rail</b>
+                  <span>Finance · campaign closeout</span>
+                </div>
+
+                <span class="badge">Open</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="campaign-section" aria-labelledby="activity-heading">
+            <div class="campaign-section-head">
+              <div>
+                <span class="kicker">Activity</span>
+                <h3 id="activity-heading">Campaign history</h3>
+              </div>
+            </div>
+
+            <div class="campaign-activity">
+              <div class="campaign-activity-row">
+                <span class="campaign-activity-time mono">16:02</span>
+
+                <div>
+                  <strong>Assets approved</strong>
+                  <p>Three campaign assets were marked approved for Atlas.</p>
+                </div>
+              </div>
+
+              <div class="campaign-activity-row">
+                <span class="campaign-activity-time mono">15:48</span>
+
+                <div>
+                  <strong>Client brief updated</strong>
+                  <p>The campaign brief was updated by North Atelier.</p>
+                </div>
+              </div>
+
+              <div class="campaign-activity-row">
+                <span class="campaign-activity-time mono">14:20</span>
+
+                <div>
+                  <strong>Payout marked ready</strong>
+                  <p>The creator's campaign share was marked ready for finance review.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="campaign-section" aria-labelledby="records-heading">
+            <div class="campaign-section-head">
+              <div>
+                <span class="kicker">Connected records</span>
+                <h3 id="records-heading">Where this campaign connects</h3>
+              </div>
+            </div>
+
+            <div class="campaign-links">
+              <a href="creator-voss.html">
+                <span>Creator</span>
+                <strong>M. Voss</strong>
+              </a>
+
+              <a href="revenue.html">
+                <span>Revenue</span>
+                <strong>$4,820 due</strong>
+              </a>
+
+              <a href="tasks.html">
+                <span>Tasks</span>
+                <strong>1 open task</strong>
+              </a>
+
+              <a href="dashboard.html#clients">
+                <span>Client</span>
+                <strong>North Atelier</strong>
+              </a>
+            </div>
+          </section>
+
+          <p class="campaign-demo-note">
+            Demo workspace · Sample campaign data shown for interface purposes.
+          </p>
+        </main>
       </div>
     </div>
-  </div>
-  <script src="js/dashboard.js"></script>
-</body>
+
+    <script src="js/dashboard.js"></script>
+  </body>
 </html>

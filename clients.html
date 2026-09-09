@@ -1,71 +1,305 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clients — Aries</title>
-  <meta name="description" content="Give each client a room for briefs, approvals, and the numbers that belong to them." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/index.css" />
-</head>
-<body>
-  <header class="site">
-    <a class="logo" href="index.html">Aries</a>
-    <nav class="primary">
-      <a href="index.html">Home</a>
-      <a href="tasks.html">Tasks</a>
-      <a href="clients.html">Clients</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="login.html">Sign in</a>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clients — Aries</title>
+    <meta
+      name="description"
+      content="Manage client relationships, briefs, approvals, campaigns, files, and shared visibility from one workspace."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
 
-  <section class="hero" id="mountain">
-    <img src="images/chat.jpg" alt="Two chairs and coffee" />
-    <div class="hero-copy">
-      <p class="eyebrow">Explainer · rooms, not inboxes</p>
-      <h1>Clients</h1>
-      <p class="lede">Each client gets a workspace: brief, files, approvals, and the money that belongs to that relationship. They do not see another client’s room. You do not reconstruct the account from email.</p>
-      <div class="cta-row">
-        <a class="cta solid" href="dashboard.html#clients">Open the working view</a>
-        <a class="cta" href="#room">What the room holds</a>
+  <body>
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="tasks.html">Tasks</a>
+        <a href="clients.html" aria-current="page">Clients</a>
+        <a href="revenue.html">Revenue</a>
+        <a href="campaigns.html">Campaigns</a>
+        <a href="integration.html">Integrations</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Sign in</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="mountain">
+      <img src="images/chat.jpg" alt="Two chairs and coffee" />
+
+      <div class="hero-copy">
+        <p class="eyebrow">Client management · collaboration · access</p>
+
+        <h1>Clients</h1>
+
+        <p class="lede">
+          Give every client a shared workspace for briefs, files, approvals, campaigns, and relevant
+          financial information. Keep collaboration focused on their work while your internal
+          operations remain private.
+        </p>
+
+        <div class="cta-row">
+          <a class="cta solid" href="dashboard.html#clients"> Open the working view </a>
+
+          <a class="cta" href="#room"> Explore the workspace </a>
+        </div>
       </div>
+    </section>
+
+    <div class="hero-bridge" id="heroBridge">
+      <div class="glow"></div>
+      <div class="line"></div>
+      <span class="label">One client · one shared workspace</span>
     </div>
-  </section>
 
-  <div class="hero-bridge" id="heroBridge">
-    <div class="glow"></div>
-    <div class="line"></div>
-    <span class="label">One client, one room</span>
-  </div>
+    <section class="section" id="room">
+      <p class="kicker">The client workspace</p>
 
-  <section class="section" id="room">
-    <p class="kicker">In the room</p>
-    <h2>The relationship stays next to the work.</h2>
-    <div class="grid-3">
-      <article class="card reveal"><span class="tag">Brief</span><h3>What they asked for</h3><p>The latest brief and files live here. An update is an event, not a buried attachment.</p></article>
-      <article class="card reveal" data-delay="80"><span class="tag">Thread</span><h3>What they said</h3><p>Approvals and questions stay in the room so a new operator can read the tone and the facts.</p></article>
-      <article class="card reveal" data-delay="160"><span class="tag">Numbers</span><h3>What they can see</h3><p>Only the campaigns and receipts that belong to them. Agency internals stay off that view.</p></article>
-    </div>
-  </section>
+      <h2>Keep the relationship next to the work.</h2>
 
-  <section class="section alt">
-    <p class="kicker">Access</p>
-    <h2>Invited in. Easy to remove.</h2>
-    <div class="grid-2 steps">
-      <article class="card reveal"><h3>Open a workspace</h3><p>Name the client, attach campaigns, and decide who inside the agency may enter.</p></article>
-      <article class="card reveal" data-delay="80"><h3>Invite the outside seat</h3><p>They get the room, not the whole company. Partners follow the same rule.</p></article>
-      <article class="card reveal"><h3>Keep talk on the file</h3><p>The live desk on the homepage is the idea. This room is where that talk is stored.</p></article>
-      <article class="card reveal" data-delay="80"><h3>Close or transfer</h3><p>When the relationship ends, access ends with it. The history remains for the people who still need it.</p></article>
-    </div>
-  </section>
+      <p class="intro">
+        A client workspace gives both sides a shared place to understand what is happening without
+        exposing the rest of the agency. The client sees what is relevant to their relationship; the
+        agency keeps its internal operations private.
+      </p>
 
-  <footer class="site">
-    <span>Aries · Clients</span>
-    <span><a href="dashboard.html#clients">Working view</a></span>
-  </footer>
-  <script src="js/main.js"></script>
-</body>
+      <div class="grid-3">
+        <article class="card reveal">
+          <span class="tag">Briefs</span>
+
+          <h3>Start with the request</h3>
+
+          <p>
+            Keep current briefs, requirements, and supporting files attached to the client work so
+            everyone is working from the same source.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Approvals</span>
+
+          <h3>Make decisions visible</h3>
+
+          <p>
+            Keep questions, feedback, submissions, and approvals connected to the relevant campaign
+            instead of relying on scattered conversations.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="160">
+          <span class="tag">Visibility</span>
+
+          <h3>Share the right information</h3>
+
+          <p>
+            Give clients access to their campaigns, deliverables, and relevant financial records
+            without exposing unrelated creators, clients, or internal agency data.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt" id="collaboration">
+      <p class="kicker">Collaboration</p>
+
+      <h2>Less searching. More shared context.</h2>
+
+      <p class="intro">
+        Email and messaging can still handle conversations. Aries gives the important operational
+        information a durable home, so a new operator does not have to reconstruct the account from
+        old messages and attachments.
+      </p>
+
+      <div class="grid-2">
+        <article class="card reveal">
+          <span class="tag">Brief</span>
+
+          <h3>Keep the current version clear</h3>
+
+          <p>
+            The active brief and its supporting material stay connected to the campaign rather than
+            becoming another attachment lost in a conversation.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Feedback</span>
+
+          <h3>Keep decisions attached</h3>
+
+          <p>
+            Questions, requested changes, and approvals remain associated with the work they refer
+            to, making the next action easier to identify.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <span class="tag">Handoffs</span>
+
+          <h3>Make context transferable</h3>
+
+          <p>
+            When an account moves to another operator, the workspace provides a shared operational
+            history instead of requiring a private briefing from the previous owner.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Records</span>
+
+          <h3>Keep important activity visible</h3>
+
+          <p>
+            Campaign changes, approvals, assignments, and relevant events can remain connected to
+            the client record for future reference.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="access">
+      <p class="kicker">Access control</p>
+
+      <h2>The client sees their work. The agency sees the whole operation.</h2>
+
+      <p class="intro">
+        Client collaboration only works when the boundary is clear. Aries should separate external
+        visibility from internal workspace access and make permissions explicit.
+      </p>
+
+      <div class="grid-2 steps">
+        <article class="card reveal">
+          <h3>1. Create the workspace</h3>
+
+          <p>
+            Create the client record, connect the relevant campaigns, and assign the internal team
+            responsible for the relationship.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>2. Invite the client</h3>
+
+          <p>
+            Give approved client users access to their workspace without granting access to the
+            wider agency environment.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <h3>3. Control what is shared</h3>
+
+          <p>
+            Separate client-visible information from internal notes, operational records, financial
+            details, and other information that should remain private.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>4. Remove access cleanly</h3>
+
+          <p>
+            When a user's role or the client relationship changes, access can be revoked while the
+            agency retains the underlying operational history.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt" id="campaigns">
+      <p class="kicker">Connected work</p>
+
+      <h2>The client relationship connects directly to delivery.</h2>
+
+      <p class="intro">
+        A client should not need a separate system to understand which work is active, waiting for
+        approval, or complete. Campaigns provide the connection between the relationship and the
+        agency's delivery workflow.
+      </p>
+
+      <div class="grid-3">
+        <article class="card reveal">
+          <span class="tag">Planning</span>
+
+          <h3>What is being delivered?</h3>
+
+          <p>
+            Connect campaigns, briefs, timelines, and assigned work directly to the client record.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <span class="tag">Approval</span>
+
+          <h3>What is waiting?</h3>
+
+          <p>
+            Surface work that needs client feedback or approval so the next action is clear to both
+            sides.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="160">
+          <span class="tag">Complete</span>
+
+          <h3>What has been delivered?</h3>
+
+          <p>
+            Keep completed campaign activity available as part of the relationship history rather
+            than losing it when the project closes.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="privacy">
+      <p class="kicker">Boundaries</p>
+
+      <h2>Shared does not mean everything is shared.</h2>
+
+      <p class="intro">
+        A useful client workspace has a deliberate boundary between collaboration and internal
+        operations. Visibility should follow the user's role and the purpose of the information.
+      </p>
+
+      <div class="grid-2">
+        <article class="card reveal">
+          <h3>Client-visible</h3>
+
+          <p>
+            Relevant briefs, campaign status, deliverables, approvals, shared files, and financial
+            information intended for that client.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <h3>Internal-only</h3>
+
+          <p>
+            Internal notes, other client records, creator information, private operational data,
+            credentials, and agency-only decisions remain outside the client view.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="site">
+      <span>Aries · Clients</span>
+
+      <span>
+        <a href="dashboard.html#clients">Working view</a> · Workspaces · Collaboration · Access
+      </span>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
 </html>

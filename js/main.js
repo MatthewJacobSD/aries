@@ -14,6 +14,44 @@
     window.addEventListener("scroll", updateNav, {passive: true});
   }
 
+  /* ------------------------[Nav Dropdown]------------------------ */
+  const dropdowns = document.querySelectorAll(".nav-dropdown");
+  dropdowns.forEach((dropdown) => {
+    const trigger = dropdown.querySelector(".nav-dropdown-trigger");
+    const menu = dropdown.querySelector(".nav-dropdown-menu");
+    if (!trigger || !menu) {
+      return;
+    }
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.contains("open");
+      dropdowns.forEach((d) => {
+        d.classList.remove("open");
+      });
+      if (!isOpen) {
+        dropdown.classList.add("open");
+        trigger.setAttribute("aria-expanded", "true");
+      } else {
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+    menu.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") {
+        dropdown.classList.remove("open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+  document.addEventListener("click", () => {
+    dropdowns.forEach((d) => {
+      d.classList.remove("open");
+      const t = d.querySelector(".nav-dropdown-trigger");
+      if (t) {
+        t.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
   /* ------------------------[Image Motion]------------------------ */
   const motionImages = document.querySelectorAll(".hero img");
 
@@ -180,7 +218,9 @@
     const typing = document.createElement("div");
     typing.className = "bubble in typing";
     typing.setAttribute("aria-label", "Aries desk is typing");
-    typing.innerHTML = "<span></span><span></span><span></span>";
+    for (let i = 0; i < 3; i++) {
+      typing.appendChild(document.createElement("span"));
+    }
     msgs.appendChild(typing);
     msgs.scrollTop = msgs.scrollHeight;
     return typing;

@@ -1,6 +1,15 @@
 (function () {
   "use strict";
 
+  /* ------------------------[Session]------------------------ */
+  let sessionData = null;
+  try {
+    sessionData = JSON.parse(localStorage.getItem("aries_session") || "null");
+  } catch {
+    /* ignored */
+  }
+  const workspaceName = sessionData?.name || "Workspace";
+
   /* ------------------------[Pane Switching]------------------------ */
   const buttons = document.querySelectorAll(".dash-nav button[data-pane]");
   const panes = document.querySelectorAll(".pane");
@@ -16,7 +25,7 @@
         p.classList.toggle("on", p.id === `pane-${id}`);
       });
       if (title) {
-        title.textContent = `Workspace · North Atelier · ${btn.textContent.trim()}`;
+        title.textContent = `${workspaceName} · ${btn.textContent.trim()}`;
       }
       history.pushState(null, "", `#${id}`);
     });
@@ -24,9 +33,6 @@
 
   /* ------------------------[Hash Deep-Linking]------------------------ */
   const openPane = (id) => {
-    if (id === "integrations") {
-      id = "hooks"
-    };
     const match = document.querySelector(`.dash-nav button[data-pane="${id}"]`);
     if (match) {
       match.click();
@@ -61,7 +67,7 @@
       window.setTimeout(() => {
         const inn = document.createElement("div");
         inn.className = "bubble in";
-        inn.textContent = "Noted on the file. Finance can see this next to the period ledger.";
+        inn.textContent = "Noted. The relevant workspace record is the best place to continue.";
         msgs.appendChild(inn);
         msgs.scrollTop = msgs.scrollHeight;
       }, 600);

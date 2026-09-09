@@ -5,5 +5,10 @@
   "tabWidth": 2,
   "semi": true,
   "bracketSpacing": false,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "useTabs": false,
+  "bracketSameLine": false,
+  "endOfLine": "lf",
+  "proseWrap": "preserve",
+  "singleAttributePerLine": false
 }
