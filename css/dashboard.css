@@ -1,0 +1,73 @@
+body.app {
+  min-height: 100vh;
+  background: #0c0b09;
+}
+body.app header.site {
+  background: rgba(12, 11, 9, 0.9);
+  border-bottom-color: var(--line);
+}
+.app-shell {
+  padding: 4.6rem 1rem 1rem;
+  min-height: 100vh;
+}
+.app-shell .dash {
+  min-height: calc(100vh - 5.6rem);
+  grid-template-columns: 210px minmax(0, 1fr) 300px;
+  box-shadow: none;
+}
+.app-shell .pane { display: none; }
+.app-shell .pane.on { display: block; }
+.app-shell .dash-main { overflow: auto; }
+.subhead {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin: -0.4rem 0 1rem;
+}
+.queue {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+.queue-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid var(--line);
+  padding: 0.75rem 0.85rem;
+  font-size: 0.82rem;
+}
+.queue-item b { font-weight: 500; }
+.queue-item span { color: var(--muted); }
+.badge {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.empty-state {
+  border: 1px dashed var(--line);
+  padding: 1.4rem 1.2rem;
+  margin-top: 0.4rem;
+}
+.empty-state h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+.empty-state p { color: var(--muted); font-size: 0.9rem; line-height: 1.55; max-width: 36rem; }
+.empty-state .cta { margin-top: 1rem; }
+body.app[data-desk="empty"] .filled { display: none !important; }
+body.app[data-desk="demo"] .empty-state { display: none !important; }
+
+@media (max-width: 1080px) {
+  body.app .dash-side,
+  body.app .dash-chat { display: flex; flex-direction: column; }
+  body.app .dash {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+}
+@media (max-width: 800px) {
+  body.app nav.primary { display: flex; }
+}

@@ -1,0 +1,78 @@
+module.exports = [
+  {
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "script",
+      globals: {
+        window: "readonly",
+        document: "readonly",
+        localStorage: "readonly",
+        console: "readonly",
+        setTimeout: "readonly",
+        matchMedia: "readonly",
+        IntersectionObserver: "readonly",
+        requestAnimationFrame: "readonly",
+        JSON: "readonly",
+        Math: "readonly",
+        Date: "readonly",
+        Object: "readonly",
+        parseInt: "readonly"
+      }
+    },
+    rules: {
+      "no-var": "error",
+      "prefer-const": "error",
+      "no-unused-vars": [
+        "error",
+        {
+          args: "after-used",
+          ignoreRestSiblings: true
+        }
+      ],
+
+      eqeqeq: ["error", "always"],
+      curly: ["error", "all"],
+      "no-implicit-globals": "error",
+      "no-global-assign": "error",
+      "no-redeclare": "error",
+      "no-shadow": "warn",
+
+      "no-console": [
+        "warn",
+        {
+          allow: ["warn", "error"]
+        }
+      ],
+
+      "no-debugger": "error",
+      "no-alert": "warn",
+      "no-eval": "error",
+      "no-implied-eval": "error",
+      "no-new-func": "error",
+
+      "no-throw-literal": "error",
+      "no-return-await": "error",
+      "no-unreachable": "error",
+      "no-unexpected-multiline": "error",
+
+      "consistent-return": "warn",
+      "default-case-last": "error",
+      "no-duplicate-case": "error",
+      "no-fallthrough": "error",
+
+      "array-callback-return": "error",
+      "no-array-constructor": "error",
+      "no-new-object": "error",
+      "object-shorthand": "error",
+      "prefer-template": "warn",
+      "prefer-arrow-callback": "warn",
+
+      "no-duplicate-imports": "error",
+      "sort-imports": "off",
+
+      "no-multi-spaces": "error",
+      "no-trailing-spaces": "error",
+      "spaced-comment": ["error", "always"]
+    }
+  }
+];

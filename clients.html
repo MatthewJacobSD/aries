@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clients — Aries</title>
+  <meta name="description" content="Give each client a room for briefs, approvals, and the numbers that belong to them." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+  <header class="site">
+    <a class="logo" href="index.html">Aries</a>
+    <nav class="primary">
+      <a href="index.html">Home</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="clients.html">Clients</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Sign in</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="mountain">
+    <img src="images/chat.jpg" alt="Two chairs and coffee" />
+    <div class="hero-copy">
+      <p class="eyebrow">Explainer · rooms, not inboxes</p>
+      <h1>Clients</h1>
+      <p class="lede">Each client gets a workspace: brief, files, approvals, and the money that belongs to that relationship. They do not see another client’s room. You do not reconstruct the account from email.</p>
+      <div class="cta-row">
+        <a class="cta solid" href="dashboard.html#clients">Open the working view</a>
+        <a class="cta" href="#room">What the room holds</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="hero-bridge" id="heroBridge">
+    <div class="glow"></div>
+    <div class="line"></div>
+    <span class="label">One client, one room</span>
+  </div>
+
+  <section class="section" id="room">
+    <p class="kicker">In the room</p>
+    <h2>The relationship stays next to the work.</h2>
+    <div class="grid-3">
+      <article class="card reveal"><span class="tag">Brief</span><h3>What they asked for</h3><p>The latest brief and files live here. An update is an event, not a buried attachment.</p></article>
+      <article class="card reveal" data-delay="80"><span class="tag">Thread</span><h3>What they said</h3><p>Approvals and questions stay in the room so a new operator can read the tone and the facts.</p></article>
+      <article class="card reveal" data-delay="160"><span class="tag">Numbers</span><h3>What they can see</h3><p>Only the campaigns and receipts that belong to them. Agency internals stay off that view.</p></article>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <p class="kicker">Access</p>
+    <h2>Invited in. Easy to remove.</h2>
+    <div class="grid-2 steps">
+      <article class="card reveal"><h3>Open a workspace</h3><p>Name the client, attach campaigns, and decide who inside the agency may enter.</p></article>
+      <article class="card reveal" data-delay="80"><h3>Invite the outside seat</h3><p>They get the room, not the whole company. Partners follow the same rule.</p></article>
+      <article class="card reveal"><h3>Keep talk on the file</h3><p>The live desk on the homepage is the idea. This room is where that talk is stored.</p></article>
+      <article class="card reveal" data-delay="80"><h3>Close or transfer</h3><p>When the relationship ends, access ends with it. The history remains for the people who still need it.</p></article>
+    </div>
+  </section>
+
+  <footer class="site">
+    <span>Aries · Clients</span>
+    <span><a href="dashboard.html#clients">Working view</a></span>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

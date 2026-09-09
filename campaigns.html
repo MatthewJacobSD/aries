@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campaigns — Aries</title>
+  <meta name="description" content="Turn briefs into work with owners, approvals, and a status everyone can see." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+  <header class="site">
+    <a class="logo" href="index.html">Aries</a>
+    <nav class="primary">
+      <a href="index.html">Home</a>
+      <a href="creators.html">Creators</a>
+      <a href="campaigns.html">Campaigns</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="clients.html">Clients</a>
+      <a href="revenue.html">Revenue</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Sign in</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="mountain">
+    <img src="images/auth-observatory.jpg" alt="Mountain room at first light" />
+    <div class="hero-copy">
+      <p class="eyebrow">Explainer · work with a name</p>
+      <h1>Campaigns</h1>
+      <p class="lede">A campaign is the unit of work: brief, deliverables, who is shooting, what is approved, and whether money has posted against it. Status is on the file — not in a thread from last Tuesday.</p>
+      <div class="cta-row">
+        <a class="cta solid" href="dashboard.html#campaigns">Open the working view</a>
+        <a class="cta" href="#flow">How a campaign moves</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="hero-bridge" id="heroBridge">
+    <div class="glow"></div>
+    <div class="line"></div>
+    <span class="label">Requested to approved</span>
+  </div>
+
+  <section class="section" id="flow">
+    <p class="kicker">How a campaign moves</p>
+    <h2>From the brief to a line on the book.</h2>
+    <div class="grid-2 steps">
+      <article class="card reveal"><h3>Name the work</h3><p>Create the campaign, attach creators and a client room, and write what “done” means.</p></article>
+      <article class="card reveal" data-delay="80"><h3>Assign tasks</h3><p>Each asset or checkpoint has an owner and a due date. Waiting work is visible in the morning.</p></article>
+      <article class="card reveal"><h3>Approve in place</h3><p>Submitted, revised, approved. The event can fire a hook without a separate status email.</p></article>
+      <article class="card reveal" data-delay="80"><h3>Tie it to cash</h3><p>When the period closes, revenue against that campaign is a row, not a reconstruction.</p></article>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <p class="kicker">What the desk shows</p>
+    <h2>Everyone sees the same state.</h2>
+    <p class="intro">Operators see the queue. Creators see their assignments. Clients see the brief and the approvals — not another client’s campaign.</p>
+    <div class="grid-3">
+      <article class="card reveal"><span class="tag">Queue</span><h3>What is waiting</h3><p>In review, blocked, or live. Fewer “where are we?” messages.</p></article>
+      <article class="card reveal" data-delay="80"><span class="tag">Ownership</span><h3>Who handles it</h3><p>A change of operator keeps the history. The campaign does not reset.</p></article>
+      <article class="card reveal" data-delay="160"><span class="tag">Events</span><h3>campaign.*</h3><p>Assigned, submitted, approved, completed — the same names the log already uses.</p></article>
+    </div>
+  </section>
+
+  <footer class="site">
+    <span>Aries · Campaigns</span>
+    <span><a href="dashboard.html#campaigns">Working view</a></span>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

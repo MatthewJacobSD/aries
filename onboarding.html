@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set up your workspace — Aries</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body>
+    <div class="ob-wrap">
+      <div class="ob-card">
+        <a
+          href="index.html"
+          style="
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-decoration: none;
+          "
+          >← Back to home</a
+        >
+        <p class="kicker">Onboarding</p>
+        <h2
+          style="
+            font-family: &quot;Cormorant Garamond&quot;, serif;
+            font-weight: 400;
+            font-size: 2rem;
+            margin: 0.3rem 0 0.35rem;
+          "
+        >
+          Hello, <span id="helloName">there</span>.
+        </h2>
+        <p class="lede" style="color: var(--muted); font-weight: 300; line-height: 1.55">
+          Four short steps. You can change this later in workspace settings.
+        </p>
+        <div class="progress" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+
+        <section data-step="0">
+          <p class="kicker">Step 1</p>
+          <h3 style="margin: 0.4rem 0 1rem; font-weight: 500">How do you sit in the business?</h3>
+          <div class="choices">
+            <button class="choice" type="button" data-role="owner">
+              Agency owner<small>You close the books and own the workspace.</small>
+            </button>
+            <button class="choice" type="button" data-role="operator">
+              Operator / manager<small>You run campaigns, creators, and the daily desk.</small>
+            </button>
+            <button class="choice" type="button" data-role="finance">
+              Finance<small>You watch payouts, fees, and what is still owed.</small>
+            </button>
+            <button class="choice" type="button" data-role="creator">
+              Creator<small>You need your campaigns and money, not the whole agency.</small>
+            </button>
+          </div>
+        </section>
+
+        <section data-step="1" hidden>
+          <p class="kicker">Step 2</p>
+          <h3 style="margin: 0.4rem 0 1rem; font-weight: 500">Name the workspace</h3>
+          <div class="field">
+            <label for="workspace">Workspace name</label>
+            <input id="workspace" type="text" placeholder="North Atelier" />
+          </div>
+        </section>
+
+        <section data-step="2" hidden>
+          <p class="kicker">Step 3</p>
+          <h3 style="margin: 0.4rem 0 1rem; font-weight: 500">
+            Which channels are already in play?
+          </h3>
+          <div class="choices">
+            <button class="choice" type="button" data-platform="fanvue">Fanvue</button>
+            <button class="choice" type="button" data-platform="telegram">Telegram</button>
+            <button class="choice" type="button" data-platform="whatsapp">WhatsApp</button>
+            <button class="choice" type="button" data-platform="stripe">Stripe / Paxum</button>
+          </div>
+        </section>
+
+        <section data-step="3" hidden>
+          <p class="kicker">Step 4</p>
+          <h3 style="margin: 0.4rem 0 1rem; font-weight: 500">How large is the desk today?</h3>
+          <div class="choices">
+            <button class="choice" type="button" data-team="solo">Just me</button>
+            <button class="choice" type="button" data-team="small">2–10 people</button>
+            <button class="choice" type="button" data-team="mid">11–40 people</button>
+            <button class="choice" type="button" data-team="large">40+</button>
+          </div>
+        </section>
+
+        <div class="actions">
+          <button class="btn ghost" type="button" id="backBtn">Back</button>
+          <button class="btn" type="button" id="nextBtn">Continue</button>
+          <button class="btn" type="button" id="finishBtn" hidden>Enter Aries</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var next = document.getElementById("nextBtn");
+        var finish = document.getElementById("finishBtn");
+        var steps = document.querySelectorAll("[data-step]");
+        var observer = new MutationObserver(function () {
+          var last = !steps[steps.length - 1].hidden;
+          next.hidden = last;
+          finish.hidden = !last;
+        });
+        steps.forEach(function (el) {
+          observer.observe(el, {attributes: true, attributeFilter: ["hidden"]});
+        });
+      })();
+    </script>
+    <script src="js/onboarding.js"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "aries",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint js/",
+    "lint:fix": "eslint js/ --fix",
+    "format": "prettier --write js/ css/ *.html",
+    "format:check": "prettier --check js/ css/ *.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "eslint": "^10.10.0",
+    "prettier": "^3.9.6"
+  }
+}
