@@ -39,6 +39,15 @@
     dots.forEach((el, n) => {
       el.classList.toggle("on", n <= i);
     });
+    const nextBtn = document.getElementById("nextBtn");
+    const finishBtn = document.getElementById("finishBtn");
+    const isLast = index === stepEls.length - 1;
+    if (nextBtn) {
+      nextBtn.hidden = isLast;
+    }
+    if (finishBtn) {
+      finishBtn.hidden = !isLast;
+    }
   };
 
   /* ------------------------[Role Choices]------------------------ */

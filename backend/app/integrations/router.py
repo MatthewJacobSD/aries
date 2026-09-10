@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.auth.dependencies import get_current_user
+from app.auth.policies import require_permission
 from app.database import get_db
 from app.integrations.schemas import (
     ConnectFanvueRequest,
@@ -15,9 +15,11 @@ from app.integrations.service import (
     disconnect_integration,
     get_fanvue_stats,
     get_integration,
+    get_integration_by_creator,
     list_integrations,
     send_telegram_message,
 )
+from app.models.user import User
 
 router = APIRouter(prefix="/api/integrations", tags=["integrations"])
 
@@ -25,7 +27,7 @@ router = APIRouter(prefix="/api/integrations", tags=["integrations"])
 @router.get("", response_model=list[IntegrationResponse])
 async def list_all(
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("integrations", "read")),
 ):
     return await list_integrations(db)
 
@@ -34,7 +36,7 @@ async def list_all(
 async def connect_fanvue(
     body: ConnectFanvueRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("integrations", "create")),
 ):
     return await connect_integration(
         db,
@@ -47,7 +49,7 @@ async def connect_fanvue(
 @router.get("/fanvue/{creator_id}/stats", response_model=FanvueStatsResponse)
 async def fanvue_stats(
     creator_id: str,
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("integrations", "read")),
 ):
     return await get_fanvue_stats(creator_id)
 
@@ -56,7 +58,7 @@ async def fanvue_stats(
 async def connect_telegram(
     body: ConnectTelegramRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("integrations", "create")),
 ):
     return await connect_integration(
         db,
@@ -71,10 +73,8 @@ async def send_telegram(
     creator_id: str,
     body: SendTelegramRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("integrations", "create")),
 ):
-    from app.integrations.service import get_integration_by_creator
-
     integration = await get_integration_by_creator(db, creator_id, "telegram")
     if not integration:
         raise HTTPException(status_code=404, detail="Telegram not connected for this creator")
@@ -85,7 +85,7 @@ async def send_telegram(
 async def disconnect(
     integration_id: str,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("integrations", "delete")),
 ):
     integration = await get_integration(db, integration_id)
     if not integration:

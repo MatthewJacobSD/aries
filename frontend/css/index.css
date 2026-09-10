@@ -186,6 +186,19 @@ nav.primary a:hover::after {
   transform-origin: left;
 }
 
+/* ------------------------[Role Badge]------------------------ */
+.role-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--gold-line);
+  border-radius: var(--radius-sm);
+  color: var(--gold);
+  font-size: var(--fs-badge);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
 /* ------------------------[Nav Dropdown]------------------------ */
 .nav-dropdown {
   position: relative;

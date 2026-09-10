@@ -8,6 +8,13 @@ class CreateClientRequest(BaseModel):
     status: str = "active"
 
 
+class UpdateClientRequest(BaseModel):
+    name: str | None = None
+    contact_email: str | None = None
+    industry: str | None = None
+    status: str | None = None
+
+
 class ClientResponse(BaseModel):
     id: str
     name: str

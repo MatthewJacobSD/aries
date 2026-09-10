@@ -3,8 +3,9 @@ import json
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.auth.dependencies import get_current_user
+from app.auth.policies import require_permission
 from app.database import get_db
+from app.models.user import User
 from app.payments.schemas import (
     CreateInvoiceRequest,
     CreatePayoutRequest,
@@ -28,7 +29,7 @@ router = APIRouter(prefix="/api/payments", tags=["payments"])
 async def revenue(
     period: str = Query("monthly"),
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("payments", "read")),
 ):
     return await get_revenue_overview(db)
 
@@ -39,7 +40,7 @@ async def list_payouts_endpoint(
     limit: int = Query(20, ge=1, le=100),
     status: str | None = Query(None),
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("payments", "read")),
 ):
     return await list_payouts(db, page, limit, status)
 
@@ -48,7 +49,7 @@ async def list_payouts_endpoint(
 async def create_payout_endpoint(
     body: CreatePayoutRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("payments", "create")),
 ):
     return await create_payout(db, **body.model_dump())
 
@@ -57,7 +58,7 @@ async def create_payout_endpoint(
 async def get_payout_endpoint(
     payout_id: str,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("payments", "read")),
 ):
     payout = await get_payout(db, payout_id)
     if not payout:
@@ -70,7 +71,7 @@ async def list_invoices_endpoint(
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100),
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("payments", "read")),
 ):
     return await list_invoices(db, page, limit)
 
@@ -79,7 +80,7 @@ async def list_invoices_endpoint(
 async def create_invoice_endpoint(
     body: CreateInvoiceRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("payments", "create")),
 ):
     return await create_invoice(db, **body.model_dump())
 
