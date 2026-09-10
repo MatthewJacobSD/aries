@@ -13,6 +13,10 @@ frontend/node_modules/
 # Docker
 postgres_data/
 
+# Postman (local only, not committed)
+.postman/
+postman/
+
 # OS
 .DS_Store
 Thumbs.db
