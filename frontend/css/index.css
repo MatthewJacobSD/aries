@@ -95,6 +95,10 @@ nav.primary {
   justify-content: flex-end;
   gap: 1.15rem;
 }
+#authSlot {
+  display: inline-flex;
+  gap: 1.15rem;
+}
 nav.primary a {
   position: relative;
   font-size: 0.68rem;
