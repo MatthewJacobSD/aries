@@ -1,0 +1,291 @@
+/* ------------------------[Campaign Shell]------------------------ */
+.campaign-shell .dash-main {
+  padding: 1.5rem 2rem 3rem;
+}
+
+/* ------------------------[Campaign Hero]------------------------ */
+.campaign-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.campaign-hero > div {
+  min-width: 0;
+}
+.campaign-hero .kicker {
+  margin-bottom: 0.25rem;
+}
+.campaign-hero h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0.4rem 0 0.6rem;
+}
+.campaign-hero p {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  max-width: 36rem;
+}
+
+/* ------------------------[Campaign Status]------------------------ */
+.campaign-status {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+.campaign-status span:not(.badge) {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+/* ------------------------[Campaign Section]------------------------ */
+.campaign-section {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
+}
+.campaign-section:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* ------------------------[Campaign Section Head]------------------------ */
+.campaign-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.campaign-section-head .kicker {
+  margin-bottom: 0.25rem;
+}
+.campaign-section-head h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+/* ------------------------[Campaign Metrics]------------------------ */
+.campaign-metrics {
+  margin-top: 0.5rem;
+}
+.campaign-metrics .metric span {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.campaign-metrics .metric strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* ------------------------[Campaign Table]------------------------ */
+.campaign-table {
+  min-width: 480px;
+}
+.campaign-table th,
+.campaign-table td {
+  padding: 0.65rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+.campaign-table th {
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.campaign-table td {
+  color: var(--muted-strong);
+  font-size: 0.78rem;
+}
+.campaign-table td a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.campaign-table td a:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------[Campaign People]------------------------ */
+.campaign-people {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.campaign-person {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.015);
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+.campaign-person:hover {
+  border-color: var(--gold-line);
+  background: rgba(255, 255, 255, 0.025);
+}
+.campaign-person-role {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+.campaign-person strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+.campaign-person strong a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.campaign-person strong a:hover {
+  text-decoration: underline;
+}
+.campaign-person > span:last-child {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+/* ------------------------[Campaign Queue]------------------------ */
+.campaign-queue {
+  margin-top: 0.5rem;
+}
+
+/* ------------------------[Campaign Activity]------------------------ */
+.campaign-activity {
+  display: grid;
+  gap: 0;
+  margin-top: 0.5rem;
+}
+.campaign-activity-row {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+.campaign-activity-row:first-child {
+  border-top: 0;
+}
+.campaign-activity-time {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+.campaign-activity-row strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+.campaign-activity-row p {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+/* ------------------------[Campaign Links]------------------------ */
+.campaign-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.campaign-links a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+.campaign-links a:hover {
+  border-color: var(--gold-line);
+  background: rgba(255, 255, 255, 0.025);
+}
+.campaign-links a span {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.campaign-links a strong {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--cream);
+}
+
+/* ------------------------[Campaign Demo Note]------------------------ */
+.campaign-demo-note {
+  margin-top: 2rem;
+  padding: 0.85rem 1rem;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+/* ------------------------[Responsive]------------------------ */
+@media (max-width: 800px) {
+  .campaign-shell .dash-main {
+    padding: 1.25rem 1rem 2rem;
+  }
+  .campaign-hero {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .campaign-status {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+  .campaign-section-head {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .campaign-people {
+    grid-template-columns: 1fr;
+  }
+  .campaign-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .campaign-shell .dash-main {
+    padding: 1rem 0.75rem 2rem;
+  }
+  .campaign-links {
+    grid-template-columns: 1fr;
+  }
+  .campaign-table {
+    min-width: 0;
+    display: block;
+    overflow-x: auto;
+  }
+}

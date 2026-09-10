@@ -1,1 +1,19 @@
+# Python
+backend/venv/
+backend/.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node (frontend)
+frontend/node_modules/
+
+# Docker
+postgres_data/
+
+# OS
+.DS_Store
+Thumbs.db
 node_modules/

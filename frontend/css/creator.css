@@ -1,0 +1,248 @@
+/* ------------------------[Creator Shell]------------------------ */
+.creator-shell .dash-main {
+  padding: 1.5rem 2rem 3rem;
+}
+
+/* ------------------------[Creator Profile]------------------------ */
+.creator-profile {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ------------------------[Creator Avatar]------------------------ */
+.creator-avatar {
+  flex-shrink: 0;
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-line);
+  color: var(--gold);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* ------------------------[Creator Identity]------------------------ */
+.creator-identity {
+  min-width: 0;
+}
+.creator-identity .kicker {
+  margin-bottom: 0.2rem;
+}
+.creator-identity h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0.3rem 0 0.5rem;
+}
+.creator-identity > p {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  max-width: 36rem;
+}
+
+/* ------------------------[Creator Meta]------------------------ */
+.creator-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+.creator-meta span {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ------------------------[Creator Section]------------------------ */
+.creator-section {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
+}
+.creator-section:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* ------------------------[Creator Section Head]------------------------ */
+.creator-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.creator-section-head .kicker {
+  margin-bottom: 0.25rem;
+}
+.creator-section-head h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+.creator-section-head .cta {
+  flex-shrink: 0;
+}
+
+/* ------------------------[Creator Metrics]------------------------ */
+.creator-metrics {
+  margin-top: 0.5rem;
+}
+.creator-metrics .metric span {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.creator-metrics .metric strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* ------------------------[Creator Table]------------------------ */
+.creator-table {
+  min-width: 480px;
+}
+.creator-table th,
+.creator-table td {
+  padding: 0.65rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+.creator-table th {
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.creator-table td {
+  color: var(--muted-strong);
+  font-size: 0.78rem;
+}
+.creator-table td a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.creator-table td a:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------[Creator Finance]------------------------ */
+.creator-finance {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.creator-finance > div {
+  min-width: 0;
+}
+.creator-finance span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+.creator-finance strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* ------------------------[Creator Queue]------------------------ */
+.creator-queue {
+  margin-top: 0.5rem;
+}
+
+/* ------------------------[Creator Boundaries]------------------------ */
+.creator-boundaries {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.creator-boundaries > div {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.015);
+}
+.creator-boundaries strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+}
+.creator-boundaries p {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+/* ------------------------[Creator Demo Note]------------------------ */
+.creator-demo-note {
+  margin-top: 2rem;
+  padding: 0.85rem 1rem;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+/* ------------------------[Responsive]------------------------ */
+@media (max-width: 800px) {
+  .creator-shell .dash-main {
+    padding: 1.25rem 1rem 2rem;
+  }
+  .creator-section-head {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .creator-boundaries {
+    grid-template-columns: 1fr;
+  }
+  .creator-finance {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .creator-shell .dash-main {
+    padding: 1rem 0.75rem 2rem;
+  }
+  .creator-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .creator-meta {
+    justify-content: center;
+  }
+  .creator-table {
+    min-width: 0;
+    display: block;
+    overflow-x: auto;
+  }
+}
