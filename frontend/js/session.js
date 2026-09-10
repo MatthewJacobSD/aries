@@ -1,23 +1,32 @@
 (function () {
   "use strict";
   const SESSION_KEY = "aries_session";
+  const TOKEN_KEY = "aries_token";
   const MODE_KEY = "aries_desk_mode";
 
   function session() {
     try {
       return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
-    } catch (_e) {
+    } catch {
       return null;
     }
   }
+
+  function token() {
+    return localStorage.getItem(TOKEN_KEY);
+  }
+
   function mode() {
     return localStorage.getItem(MODE_KEY) || "demo";
   }
+
   function setMode(m) {
     localStorage.setItem(MODE_KEY, m);
   }
+
   function signOut() {
     localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(TOKEN_KEY);
     window.location.href = "login.html";
   }
 
@@ -42,5 +51,5 @@
     }
   }
 
-  window.AriesSession = {session, mode, setMode, signOut};
+  window.AriesSession = { session, token, mode, setMode, signOut };
 })();

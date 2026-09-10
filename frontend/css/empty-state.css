@@ -1,0 +1,116 @@
+/* ------------------------[Empty State Component]------------------------ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border: 1px dashed var(--line);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+/* Icon */
+.empty-state-icon {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--gold-subtle);
+}
+
+.empty-state-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Title */
+.empty-state h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+/* Description */
+.empty-state p {
+  max-width: 28rem;
+  color: var(--muted);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+/* Action button */
+.empty-state .cta {
+  margin-top: 0;
+}
+
+/* ------------------------[Empty State Sizes]------------------------ */
+.empty-state.compact {
+  padding: 2rem 1rem;
+}
+
+.empty-state.compact .empty-state-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state.compact .empty-state-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.empty-state.compact h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.35rem;
+}
+
+.empty-state.compact p {
+  font-size: var(--fs-body-sm);
+  margin-bottom: 1rem;
+}
+
+/* ------------------------[Empty State Variants]------------------------ */
+.empty-state.success .empty-state-icon {
+  background: var(--success-bg);
+}
+.empty-state.success .empty-state-icon svg {
+  stroke: var(--good);
+}
+
+.empty-state.warning .empty-state-icon {
+  background: var(--warning-bg);
+}
+.empty-state.warning .empty-state-icon svg {
+  stroke: var(--warning);
+}
+
+/* ------------------------[Responsive]------------------------ */
+@media (max-width: 560px) {
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+  .empty-state h3 {
+    font-size: 1.2rem;
+  }
+  .empty-state p {
+    font-size: var(--fs-body-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .empty-state,
+  .empty-state-icon {
+    transition: none;
+  }
+}

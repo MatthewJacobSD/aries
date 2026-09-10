@@ -10,8 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/aries.css" />
   </head>
   <body class="app">
     <header class="site">
@@ -46,20 +45,15 @@
 
           <div class="pane on" id="pane-overview">
             <p class="subhead">Cash, work in flight, and rooms that need a reply.</p>
-            <div class="empty-state">
-              <h3>This desk is empty</h3>
-              <p>
-                No creators or payouts yet. That is expected after setup. Load the sample North
-                Atelier desk if you want to see a full period.
-              </p>
-              <button class="cta solid" type="button" data-load-demo>Load sample desk</button>
-            </div>
-            <div class="filled">
-              <div class="metrics">
-                <div class="metric"><span>Net this period</span><strong>$184,220</strong></div>
-                <div class="metric"><span>Open rooms</span><strong>12</strong></div>
-                <div class="metric"><span>Tasks due</span><strong>18</strong></div>
+            <div class="empty-state" id="overview-empty">
+              <div class="empty-state-icon">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
               </div>
+              <h3>This desk is empty</h3>
+              <p>No creators or payouts yet. Add creators and campaigns to get started.</p>
+            </div>
+            <div class="filled" id="overview-filled" style="display: none">
+              <div class="metrics" id="overview-metrics"></div>
               <table class="ledger">
                 <thead>
                   <tr>
@@ -69,157 +63,109 @@
                     <th>Value</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td><a href="creator-voss.html">M. Voss</a></td>
-                    <td class="mono">payout.ready</td>
-                    <td>Ready</td>
-                    <td>$4,820</td>
-                  </tr>
-                  <tr>
-                    <td><a href="campaign-atlas.html">Atlas</a></td>
-                    <td class="mono">content.approved</td>
-                    <td>Approved</td>
-                    <td>$2,400</td>
-                  </tr>
-                </tbody>
+                <tbody id="overview-activity"></tbody>
               </table>
             </div>
           </div>
 
           <div class="pane" id="pane-revenue">
             <p class="subhead">Gross, fees, and what is still sitting.</p>
-            <div class="empty-state">
-              <h3>No lines this period</h3>
-              <p>When intake posts, it will show here.</p>
-            </div>
-            <div class="filled">
-              <div class="metrics">
-                <div class="metric"><span>Gross</span><strong>$212,480</strong></div>
-                <div class="metric"><span>Fees</span><strong>$18,260</strong></div>
-                <div class="metric"><span>Open</span><strong>$14,420</strong></div>
+            <div class="empty-state" id="revenue-empty">
+              <div class="empty-state-icon">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
               </div>
+              <h3>No revenue yet</h3>
+              <p>When revenue posts, it will show here.</p>
+            </div>
+            <div class="filled" id="revenue-filled" style="display: none">
+              <div class="metrics" id="revenue-metrics"></div>
             </div>
           </div>
 
           <div class="pane" id="pane-creators">
             <p class="subhead">People on the book.</p>
-            <div class="empty-state">
+            <div class="empty-state" id="creators-empty">
+              <div class="empty-state-icon">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
               <h3>No creators yet</h3>
-              <p>Open a profile when someone joins.</p>
+              <p>Add a creator when someone joins.</p>
             </div>
-            <div class="filled">
+            <div class="filled" id="creators-filled" style="display: none">
               <table class="ledger">
                 <thead>
                   <tr>
                     <th>Creator</th>
+                    <th>Platform</th>
                     <th>Status</th>
-                    <th>Net due</th>
+                    <th>Share</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td><a href="creator-voss.html">M. Voss</a></td>
-                    <td>Active</td>
-                    <td>$4,820</td>
-                  </tr>
-                  <tr>
-                    <td>L. Vale</td>
-                    <td>Review</td>
-                    <td>$1,140</td>
-                  </tr>
-                </tbody>
+                <tbody id="creators-list"></tbody>
               </table>
             </div>
           </div>
 
           <div class="pane" id="pane-campaigns">
             <p class="subhead">Work with a name.</p>
-            <div class="empty-state">
+            <div class="empty-state" id="campaigns-empty">
+              <div class="empty-state-icon">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
               <h3>No campaigns</h3>
               <p>Name the first piece of work.</p>
             </div>
-            <div class="filled">
-              <div class="queue">
-                <div class="queue-item">
-                  <b><a href="campaign-atlas.html">Atlas · September</a></b
-                  ><span>Approved</span>
-                </div>
-                <div class="queue-item"><b>Solstice drop</b><span>In review</span></div>
-              </div>
+            <div class="filled" id="campaigns-filled" style="display: none">
+              <div class="queue" id="campaigns-list"></div>
             </div>
           </div>
 
           <div class="pane" id="pane-tasks">
             <p class="subhead">What still needs an owner.</p>
-            <div class="empty-state">
+            <div class="empty-state" id="tasks-empty">
+              <div class="empty-state-icon">
+                <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              </div>
               <h3>Nothing waiting</h3>
               <p>Tasks appear when a file needs a person.</p>
             </div>
-            <div class="filled">
-              <div class="queue">
-                <div class="queue-item">
-                  <b>Confirm Atlas payout rail</b><span class="badge">Finance</span>
-                </div>
-              </div>
+            <div class="filled" id="tasks-filled" style="display: none">
+              <div class="queue" id="tasks-list"></div>
             </div>
           </div>
 
           <div class="pane" id="pane-clients">
             <p class="subhead">Rooms, not inboxes.</p>
-            <div class="empty-state">
+            <div class="empty-state" id="clients-empty">
+              <div class="empty-state-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
               <h3>No client rooms</h3>
               <p>Invite a client when a brief exists.</p>
             </div>
-            <div class="filled">
-              <div class="queue">
-                <div class="queue-item"><b>North Atelier</b><span>Brief updated</span></div>
-              </div>
+            <div class="filled" id="clients-filled" style="display: none">
+              <div class="queue" id="clients-list"></div>
             </div>
           </div>
 
           <div class="pane" id="pane-integrations">
             <p class="subhead">Connected services and event delivery.</p>
-            <div class="empty-state">
+            <div class="empty-state" id="integrations-empty">
+              <div class="empty-state-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
               <h3>No integrations yet</h3>
               <p>Connect a service when your workspace is ready.</p>
             </div>
-            <div class="filled">
-              <div class="queue">
-                <div class="queue-item"><b>treasury-bus</b><span class="badge">Live</span></div>
-                <div class="queue-item"><b>pager</b><span>Retry</span></div>
-              </div>
+            <div class="filled" id="integrations-filled" style="display: none">
+              <div class="queue" id="integrations-list"></div>
             </div>
           </div>
 
           <div class="pane" id="pane-settings">
             <p class="subhead"><a href="settings.html">Open full settings</a></p>
-            <div class="empty-state">
-              <h3>Only you are on this desk</h3>
-              <p>Invite operators and finance when the work needs them.</p>
-            </div>
-            <div class="filled">
-              <table class="ledger">
-                <thead>
-                  <tr>
-                    <th>Person</th>
-                    <th>Role</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>A. Quinn</td>
-                    <td>Owner</td>
-                  </tr>
-                  <tr>
-                    <td><a href="creator-voss.html">M. Voss</a></td>
-                    <td>Creator</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p class="subhead" style="margin-top: 1rem">
-                <button class="cta" type="button" data-clear-desk>Clear sample desk</button>
-              </p>
+            <div class="filled" id="settings-filled">
+              <div class="metrics" id="settings-metrics"></div>
             </div>
           </div>
         </div>
@@ -227,7 +173,7 @@
           <div class="chat-head">Desk room</div>
           <div class="msgs" id="deskMsgs">
             <div class="bubble in">
-              This room stays empty until a client is invited — or you load the sample desk.
+              This room stays empty until a client is invited.
             </div>
           </div>
           <form class="composer" id="deskForm">

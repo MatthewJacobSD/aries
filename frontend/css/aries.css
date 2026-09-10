@@ -1,0 +1,16 @@
+/* Aries — Unified Stylesheet
+   Import all CSS in the correct order.
+   Use this single file instead of multiple <link> tags. */
+
+/* Base design system (variables, reset, typography, components) */
+@import url("./index.css");
+
+/* Empty state component */
+@import url("./empty-state.css");
+
+/* Page-specific styles */
+@import url("./auth.css");
+@import url("./dashboard.css");
+@import url("./settings.css");
+@import url("./campaign.css");
+@import url("./creator.css");

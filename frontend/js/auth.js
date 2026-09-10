@@ -1,24 +1,12 @@
 (function () {
   "use strict";
 
-  /* ------------------------[Storage Keys]------------------------ */
-  const USERS_KEY = "aries_users";
+  const API_URL = "http://localhost:8000";
   const SESSION_KEY = "aries_session";
+  const TOKEN_KEY = "aries_token";
   const ONBOARD_KEY = "aries_onboarding";
 
   /* ------------------------[Helpers]------------------------ */
-  const users = () => {
-    try {
-      return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
-    } catch {
-      return [];
-    }
-  };
-
-  const saveUsers = (list) => {
-    localStorage.setItem(USERS_KEY, JSON.stringify(list));
-  };
-
   const session = () => {
     try {
       return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
@@ -27,16 +15,18 @@
     }
   };
 
-  const setSession = (user) => {
+  const setSession = (user, token) => {
     localStorage.setItem(
       SESSION_KEY,
       JSON.stringify({
+        id: user.id,
         email: user.email,
-        name: user.name,
-        provider: user.provider || "email",
-        at: Date.now()
+        name: user.full_name,
+        role: user.role,
+        at: Date.now(),
       })
     );
+    localStorage.setItem(TOKEN_KEY, token);
   };
 
   const needsOnboarding = () => {
@@ -55,20 +45,25 @@
     el.textContent = text;
   };
 
-  /* ------------------------[Social Auth]------------------------ */
-  const upsertSocial = (provider, name) => {
-    const email = `${provider}.user@aries.local`;
-    const list = users();
-    let found = list.find((u) => {
-      return u.email === email;
-    });
-    if (!found) {
-      found = {name, email, password: "", provider};
-      list.push(found);
-      saveUsers(list);
+  /* ------------------------[API Calls]------------------------ */
+  const apiRequest = async (endpoint, options = {}) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    const headers = {
+      "Content-Type": "application/json",
+      ...options.headers,
+    };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
     }
-    setSession(found);
-    afterAuth();
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      ...options,
+      headers,
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.detail || "Request failed");
+    }
+    return data;
   };
 
   /* ------------------------[Login Form]------------------------ */
@@ -77,30 +72,31 @@
   const alertBox = document.getElementById("authAlert");
 
   if (loginForm) {
-    loginForm.addEventListener("submit", (e) => {
+    loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = (document.getElementById("email").value || "").trim().toLowerCase();
       const password = document.getElementById("password").value || "";
-      const found = users().find((u) => {
-        return u.email === email && u.password === password;
-      });
-      if (!found) {
-        showAlert(
-          alertBox,
-          "err",
-          "No matching account. Check the email and password, or create one."
-        );
-        return;
+      try {
+        showAlert(alertBox, "ok", "Signing in...");
+        const data = await apiRequest("/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ username: email, password }),
+        });
+        const user = await apiRequest("/api/auth/me", {
+          headers: { Authorization: `Bearer ${data.access_token}` },
+        });
+        setSession(user, data.access_token);
+        showAlert(alertBox, "ok", "Signed in. Taking you through.");
+        window.setTimeout(afterAuth, 400);
+      } catch (err) {
+        showAlert(alertBox, "err", err.message || "Login failed. Check your credentials.");
       }
-      setSession(found);
-      showAlert(alertBox, "ok", "Signed in. Taking you through.");
-      window.setTimeout(afterAuth, 400);
     });
   }
 
   /* ------------------------[Register Form]------------------------ */
   if (registerForm) {
-    registerForm.addEventListener("submit", (e) => {
+    registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = (document.getElementById("name").value || "").trim();
       const email = (document.getElementById("email").value || "").trim().toLowerCase();
@@ -114,22 +110,28 @@
         showAlert(alertBox, "err", "The two passwords do not match.");
         return;
       }
-      const list = users();
-      if (
-        list.some((u) => {
-          return u.email === email;
-        })
-      ) {
-        showAlert(alertBox, "err", "That email already has an account. Sign in instead.");
-        return;
+      try {
+        showAlert(alertBox, "ok", "Creating account...");
+        const user = await apiRequest("/api/auth/register", {
+          method: "POST",
+          body: JSON.stringify({
+            email,
+            password,
+            full_name: name,
+            role: "agency_admin",
+          }),
+        });
+        const loginData = await apiRequest("/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ username: email, password }),
+        });
+        setSession(user, loginData.access_token);
+        localStorage.removeItem(ONBOARD_KEY);
+        showAlert(alertBox, "ok", "Account created. Next: a short setup.");
+        window.setTimeout(afterAuth, 450);
+      } catch (err) {
+        showAlert(alertBox, "err", err.message || "Registration failed.");
       }
-      const user = {name, email, password, provider: "email"};
-      list.push(user);
-      saveUsers(list);
-      localStorage.removeItem(ONBOARD_KEY);
-      setSession(user);
-      showAlert(alertBox, "ok", "Account created. Next: a short setup.");
-      window.setTimeout(afterAuth, 450);
     });
   }
 
@@ -137,15 +139,11 @@
   document.querySelectorAll("[data-provider]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const provider = btn.getAttribute("data-provider");
-      const label = provider === "google" ? "Google workspace user" : "Facebook workspace user";
       showAlert(
         alertBox,
         "ok",
-        `Demo sign-in with ${provider}. Real Google/Facebook login needs app keys from those platforms.`
+        `Social login with ${provider} requires backend OAuth configuration.`
       );
-      window.setTimeout(() => {
-        upsertSocial(provider, label);
-      }, 500);
     });
   });
 
@@ -155,7 +153,8 @@
     needsOnboarding,
     signOut() {
       localStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(TOKEN_KEY);
       window.location.href = "login.html";
-    }
+    },
   };
 })();
