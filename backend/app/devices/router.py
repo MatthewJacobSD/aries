@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.auth.dependencies import get_current_user
+from app.auth.policies import require_permission
 from app.database import get_db
 from app.devices.schemas import (
     DeviceLogsResponse,
@@ -17,6 +17,7 @@ from app.devices.service import (
     remove_device,
     update_device_status,
 )
+from app.models.user import User
 
 router = APIRouter(prefix="/api/devices", tags=["devices"])
 
@@ -27,7 +28,7 @@ async def list_all(
     limit: int = Query(20, ge=1, le=100),
     status: str | None = Query(None),
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("devices", "read")),
 ):
     return await list_devices(db, page, limit, status)
 
@@ -36,7 +37,7 @@ async def list_all(
 async def register(
     body: RegisterDeviceRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("devices", "create")),
 ):
     return await register_device(db, **body.model_dump())
 
@@ -45,7 +46,7 @@ async def register(
 async def get_one(
     device_id: str,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("devices", "read")),
 ):
     device = await get_device(db, device_id)
     if not device:
@@ -58,7 +59,7 @@ async def update_status(
     device_id: str,
     body: UpdateDeviceStatusRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("devices", "update")),
 ):
     device = await get_device(db, device_id)
     if not device:
@@ -70,7 +71,7 @@ async def update_status(
 async def remove(
     device_id: str,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("devices", "delete")),
 ):
     device = await get_device(db, device_id)
     if not device:
@@ -83,7 +84,7 @@ async def logs(
     device_id: str,
     limit: int = Query(100, ge=1),
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("devices", "read")),
 ):
     device = await get_device(db, device_id)
     if not device:

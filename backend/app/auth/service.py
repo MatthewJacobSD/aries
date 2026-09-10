@@ -65,3 +65,8 @@ async def authenticate_user(db: AsyncSession, email: str, password: str) -> User
     if not verify_password(password, user.hashed_password):
         return None
     return user
+
+
+async def get_all_users(db: AsyncSession) -> list[User]:
+    result = await db.execute(select(User))
+    return list(result.scalars().all())

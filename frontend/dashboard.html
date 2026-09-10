@@ -15,6 +15,16 @@
   <body class="app">
     <header class="site">
       <a class="logo" href="index.html">Aries</a>
+      <button
+        class="mobile-menu-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <nav class="primary" aria-label="Primary">
         <a href="index.html">Home</a>
         <a href="dashboard.html" aria-current="page">Dashboard</a>
@@ -28,13 +38,17 @@
           <div class="mark">ARIES</div>
           <nav class="dash-nav">
             <button class="active" type="button" data-pane="overview">Overview</button>
-            <button type="button" data-pane="revenue">Revenue</button>
-            <button type="button" data-pane="creators">Creators</button>
-            <button type="button" data-pane="campaigns">Campaigns</button>
-            <button type="button" data-pane="tasks">Tasks</button>
-            <button type="button" data-pane="clients">Clients</button>
-            <button type="button" data-pane="integrations">Integrations</button>
-            <button type="button" data-pane="settings">Settings</button>
+            <button type="button" data-pane="revenue" data-min-role="creator">Revenue</button>
+            <button type="button" data-pane="creators" data-min-role="admin">Creators</button>
+            <button type="button" data-pane="campaigns" data-min-role="creator">Campaigns</button>
+            <button type="button" data-pane="tasks" data-min-role="creator">Tasks</button>
+            <button type="button" data-pane="clients" data-min-role="admin">Clients</button>
+            <button type="button" data-pane="devices" data-min-role="admin">Devices</button>
+            <button type="button" data-pane="automation" data-min-role="admin">Automation</button>
+            <button type="button" data-pane="integrations" data-min-role="admin">
+              Integrations
+            </button>
+            <button type="button" data-pane="settings" data-min-role="creator">Settings</button>
           </nav>
         </aside>
         <div class="dash-main">
@@ -47,7 +61,10 @@
             <p class="subhead">Cash, work in flight, and rooms that need a reply.</p>
             <div class="empty-state" id="overview-empty">
               <div class="empty-state-icon">
-                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
               </div>
               <h3>This desk is empty</h3>
               <p>No creators or payouts yet. Add creators and campaigns to get started.</p>
@@ -72,7 +89,10 @@
             <p class="subhead">Gross, fees, and what is still sitting.</p>
             <div class="empty-state" id="revenue-empty">
               <div class="empty-state-icon">
-                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
               </div>
               <h3>No revenue yet</h3>
               <p>When revenue posts, it will show here.</p>
@@ -86,7 +106,10 @@
             <p class="subhead">People on the book.</p>
             <div class="empty-state" id="creators-empty">
               <div class="empty-state-icon">
-                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
               </div>
               <h3>No creators yet</h3>
               <p>Add a creator when someone joins.</p>
@@ -110,7 +133,11 @@
             <p class="subhead">Work with a name.</p>
             <div class="empty-state" id="campaigns-empty">
               <div class="empty-state-icon">
-                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
               </div>
               <h3>No campaigns</h3>
               <p>Name the first piece of work.</p>
@@ -124,7 +151,10 @@
             <p class="subhead">What still needs an owner.</p>
             <div class="empty-state" id="tasks-empty">
               <div class="empty-state-icon">
-                <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 11l3 3L22 4" />
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                </svg>
               </div>
               <h3>Nothing waiting</h3>
               <p>Tasks appear when a file needs a person.</p>
@@ -138,7 +168,9 @@
             <p class="subhead">Rooms, not inboxes.</p>
             <div class="empty-state" id="clients-empty">
               <div class="empty-state-icon">
-                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
               </div>
               <h3>No client rooms</h3>
               <p>Invite a client when a brief exists.</p>
@@ -152,7 +184,12 @@
             <p class="subhead">Connected services and event delivery.</p>
             <div class="empty-state" id="integrations-empty">
               <div class="empty-state-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="3" />
+                  <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                  />
+                </svg>
               </div>
               <h3>No integrations yet</h3>
               <p>Connect a service when your workspace is ready.</p>
@@ -172,9 +209,7 @@
         <aside class="dash-chat">
           <div class="chat-head">Desk room</div>
           <div class="msgs" id="deskMsgs">
-            <div class="bubble in">
-              This room stays empty until a client is invited.
-            </div>
+            <div class="bubble in">This room stays empty until a client is invited.</div>
           </div>
           <form class="composer" id="deskForm">
             <input id="deskInput" type="text" placeholder="Write in this room…" />

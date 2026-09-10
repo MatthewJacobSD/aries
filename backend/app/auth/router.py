@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth.dependencies import get_current_user
+from app.auth.policies import Role, require_role
 from app.auth.schemas import (
     ChangePasswordRequest,
     ForgotPasswordRequest,
@@ -34,7 +36,10 @@ async def register(body: RegisterRequest, db: AsyncSession = Depends(get_db)):
             status_code=status.HTTP_409_CONFLICT,
             detail="An account with this email already exists",
         )
-    user = await create_user(db, body.email, body.password, body.full_name, body.role)
+    result = await db.execute(select(func.count(User.id)))
+    user_count = result.scalar() or 0
+    role = Role.ADMIN.value if user_count == 0 else Role.CREATOR.value
+    user = await create_user(db, body.email, body.password, body.full_name, role)
     return user
 
 
@@ -85,15 +90,12 @@ async def update_me(
 async def forgot_password(body: ForgotPasswordRequest, db: AsyncSession = Depends(get_db)):
     user = await get_user_by_email(db, body.email)
     if user is None:
-        # Return success even if user not found (don't reveal existence)
         return {"message": "If the email exists, a reset link has been sent"}
-    # TODO: Send reset email with token
     return {"message": "If the email exists, a reset link has been sent"}
 
 
 @router.post("/reset-password")
 async def reset_password(body: ResetPasswordRequest, db: AsyncSession = Depends(get_db)):
-    # TODO: Validate reset token
     raise HTTPException(
         status_code=status.HTTP_501_NOT_IMPLEMENTED,
         detail="Password reset not yet implemented",
@@ -114,3 +116,12 @@ async def change_password(
     user.hashed_password = hash_password(body.new_password)
     await db.commit()
     return {"message": "Password changed"}
+
+
+@router.get("/users", response_model=list[UserResponse])
+async def list_users(
+    db: AsyncSession = Depends(get_db),
+    _user: User = Depends(require_role(Role.ADMIN)),
+):
+    from app.auth.service import get_all_users
+    return await get_all_users(db)

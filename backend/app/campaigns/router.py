@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.auth.dependencies import get_current_user
+from app.auth.policies import require_permission
 from app.campaigns.schemas import (
     CampaignResponse,
     CreateCampaignRequest,
@@ -15,6 +15,7 @@ from app.campaigns.service import (
     update_campaign,
 )
 from app.database import get_db
+from app.models.user import User
 
 router = APIRouter(prefix="/api/campaigns", tags=["campaigns"])
 
@@ -25,7 +26,7 @@ async def list_all(
     limit: int = Query(20, ge=1, le=100),
     status: str | None = Query(None),
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("campaigns", "read")),
 ):
     return await list_campaigns(db, page, limit, status)
 
@@ -34,7 +35,7 @@ async def list_all(
 async def create(
     body: CreateCampaignRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("campaigns", "create")),
 ):
     return await create_campaign(db, **body.model_dump())
 
@@ -43,7 +44,7 @@ async def create(
 async def get_one(
     campaign_id: str,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("campaigns", "read")),
 ):
     campaign = await get_campaign(db, campaign_id)
     if not campaign:
@@ -56,7 +57,7 @@ async def update(
     campaign_id: str,
     body: UpdateCampaignRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("campaigns", "update")),
 ):
     campaign = await get_campaign(db, campaign_id)
     if not campaign:
@@ -68,7 +69,7 @@ async def update(
 async def delete(
     campaign_id: str,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("campaigns", "delete")),
 ):
     campaign = await get_campaign(db, campaign_id)
     if not campaign:

@@ -20,3 +20,17 @@ async def create_client(db: AsyncSession, **kwargs) -> Client:
     await db.commit()
     await db.refresh(client)
     return client
+
+
+async def update_client(db: AsyncSession, client: Client, **kwargs) -> Client:
+    for key, value in kwargs.items():
+        if value is not None:
+            setattr(client, key, value)
+    await db.commit()
+    await db.refresh(client)
+    return client
+
+
+async def delete_client(db: AsyncSession, client: Client) -> None:
+    await db.delete(client)
+    await db.commit()

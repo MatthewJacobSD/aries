@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.auth.dependencies import get_current_user
+from app.auth.policies import Role, require_permission
 from app.creators.schemas import (
     CreateCreatorRequest,
     CreatorResponse,
@@ -17,6 +17,7 @@ from app.creators.service import (
     update_creator,
 )
 from app.database import get_db
+from app.models.user import User
 
 router = APIRouter(prefix="/api/creators", tags=["creators"])
 
@@ -27,7 +28,7 @@ async def list_all(
     limit: int = Query(20, ge=1, le=100),
     status: str | None = Query(None),
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("creators", "read")),
 ):
     return await list_creators(db, page, limit, status)
 
@@ -36,7 +37,7 @@ async def list_all(
 async def create(
     body: CreateCreatorRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("creators", "create")),
 ):
     return await create_creator(db, **body.model_dump())
 
@@ -45,7 +46,7 @@ async def create(
 async def get_one(
     creator_id: str,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("creators", "read")),
 ):
     creator = await get_creator(db, creator_id)
     if not creator:
@@ -58,7 +59,7 @@ async def update(
     creator_id: str,
     body: UpdateCreatorRequest,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("creators", "update")),
 ):
     creator = await get_creator(db, creator_id)
     if not creator:
@@ -70,7 +71,7 @@ async def update(
 async def delete(
     creator_id: str,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("creators", "delete")),
 ):
     creator = await get_creator(db, creator_id)
     if not creator:
@@ -82,7 +83,7 @@ async def delete(
 async def stats(
     creator_id: str,
     db: AsyncSession = Depends(get_db),
-    _user=Depends(get_current_user),
+    _user: User = Depends(require_permission("creators", "read")),
 ):
     creator = await get_creator(db, creator_id)
     if not creator:

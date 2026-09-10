@@ -38,3 +38,8 @@ async def update_task(db: AsyncSession, task: Task, **kwargs) -> Task:
     await db.commit()
     await db.refresh(task)
     return task
+
+
+async def delete_task(db: AsyncSession, task: Task) -> None:
+    await db.delete(task)
+    await db.commit()

@@ -19,6 +19,15 @@
   }
 
   const workspaceName = sessionData.name || "Workspace";
+  const userRole = sessionData.role || "buyer";
+
+  const ROLE_HIERARCHY = ["buyer", "creator", "admin"];
+
+  const hasMinRole = (required) => {
+    const userLevel = ROLE_HIERARCHY.indexOf(userRole);
+    const requiredLevel = ROLE_HIERARCHY.indexOf(required);
+    return userLevel >= requiredLevel;
+  };
 
   /* ------------------------[API Client]------------------------ */
   const api = async (endpoint) => {
@@ -27,7 +36,7 @@
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
-    const response = await fetch(`${API_URL}${endpoint}`, { headers });
+    const response = await fetch(`${API_URL}${endpoint}`, {headers});
     if (response.status === 401) {
       window.location.href = "login.html";
       return null;
@@ -43,7 +52,7 @@
     if (n === undefined || n === null) {
       return "0";
     }
-    return Number(n).toLocaleString("en-US", { minimumFractionDigits: 0 });
+    return Number(n).toLocaleString("en-US", {minimumFractionDigits: 0});
   };
 
   const escapeHtml = (str) => {
@@ -84,6 +93,11 @@
   const loaded = {};
 
   buttons.forEach((btn) => {
+    const minRole = btn.getAttribute("data-min-role");
+    if (minRole && !hasMinRole(minRole)) {
+      btn.hidden = true;
+      return;
+    }
     btn.addEventListener("click", () => {
       const id = btn.getAttribute("data-pane");
       buttons.forEach((b) => {
@@ -158,7 +172,8 @@
       return;
     }
     showFilled("revenue");
-    document.getElementById("revenue-metrics").innerHTML = `<div class="metric"><span>Gross</span><strong>$${formatNum(data.gross)}</strong></div><div class="metric"><span>Fees</span><strong>$${formatNum(data.fees)}</strong></div><div class="metric"><span>Outstanding</span><strong>$${formatNum(data.outstanding)}</strong></div>`;
+    document.getElementById("revenue-metrics").innerHTML =
+      `<div class="metric"><span>Gross</span><strong>$${formatNum(data.gross)}</strong></div><div class="metric"><span>Fees</span><strong>$${formatNum(data.fees)}</strong></div><div class="metric"><span>Outstanding</span><strong>$${formatNum(data.outstanding)}</strong></div>`;
   };
 
   /* ------------------------[Creators Pane]------------------------ */
@@ -240,7 +255,8 @@
   const loadSettings = async () => {
     const user = await api("/api/auth/me");
     if (user) {
-      document.getElementById("settings-metrics").innerHTML = `<div class="metric"><span>Signed in as</span><strong>${escapeHtml(user.full_name)}</strong></div><div class="metric"><span>Role</span><strong>${escapeHtml(user.role)}</strong></div>`;
+      document.getElementById("settings-metrics").innerHTML =
+        `<div class="metric"><span>Signed in as</span><strong>${escapeHtml(user.full_name)}</strong></div><div class="metric"><span>Role</span><strong>${escapeHtml(user.role)}</strong></div>`;
     }
   };
 
@@ -300,4 +316,57 @@
       }, 600);
     });
   }
+
+  /* ------------------------[Mobile Menu]------------------------ */
+  const menuToggle = document.querySelector(".mobile-menu-toggle");
+  const dashSide = document.querySelector(".dash-side");
+  let overlay = null;
+
+  const createOverlay = () => {
+    overlay = document.createElement("div");
+    overlay.className = "mobile-nav-overlay";
+    document.body.appendChild(overlay);
+    overlay.addEventListener("click", closeMobileMenu);
+  };
+
+  const openMobileMenu = () => {
+    if (!overlay) {
+      createOverlay();
+    }
+    menuToggle.classList.add("open");
+    menuToggle.setAttribute("aria-expanded", "true");
+    dashSide.classList.add("open");
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeMobileMenu = () => {
+    menuToggle.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    dashSide.classList.remove("open");
+    if (overlay) {
+      overlay.classList.remove("open");
+    }
+    document.body.style.overflow = "";
+  };
+
+  if (menuToggle) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.classList.contains("open");
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+  }
+
+  /* Close menu when a nav button is clicked */
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (window.innerWidth <= 800) {
+        closeMobileMenu();
+      }
+    });
+  });
 })();

@@ -16,6 +16,11 @@
     return localStorage.getItem(TOKEN_KEY);
   }
 
+  function role() {
+    const s = session();
+    return s ? s.role : null;
+  }
+
   function mode() {
     return localStorage.getItem(MODE_KEY) || "demo";
   }
@@ -41,7 +46,8 @@
   if (slot) {
     const s = session();
     if (s) {
-      slot.innerHTML = `<a href="settings.html">${s.name || s.email}</a><a href="#" data-sign-out>Sign out</a>`;
+      const roleLabel = s.role ? s.role.charAt(0).toUpperCase() + s.role.slice(1) : "";
+      slot.innerHTML = `<span class="role-badge">${roleLabel}</span><a href="settings.html">${s.name || s.email}</a><a href="#" data-sign-out>Sign out</a>`;
       slot.querySelector("[data-sign-out]").addEventListener("click", (e) => {
         e.preventDefault();
         signOut();
@@ -51,5 +57,5 @@
     }
   }
 
-  window.AriesSession = { session, token, mode, setMode, signOut };
+  window.AriesSession = { session, token, role, mode, setMode, signOut };
 })();
