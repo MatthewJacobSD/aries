@@ -1,0 +1,26 @@
+$kind: http-request
+name: Connect Fanvue
+method: POST
+url: '{{baseUrl}}/api/integrations/fanvue'
+order: 2000
+description: Connect a Fanvue account for a creator.
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "creator_id": "{{creatorId}}",
+      "api_key": "{{fanvueApiKey}}",
+      "username": "alexvoss"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", () => pm.response.to.have.status(201));
+      pm.test("Fanvue connected", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("status", "connected");
+      });

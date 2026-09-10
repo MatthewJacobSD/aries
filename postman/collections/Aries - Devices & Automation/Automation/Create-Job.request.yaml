@@ -1,0 +1,33 @@
+$kind: http-request
+method: POST
+url: '{{baseUrl}}/api/automation/jobs'
+description: 'Schedule a new content automation job.'
+order: 2000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Daily post - Alex Voss",
+      "creator_id": "{{creatorId}}",
+      "device_id": "{{deviceId}}",
+      "type": "scheduled_post",
+      "schedule": "0 9 * * *",
+      "payload": {
+        "platform": "fanvue",
+        "content_type": "image",
+        "caption": "Good morning! ☀️"
+      }
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", () => pm.response.to.have.status(201));
+      pm.test("Job created", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+        pm.collectionVariables.set("jobId", json.id);
+      });

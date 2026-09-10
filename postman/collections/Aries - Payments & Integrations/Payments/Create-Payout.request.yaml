@@ -1,0 +1,28 @@
+$kind: http-request
+name: Create Payout
+method: POST
+url: '{{baseUrl}}/api/payments/payouts'
+order: 3000
+description: Initiate a Stripe payout to a creator.
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "creator_id": "{{creatorId}}",
+      "amount": 1500.00,
+      "currency": "usd",
+      "description": "September earnings"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", () => pm.response.to.have.status(201));
+      pm.test("Payout created", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+        pm.collectionVariables.set("payoutId", json.id);
+      });

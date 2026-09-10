@@ -1,0 +1,42 @@
+$kind: http-request
+name: Create Client
+method: POST
+url: '{{baseUrl}}/api/clients'
+order: 2000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Acme Brand Co.",
+      "contact_email": "brand@acme.com",
+      "industry": "fashion",
+      "status": "active"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", () => pm.response.to.have.status(201));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Client created", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+        pm.collectionVariables.set("clientId", json.id);
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["id", "name", "status"],
+          properties: {
+            id: { type: "string" },
+            name: { type: "string" },
+            contact_email: { type: "string", format: "email" },
+            industry: { type: "string" },
+            status: { type: "string" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

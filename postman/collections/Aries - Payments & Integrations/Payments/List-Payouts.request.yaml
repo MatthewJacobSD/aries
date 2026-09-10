@@ -1,0 +1,22 @@
+$kind: http-request
+name: List Payouts
+method: GET
+url: '{{baseUrl}}/api/payments/payouts?page=1&limit=20&status=pending'
+order: 2000
+description: List creator payout records.
+queryParams:
+  - key: page
+    value: '1'
+  - key: limit
+    value: '20'
+  - key: status
+    value: pending
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Returns payout list", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("items");
+      });

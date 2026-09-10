@@ -1,0 +1,29 @@
+$kind: http-request
+method: GET
+url: '{{baseUrl}}/'
+description: Backend root endpoint.
+auth:
+  type: noauth
+order: 2000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Returns ok status", () => {
+        const json = pm.response.json();
+        pm.expect(json.status).to.eql("ok");
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["message", "status"],
+          properties: {
+            message: { type: "string" },
+            status: { type: "string", enum: ["ok"] }
+          },
+          additionalProperties: false
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

@@ -1,0 +1,36 @@
+$kind: http-request
+name: Create Invoice
+method: POST
+url: '{{baseUrl}}/api/payments/invoices'
+order: 6000
+description: Create a new invoice for a client.
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "client_id": "{{clientId}}",
+      "campaign_id": "{{campaignId}}",
+      "amount": 5000.00,
+      "currency": "usd",
+      "due_date": "2026-10-01",
+      "line_items": [
+        {
+          "description": "Campaign management - Atlas Summer Drop",
+          "quantity": 1,
+          "unit_price": 5000.00
+        }
+      ]
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", () => pm.response.to.have.status(201));
+      pm.test("Invoice created", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+        pm.collectionVariables.set("invoiceId", json.id);
+      });

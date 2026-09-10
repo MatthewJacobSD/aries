@@ -1,0 +1,22 @@
+$kind: http-request
+name: Connect Telegram
+method: POST
+url: '{{baseUrl}}/api/integrations/telegram'
+order: 4000
+description: Connect a Telegram bot for a creator.
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "creator_id": "{{creatorId}}",
+      "bot_token": "{{telegramBotToken}}",
+      "chat_id": "{{telegramChatId}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", () => pm.response.to.have.status(201));

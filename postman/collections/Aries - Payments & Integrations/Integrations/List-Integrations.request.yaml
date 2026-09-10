@@ -1,0 +1,15 @@
+$kind: http-request
+name: List Integrations
+method: GET
+url: '{{baseUrl}}/api/integrations'
+order: 1000
+description: List all connected third-party integrations.
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Returns integrations", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.be.an("array");
+      });

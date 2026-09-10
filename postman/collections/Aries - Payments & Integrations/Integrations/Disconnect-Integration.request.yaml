@@ -1,0 +1,11 @@
+$kind: http-request
+name: Disconnect Integration
+method: DELETE
+url: '{{baseUrl}}/api/integrations/{{integrationId}}'
+order: 6000
+description: Disconnect and remove a third-party integration.
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 204", () => pm.response.to.have.status(204));

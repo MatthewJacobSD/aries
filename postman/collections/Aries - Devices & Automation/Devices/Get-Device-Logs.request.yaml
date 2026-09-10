@@ -1,0 +1,17 @@
+$kind: http-request
+method: GET
+url: '{{baseUrl}}/api/devices/{{deviceId}}/logs?limit=100'
+description: 'Retrieve recent activity logs for a device.'
+order: 6000
+queryParams:
+  - key: limit
+    value: '100'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Returns logs", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("logs");
+      });

@@ -1,0 +1,41 @@
+$kind: http-request
+name: List Tasks
+method: GET
+url: '{{baseUrl}}/api/tasks?page=1&limit=20&status=pending'
+order: 1000
+queryParams:
+  - key: page
+    value: '1'
+  - key: limit
+    value: '20'
+  - key: status
+    value: pending
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["items", "total"],
+          properties: {
+            items: {
+              type: "array",
+              items: {
+                type: "object",
+                required: ["id", "title", "status"],
+                properties: {
+                  id: { type: "string" },
+                  title: { type: "string" },
+                  status: { type: "string" },
+                  priority: { type: "string" }
+                }
+              }
+            },
+            total: { type: "number" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

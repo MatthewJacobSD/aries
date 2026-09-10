@@ -1,0 +1,45 @@
+$kind: http-request
+name: List Campaigns
+method: GET
+url: '{{baseUrl}}/api/campaigns?page=1&limit=20&status=active'
+order: 1000
+queryParams:
+  - key: page
+    value: '1'
+  - key: limit
+    value: '20'
+  - key: status
+    value: active
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Returns campaign list", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("items");
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["items", "total"],
+          properties: {
+            items: {
+              type: "array",
+              items: {
+                type: "object",
+                required: ["id", "name", "status"],
+                properties: {
+                  id: { type: "string" },
+                  name: { type: "string" },
+                  status: { type: "string" },
+                  budget: { type: "number" }
+                }
+              }
+            },
+            total: { type: "number" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

@@ -13,9 +13,8 @@ frontend/node_modules/
 # Docker
 postgres_data/
 
-# Postman (local only, not committed)
-.postman/
-postman/
+# Postman (environments contain secrets)
+postman/environments/
 
 # OS
 .DS_Store

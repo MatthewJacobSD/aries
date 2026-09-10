@@ -1,0 +1,39 @@
+$kind: http-request
+name: 'Update Profile'
+description: "Update the current user's profile."
+method: PUT
+url: '{{baseUrl}}/api/auth/me'
+order: 2000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "full_name": "Jane Doe Updated",
+      "email": "updated@example.com"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Profile updated", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["id", "email"],
+          properties: {
+            id: { type: "string" },
+            email: { type: "string", format: "email" },
+            full_name: { type: "string" },
+            role: { type: "string" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

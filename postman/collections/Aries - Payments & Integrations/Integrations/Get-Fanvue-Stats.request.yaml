@@ -1,0 +1,16 @@
+$kind: http-request
+name: Get Fanvue Stats
+method: GET
+url: '{{baseUrl}}/api/integrations/fanvue/{{creatorId}}/stats'
+order: 3000
+description: Fetch subscriber and revenue stats from Fanvue.
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Returns Fanvue stats", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("subscribers");
+        pm.expect(json).to.have.property("revenue");
+      });

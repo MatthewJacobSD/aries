@@ -1,0 +1,8 @@
+$kind: collection
+name: Aries - Core
+description: Core health, status, and utility endpoints for the Aries creator agency platform.
+auth:
+  type: noauth
+variables:
+  - key: baseUrl
+    value: 'http://localhost:8000'

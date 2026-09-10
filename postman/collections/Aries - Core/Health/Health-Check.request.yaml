@@ -1,0 +1,30 @@
+$kind: http-request
+method: GET
+url: '{{baseUrl}}/health'
+description: Check if the backend service is running.
+auth:
+  type: noauth
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Service is healthy", () => {
+        const json = pm.response.json();
+        pm.expect(json.status).to.eql("ok");
+        pm.expect(json).to.have.property("service");
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["status", "service"],
+          properties: {
+            status: { type: "string", enum: ["ok"] },
+            service: { type: "string" }
+          },
+          additionalProperties: false
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

@@ -1,0 +1,28 @@
+$kind: http-request
+method: GET
+url: '{{baseUrl}}/ping'
+description: Simple ping/pong liveness check.
+auth:
+  type: noauth
+order: 3000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Returns pong", () => {
+        const json = pm.response.json();
+        pm.expect(json.ping).to.eql("pong!");
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["ping"],
+          properties: {
+            ping: { type: "string", enum: ["pong!"] }
+          },
+          additionalProperties: false
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

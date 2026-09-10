@@ -1,0 +1,20 @@
+$kind: http-request
+name: Get Revenue Overview
+method: GET
+url: '{{baseUrl}}/api/payments/revenue?period=monthly'
+order: 1000
+description: Get gross revenue, fees, and outstanding balances.
+queryParams:
+  - key: period
+    value: monthly
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Returns revenue data", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("gross");
+        pm.expect(json).to.have.property("fees");
+        pm.expect(json).to.have.property("outstanding");
+      });

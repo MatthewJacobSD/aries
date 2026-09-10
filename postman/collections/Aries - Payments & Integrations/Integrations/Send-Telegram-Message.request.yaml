@@ -1,0 +1,21 @@
+$kind: http-request
+name: Send Telegram Message
+method: POST
+url: '{{baseUrl}}/api/integrations/telegram/{{creatorId}}/send'
+order: 5000
+description: Send a message via a creator's connected Telegram bot.
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "message": "New content just dropped! 🔥",
+      "parse_mode": "HTML"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));

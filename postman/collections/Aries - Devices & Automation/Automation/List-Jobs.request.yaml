@@ -1,0 +1,21 @@
+$kind: http-request
+method: GET
+url: '{{baseUrl}}/api/automation/jobs?page=1&limit=20&status=running'
+description: 'List all content automation jobs.'
+order: 1000
+queryParams:
+  - key: page
+    value: '1'
+  - key: limit
+    value: '20'
+  - key: status
+    value: running
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Returns job list", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("items");
+      });

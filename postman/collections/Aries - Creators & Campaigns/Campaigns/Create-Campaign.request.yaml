@@ -1,0 +1,47 @@
+$kind: http-request
+name: Create Campaign
+method: POST
+url: '{{baseUrl}}/api/campaigns'
+order: 2000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Atlas Summer Drop",
+      "client_id": "{{clientId}}",
+      "creator_ids": ["{{creatorId}}"],
+      "budget": 5000.00,
+      "start_date": "2026-09-01",
+      "end_date": "2026-09-30",
+      "status": "draft"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", () => pm.response.to.have.status(201));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Campaign created", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+        pm.collectionVariables.set("campaignId", json.id);
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["id", "name", "status"],
+          properties: {
+            id: { type: "string" },
+            name: { type: "string" },
+            client_id: { type: "string" },
+            budget: { type: "number" },
+            start_date: { type: "string" },
+            end_date: { type: "string" },
+            status: { type: "string" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

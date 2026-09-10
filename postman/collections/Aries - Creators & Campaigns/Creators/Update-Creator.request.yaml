@@ -1,0 +1,34 @@
+$kind: http-request
+name: Update Creator
+method: PUT
+url: '{{baseUrl}}/api/creators/{{creatorId}}'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "status": "inactive",
+      "revenue_share": 0.75
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["id", "name", "status"],
+          properties: {
+            id: { type: "string" },
+            name: { type: "string" },
+            status: { type: "string" },
+            revenue_share: { type: "number" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

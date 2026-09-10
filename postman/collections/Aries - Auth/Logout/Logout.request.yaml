@@ -1,0 +1,22 @@
+$kind: http-request
+description: Invalidate the current session token.
+method: POST
+url: '{{baseUrl}}/api/auth/logout'
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.collectionVariables.set("accessToken", "");
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["message"],
+          properties: {
+            message: { type: "string" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

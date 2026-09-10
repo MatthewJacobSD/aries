@@ -1,0 +1,82 @@
+$kind: collection
+name: Aries - Creators & Campaigns
+description: Creator management and campaign operations for the Aries creator agency platform.
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{accessToken}}'
+variables:
+  - key: baseUrl
+    value: 'http://localhost:8000'
+  - key: creatorId
+    value: ''
+  - key: campaignId
+    value: ''
+  - key: clientId
+    value: ''
+  - key: taskId
+    value: ''
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      // Skip auto-login for the login endpoint itself and noauth requests
+      const url = pm.request.url.toString();
+      if (url.includes('/api/auth/login') || url.includes('/api/auth/register') || url.includes('/api/auth/forgot-password') || url.includes('/api/auth/reset-password')) {
+          return;
+      }
+
+      // Check if current request explicitly sets noauth
+      if (pm.request.auth && pm.request.auth.type === 'noauth') {
+          return;
+      }
+
+      // Get token from environment first, then collection variables
+      const token = pm.environment.get('accessToken') || pm.collectionVariables.get('accessToken');
+
+      // Check if token is valid (present and not expired)
+      function isTokenValid(t) {
+          if (!t) return false;
+          try {
+              const payload = JSON.parse(atob(t.split('.')[1]));
+              const now = Math.floor(Date.now() / 1000);
+              return payload.exp && payload.exp > now + 60;
+          } catch (e) {
+              return false;
+          }
+      }
+
+      if (isTokenValid(token)) {
+          return;
+      }
+
+      // Token is missing or expired — log in automatically
+      const baseUrl = pm.environment.get('baseUrl') || pm.collectionVariables.get('baseUrl') || 'http://localhost:8000';
+      const email = pm.environment.get('loginEmail') || 'user@example.com';
+      const password = pm.environment.get('loginPassword') || '';
+
+      pm.sendRequest({
+          url: baseUrl + '/api/auth/login',
+          method: 'POST',
+          header: { 'Content-Type': 'application/json' },
+          body: {
+              mode: 'raw',
+              raw: JSON.stringify({ username: email, password: password })
+          }
+      }, function (err, res) {
+          if (err) {
+              console.error('[Auto-login] Request failed:', err);
+              return;
+          }
+          if (res.code !== 200) {
+              console.error('[Auto-login] Login failed with status', res.code, res.text());
+              return;
+          }
+          const json = res.json();
+          if (json && json.access_token) {
+              pm.environment.set('accessToken', json.access_token);
+              pm.collectionVariables.set('accessToken', json.access_token);
+              console.log('[Auto-login] Token refreshed successfully.');
+          }
+      });

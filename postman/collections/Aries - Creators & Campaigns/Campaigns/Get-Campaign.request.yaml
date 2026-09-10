@@ -1,0 +1,30 @@
+$kind: http-request
+name: Get Campaign
+method: GET
+url: '{{baseUrl}}/api/campaigns/{{campaignId}}'
+order: 3000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Returns campaign", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+        pm.expect(json).to.have.property("name");
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["id", "name", "status"],
+          properties: {
+            id: { type: "string" },
+            name: { type: "string" },
+            client_id: { type: "string" },
+            budget: { type: "number" },
+            status: { type: "string" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });

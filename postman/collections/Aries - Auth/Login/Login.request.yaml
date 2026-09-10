@@ -1,0 +1,39 @@
+$kind: http-request
+description: Authenticate and receive a JWT access token.
+method: POST
+url: '{{baseUrl}}/api/auth/login'
+order: 1000
+auth:
+  type: noauth
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "username": "user@example.com",
+      "password": "{{loginPassword}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Returns access token", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("access_token");
+        pm.collectionVariables.set("accessToken", json.access_token);
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["access_token", "token_type"],
+          properties: {
+            access_token: { type: "string", minLength: 1 },
+            token_type: { type: "string" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });
