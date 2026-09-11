@@ -2,48 +2,30 @@
   "use strict";
 
   const API_URL = "http://localhost:8000";
-  const SESSION_KEY = "aries_session";
-  const TOKEN_KEY = "aries_token";
   const ONBOARD_KEY = "aries_onboarding";
 
-  /* ------------------------[Helpers]------------------------ */
-  const session = () => {
+  async function checkSession() {
     try {
-      return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
-    } catch {
-      return null;
-    }
-  };
-
-  /* ------------------------[Already Logged In]------------------------ */
-  const existingSession = session();
-  if (existingSession) {
-    const onboarded = localStorage.getItem(ONBOARD_KEY) === "complete";
-    window.location.href = onboarded ? "dashboard.html" : "onboarding.html";
-    return;
+      const res = await fetch(`${API_URL}/api/auth/me`, {
+        credentials: "include"
+      });
+      if (res.ok) {
+        return await res.json();
+      }
+    } catch {}
+    return null;
   }
 
-  const setSession = (user, token) => {
-    localStorage.setItem(
-      SESSION_KEY,
-      JSON.stringify({
-        id: user.id,
-        email: user.email,
-        name: user.full_name,
-        role: user.role,
-        at: Date.now(),
-      })
-    );
-    localStorage.setItem(TOKEN_KEY, token);
-  };
+  async function init() {
+    const existingUser = await checkSession();
+    if (existingUser) {
+      const onboarded = localStorage.getItem(ONBOARD_KEY) === "complete";
+      window.location.href = onboarded ? "dashboard.html" : "onboarding.html";
+      return;
+    }
+  }
 
-  const needsOnboarding = () => {
-    return localStorage.getItem(ONBOARD_KEY) !== "complete";
-  };
-
-  const afterAuth = () => {
-    window.location.href = needsOnboarding() ? "onboarding.html" : "dashboard.html";
-  };
+  init();
 
   const showAlert = (el, type, text) => {
     if (!el) {
@@ -53,28 +35,6 @@
     el.textContent = text;
   };
 
-  /* ------------------------[API Calls]------------------------ */
-  const apiRequest = async (endpoint, options = {}) => {
-    const token = localStorage.getItem(TOKEN_KEY);
-    const headers = {
-      "Content-Type": "application/json",
-      ...options.headers,
-    };
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
-    }
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      ...options,
-      headers,
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.detail || "Request failed");
-    }
-    return data;
-  };
-
-  /* ------------------------[Login Form]------------------------ */
   const loginForm = document.getElementById("loginForm");
   const registerForm = document.getElementById("registerForm");
   const alertBox = document.getElementById("authAlert");
@@ -86,23 +46,27 @@
       const password = document.getElementById("password").value || "";
       try {
         showAlert(alertBox, "ok", "Signing in...");
-        const data = await apiRequest("/api/auth/login", {
+        const res = await fetch(`${API_URL}/api/auth/login`, {
           method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username: email, password }),
         });
-        const user = await apiRequest("/api/auth/me", {
-          headers: { Authorization: `Bearer ${data.access_token}` },
-        });
-        setSession(user, data.access_token);
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.detail || "Login failed");
+        }
         showAlert(alertBox, "ok", "Signed in. Taking you through.");
-        window.setTimeout(afterAuth, 400);
+        window.setTimeout(() => {
+          const onboarded = localStorage.getItem(ONBOARD_KEY) === "complete";
+          window.location.href = onboarded ? "dashboard.html" : "onboarding.html";
+        }, 400);
       } catch (err) {
         showAlert(alertBox, "err", err.message || "Login failed. Check your credentials.");
       }
     });
   }
 
-  /* ------------------------[Register Form]------------------------ */
   if (registerForm) {
     registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -120,30 +84,36 @@
       }
       try {
         showAlert(alertBox, "ok", "Creating account...");
-        const user = await apiRequest("/api/auth/register", {
+        const regRes = await fetch(`${API_URL}/api/auth/register`, {
           method: "POST",
-          body: JSON.stringify({
-            email,
-            password,
-            full_name: name,
-            role: "agency_admin",
-          }),
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password, full_name: name }),
         });
-        const loginData = await apiRequest("/api/auth/login", {
+        if (!regRes.ok) {
+          const data = await regRes.json();
+          throw new Error(data.detail || "Registration failed");
+        }
+        const loginRes = await fetch(`${API_URL}/api/auth/login`, {
           method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username: email, password }),
         });
-        setSession(user, loginData.access_token);
+        if (!loginRes.ok) {
+          throw new Error("Auto-login failed");
+        }
         localStorage.removeItem(ONBOARD_KEY);
         showAlert(alertBox, "ok", "Account created. Next: a short setup.");
-        window.setTimeout(afterAuth, 450);
+        window.setTimeout(() => {
+          window.location.href = "onboarding.html";
+        }, 450);
       } catch (err) {
         showAlert(alertBox, "err", err.message || "Registration failed.");
       }
     });
   }
 
-  /* ------------------------[Social Buttons]------------------------ */
   document.querySelectorAll("[data-provider]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const provider = btn.getAttribute("data-provider");
@@ -154,15 +124,4 @@
       );
     });
   });
-
-  /* ------------------------[Export]------------------------ */
-  window.AriesAuth = {
-    session,
-    needsOnboarding,
-    signOut() {
-      localStorage.removeItem(SESSION_KEY);
-      localStorage.removeItem(TOKEN_KEY);
-      window.location.href = "login.html";
-    },
-  };
 })();

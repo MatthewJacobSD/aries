@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
+from fastapi import Response
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy import select
@@ -36,6 +37,25 @@ def decode_access_token(token: str) -> dict | None:
         return payload
     except JWTError:
         return None
+
+
+def set_session_cookie(response: Response, token: str) -> None:
+    response.set_cookie(
+        key=settings.COOKIE_NAME,
+        value=token,
+        max_age=settings.COOKIE_MAX_AGE,
+        httponly=True,
+        secure=settings.COOKIE_SECURE,
+        samesite=settings.COOKIE_SAMESITE,
+        path="/",
+    )
+
+
+def clear_session_cookie(response: Response) -> None:
+    response.delete_cookie(
+        key=settings.COOKIE_NAME,
+        path="/",
+    )
 
 
 async def get_user_by_email(db: AsyncSession, email: str) -> User | None:

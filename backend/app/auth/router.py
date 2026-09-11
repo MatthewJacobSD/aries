@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -11,17 +11,18 @@ from app.auth.schemas import (
     LoginRequest,
     RegisterRequest,
     ResetPasswordRequest,
-    TokenResponse,
     UpdateProfileRequest,
     UpdateRoleRequest,
     UserResponse,
 )
 from app.auth.service import (
     authenticate_user,
+    clear_session_cookie,
     create_access_token,
     create_user,
     get_user_by_email,
     hash_password,
+    set_session_cookie,
     verify_password,
 )
 from app.database import get_db
@@ -45,20 +46,22 @@ async def register(body: RegisterRequest, db: AsyncSession = Depends(get_db)):
     return user
 
 
-@router.post("/login", response_model=TokenResponse)
-async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
+@router.post("/login")
+async def login(body: LoginRequest, response: Response, db: AsyncSession = Depends(get_db)):
     user = await authenticate_user(db, body.username, body.password)
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
         )
-    access_token = create_access_token(data={"sub": user.email, "role": user.role})
-    return TokenResponse(access_token=access_token)
+    token = create_access_token(data={"sub": user.email, "role": user.role})
+    set_session_cookie(response, token)
+    return {"message": "Logged in", "user": {"id": user.id, "email": user.email, "name": user.full_name, "role": user.role}}
 
 
 @router.post("/logout")
-async def logout(user: User = Depends(get_current_user)):
+async def logout(response: Response):
+    clear_session_cookie(response)
     return {"message": "Logged out"}
 
 
