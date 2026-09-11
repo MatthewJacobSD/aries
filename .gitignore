@@ -20,3 +20,6 @@ postman/environments/
 .DS_Store
 Thumbs.db
 node_modules/
+
+# Agents
+grok/

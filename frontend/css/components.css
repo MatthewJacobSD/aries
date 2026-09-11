@@ -172,3 +172,27 @@
     border-radius: 0;
   }
 }
+
+/* ------------------------[Aries Toast]------------------------ */
+.aries-toast-overlay {
+  z-index: 300;
+}
+
+.aries-toast {
+  text-align: left;
+}
+
+.aries-toast .toast-message {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.aries-toast.toast-ok h3 {
+  color: var(--good);
+}
+
+.aries-toast.toast-err h3 {
+  color: var(--bad, #d9897a);
+}

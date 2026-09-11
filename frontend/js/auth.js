@@ -1,72 +1,45 @@
 (function () {
   "use strict";
 
-  const API_URL = "http://localhost:8000";
-  const ONBOARD_KEY = "aries_onboarding";
-
-  async function checkSession() {
-    try {
-      const res = await fetch(`${API_URL}/api/auth/me`, {
-        credentials: "include"
-      });
-      if (res.ok) {
-        return await res.json();
-      }
-    } catch {}
-    return null;
-  }
+  const { api, checkSession, showToast, ONBOARD_KEY } = window.Aries;
 
   async function init() {
     const existingUser = await checkSession();
     if (existingUser) {
       const onboarded = localStorage.getItem(ONBOARD_KEY) === "complete";
       window.location.href = onboarded ? "dashboard.html" : "onboarding.html";
-      return;
     }
   }
 
   init();
 
-  const showAlert = (el, type, text) => {
-    if (!el) {
-      return;
-    }
-    el.className = `alert show ${type}`;
-    el.textContent = text;
-  };
-
+  /* Login */
   const loginForm = document.getElementById("loginForm");
-  const registerForm = document.getElementById("registerForm");
-  const alertBox = document.getElementById("authAlert");
-
   if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = (document.getElementById("email").value || "").trim().toLowerCase();
       const password = document.getElementById("password").value || "";
+
       try {
-        showAlert(alertBox, "ok", "Signing in...");
-        const res = await fetch(`${API_URL}/api/auth/login`, {
+        showToast("ok", "Signing in", "Checking your credentials…");
+        await api("/api/auth/login", {
           method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username: email, password }),
         });
-        if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.detail || "Login failed");
-        }
-        showAlert(alertBox, "ok", "Signed in. Taking you through.");
-        window.setTimeout(() => {
+        showToast("ok", "Signed in", "Taking you through…");
+        setTimeout(() => {
           const onboarded = localStorage.getItem(ONBOARD_KEY) === "complete";
           window.location.href = onboarded ? "dashboard.html" : "onboarding.html";
-        }, 400);
+        }, 700);
       } catch (err) {
-        showAlert(alertBox, "err", err.message || "Login failed. Check your credentials.");
+        showToast("err", "Sign-in failed", err.message || "Check your email and password.");
       }
     });
   }
 
+  /* Register */
+  const registerForm = document.getElementById("registerForm");
   if (registerForm) {
     registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -74,54 +47,42 @@
       const email = (document.getElementById("email").value || "").trim().toLowerCase();
       const password = document.getElementById("password").value || "";
       const confirm = document.getElementById("confirm").value || "";
+
       if (password.length < 8) {
-        showAlert(alertBox, "err", "Use at least 8 characters for the password.");
+        showToast("err", "Password too short", "Use at least 8 characters.");
         return;
       }
       if (password !== confirm) {
-        showAlert(alertBox, "err", "The two passwords do not match.");
+        showToast("err", "Passwords do not match", "Please check both password fields.");
         return;
       }
+
       try {
-        showAlert(alertBox, "ok", "Creating account...");
-        const regRes = await fetch(`${API_URL}/api/auth/register`, {
+        showToast("ok", "Creating account", "Setting everything up…");
+        await api("/api/auth/register", {
           method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password, full_name: name }),
         });
-        if (!regRes.ok) {
-          const data = await regRes.json();
-          throw new Error(data.detail || "Registration failed");
-        }
-        const loginRes = await fetch(`${API_URL}/api/auth/login`, {
+        await api("/api/auth/login", {
           method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username: email, password }),
         });
-        if (!loginRes.ok) {
-          throw new Error("Auto-login failed");
-        }
         localStorage.removeItem(ONBOARD_KEY);
-        showAlert(alertBox, "ok", "Account created. Next: a short setup.");
-        window.setTimeout(() => {
+        showToast("ok", "Account created", "Next: a short setup…");
+        setTimeout(() => {
           window.location.href = "onboarding.html";
-        }, 450);
+        }, 800);
       } catch (err) {
-        showAlert(alertBox, "err", err.message || "Registration failed.");
+        showToast("err", "Registration failed", err.message || "Something went wrong.");
       }
     });
   }
 
+  /* Social buttons */
   document.querySelectorAll("[data-provider]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const provider = btn.getAttribute("data-provider");
-      showAlert(
-        alertBox,
-        "ok",
-        `Social login with ${provider} requires backend OAuth configuration.`
-      );
+      showToast("err", "Not configured", `Social login with ${provider} requires backend OAuth configuration.`);
     });
   });
 })();
