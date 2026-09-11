@@ -15,6 +15,14 @@
     }
   };
 
+  /* ------------------------[Already Logged In]------------------------ */
+  const existingSession = session();
+  if (existingSession) {
+    const onboarded = localStorage.getItem(ONBOARD_KEY) === "complete";
+    window.location.href = onboarded ? "dashboard.html" : "onboarding.html";
+    return;
+  }
+
   const setSession = (user, token) => {
     localStorage.setItem(
       SESSION_KEY,

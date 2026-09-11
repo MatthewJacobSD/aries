@@ -1,8 +1,9 @@
 (function () {
   "use strict";
 
-  /* ------------------------[Storage Keys]------------------------ */
+  const API_URL = "http://localhost:8000";
   const SESSION_KEY = "aries_session";
+  const TOKEN_KEY = "aries_token";
   const ONBOARD_KEY = "aries_onboarding";
   const DRAFT_KEY = "aries_onboarding_draft";
 
@@ -18,8 +19,32 @@
     return;
   }
 
+  /* ------------------------[Already Onboarded]------------------------ */
+  if (localStorage.getItem(ONBOARD_KEY) === "complete") {
+    window.location.href = "dashboard.html";
+    return;
+  }
+
+  /* ------------------------[API Client]------------------------ */
+  const api = async (endpoint, opts = {}) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    const headers = { "Content-Type": "application/json", ...opts.headers };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+    const res = await fetch(`${API_URL}${endpoint}`, { ...opts, headers });
+    if (res.status === 401) {
+      window.location.href = "login.html";
+      return null;
+    }
+    if (!res.ok) {
+      return null;
+    }
+    return res.json();
+  };
+
   /* ------------------------[Draft State]------------------------ */
-  const draft = {role: "", workspace: "", platforms: [], team: ""};
+  const draft = { role: "", workspace: "", platforms: [], team: "" };
   try {
     Object.assign(draft, JSON.parse(localStorage.getItem(DRAFT_KEY) || "{}"));
   } catch {
@@ -129,9 +154,27 @@
   });
 
   /* ------------------------[Finish]------------------------ */
-  document.getElementById("finishBtn").addEventListener("click", () => {
+  document.getElementById("finishBtn").addEventListener("click", async () => {
     draft.workspace = (workspace && workspace.value) || draft.workspace;
     localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+
+    /* Send role to backend */
+    if (draft.role) {
+      await api("/api/auth/complete-onboarding", {
+        method: "POST",
+        body: JSON.stringify({
+          role: draft.role,
+          workspace: draft.workspace,
+          platforms: draft.platforms,
+          team: draft.team,
+        }),
+      });
+    }
+
+    /* Update local session with role */
+    session.role = draft.role;
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+
     localStorage.setItem(ONBOARD_KEY, "complete");
     window.location.href = "dashboard.html";
   });

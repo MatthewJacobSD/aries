@@ -79,3 +79,22 @@ class ChangePasswordRequest(BaseModel):
         if len(v) < 8:
             raise ValueError("Password must be at least 8 characters long")
         return v
+
+
+class UpdateRoleRequest(BaseModel):
+    role: str
+
+    @field_validator("role")
+    @classmethod
+    def validate_role(cls, v):
+        valid_roles = [r.value for r in Role]
+        if v not in valid_roles:
+            raise ValueError(f"Role must be one of: {', '.join(valid_roles)}")
+        return v
+
+
+class CompleteOnboardingRequest(BaseModel):
+    role: str
+    workspace: str = ""
+    platforms: list[str] = []
+    team: str = ""

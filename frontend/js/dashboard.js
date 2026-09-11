@@ -93,6 +93,14 @@
   const loaded = {};
   let firstVisiblePane = null;
 
+  /* Hide header nav links based on role */
+  document.querySelectorAll("nav.primary a[data-min-role]").forEach((link) => {
+    const minRole = link.getAttribute("data-min-role");
+    if (minRole && !hasMinRole(minRole)) {
+      link.hidden = true;
+    }
+  });
+
   buttons.forEach((btn) => {
     const minRole = btn.getAttribute("data-min-role");
     if (minRole && !hasMinRole(minRole)) {

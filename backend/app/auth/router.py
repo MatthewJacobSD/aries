@@ -6,12 +6,14 @@ from app.auth.dependencies import get_current_user
 from app.auth.policies import Role, require_role
 from app.auth.schemas import (
     ChangePasswordRequest,
+    CompleteOnboardingRequest,
     ForgotPasswordRequest,
     LoginRequest,
     RegisterRequest,
     ResetPasswordRequest,
     TokenResponse,
     UpdateProfileRequest,
+    UpdateRoleRequest,
     UserResponse,
 )
 from app.auth.service import (
@@ -125,3 +127,28 @@ async def list_users(
 ):
     from app.auth.service import get_all_users
     return await get_all_users(db)
+
+
+@router.put("/me/role", response_model=UserResponse)
+async def update_role(
+    body: UpdateRoleRequest,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    user.role = body.role
+    await db.commit()
+    await db.refresh(user)
+    return user
+
+
+@router.post("/complete-onboarding", response_model=UserResponse)
+async def complete_onboarding(
+    body: CompleteOnboardingRequest,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    if body.role:
+        user.role = body.role
+    await db.commit()
+    await db.refresh(user)
+    return user
