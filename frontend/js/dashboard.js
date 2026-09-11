@@ -91,12 +91,21 @@
   const panes = document.querySelectorAll(".pane");
   const title = document.getElementById("deskTitle");
   const loaded = {};
+  let firstVisiblePane = null;
 
   buttons.forEach((btn) => {
     const minRole = btn.getAttribute("data-min-role");
     if (minRole && !hasMinRole(minRole)) {
       btn.hidden = true;
+      const paneId = btn.getAttribute("data-pane");
+      const pane = document.getElementById(`pane-${paneId}`);
+      if (pane) {
+        pane.hidden = true;
+      }
       return;
+    }
+    if (!firstVisiblePane) {
+      firstVisiblePane = btn.getAttribute("data-pane");
     }
     btn.addEventListener("click", () => {
       const id = btn.getAttribute("data-pane");
@@ -120,16 +129,23 @@
   /* ------------------------[Hash Deep-Linking]------------------------ */
   const openPane = (id) => {
     const match = document.querySelector(`.dash-nav button[data-pane="${id}"]`);
-    if (match) {
+    if (match && !match.hidden) {
       match.click();
     }
   };
 
   if (location.hash) {
-    openPane(location.hash.replace("#", ""));
-  } else {
-    loaded.overview = true;
-    loadPane("overview");
+    const hashPane = location.hash.replace("#", "");
+    const hashBtn = document.querySelector(`.dash-nav button[data-pane="${hashPane}"]`);
+    if (hashBtn && !hashBtn.hidden) {
+      openPane(hashPane);
+    } else if (firstVisiblePane) {
+      loaded[firstVisiblePane] = true;
+      loadPane(firstVisiblePane);
+    }
+  } else if (firstVisiblePane) {
+    loaded[firstVisiblePane] = true;
+    loadPane(firstVisiblePane);
   }
 
   window.addEventListener("hashchange", () => {
