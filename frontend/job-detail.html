@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Automation Job — Aries</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/aries.css" />
+  </head>
+  <body class="app">
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="settings.html">Settings</a>
+        <span id="authSlot"></span>
+      </nav>
+    </header>
+    <div class="app-shell">
+      <div class="dash">
+        <aside class="dash-side">
+          <div class="mark">ARIES</div>
+          <nav class="dash-nav">
+            <a class="dash-nav-link" href="dashboard.html">Overview</a>
+            <a class="dash-nav-link" href="dashboard.html#automation">Automation</a>
+            <button class="active" type="button">Job</button>
+          </nav>
+        </aside>
+        <div class="dash-main detail-shell">
+          <div id="loading" class="empty-state">
+            <p>Loading job...</p>
+          </div>
+          <div id="content" style="display: none">
+            <div class="detail-top">
+              <div>
+                <span class="kicker">Automation job</span>
+                <h1 id="job-name"></h1>
+                <p id="job-desc" class="subhead"></p>
+              </div>
+              <span class="live-dot" id="job-status"></span>
+            </div>
+
+            <section class="detail-section">
+              <div class="detail-section-head">
+                <div>
+                  <span class="kicker">At a glance</span>
+                  <h3>Job information</h3>
+                </div>
+                <div>
+                  <button class="cta" type="button" id="pauseBtn" style="display: none">Pause</button>
+                  <button class="cta" type="button" id="resumeBtn" style="display: none">Resume</button>
+                  <button class="cta" type="button" id="cancelBtn" style="display: none; border-color: #e55;">Cancel</button>
+                </div>
+              </div>
+              <div class="metrics" id="job-metrics"></div>
+            </section>
+
+            <section class="detail-section">
+              <div class="detail-section-head">
+                <div>
+                  <span class="kicker">Details</span>
+                  <h3>Job configuration</h3>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="ledger">
+                  <thead>
+                    <tr><th>Field</th><th>Value</th></tr>
+                  </thead>
+                  <tbody id="job-details"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="detail-section">
+              <div class="detail-section-head">
+                <div>
+                  <span class="kicker">Logs</span>
+                  <h3>Execution logs</h3>
+                </div>
+              </div>
+              <div class="queue" id="job-logs"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/session.js"></script>
+    <script src="js/detail.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        const { api, getParam, escapeHtml, showContent } = window.AriesDetail;
+        const id = getParam("id");
+        if (!id) {
+          window.location.href = "dashboard.html#automation";
+          return;
+        }
+        let jobData = null;
+        const loadJob = async () => {
+          jobData = await api(`/api/automation/jobs/${id}`);
+          if (!jobData) {
+            document.getElementById("loading").innerHTML = "<p>Job not found.</p>";
+            return;
+          }
+          document.getElementById("loading").style.display = "none";
+          showContent("content");
+          document.getElementById("job-name").textContent = jobData.name;
+          document.getElementById("job-desc").textContent = `${jobData.type} · ${jobData.schedule || "once"}`;
+          document.getElementById("job-status").textContent = jobData.status;
+          document.getElementById("job-metrics").innerHTML = `<div class="metric"><span>Type</span><strong>${escapeHtml(jobData.type)}</strong></div><div class="metric"><span>Status</span><strong>${escapeHtml(jobData.status)}</strong></div>`;
+          document.getElementById("job-details").innerHTML = `<tr><td>Creator</td><td>${jobData.creator_id.slice(0, 8)}</td></tr><tr><td>Device</td><td>${jobData.device_id.slice(0, 8)}</td></tr><tr><td>Schedule</td><td>${escapeHtml(jobData.schedule || "Once")}</td></tr><tr><td>Payload</td><td class="mono">${escapeHtml(jobData.payload).slice(0, 80)}</td></tr>`;
+          if (jobData.status === "running") {
+            document.getElementById("pauseBtn").style.display = "";
+          } else if (jobData.status === "paused") {
+            document.getElementById("resumeBtn").style.display = "";
+          }
+          document.getElementById("cancelBtn").style.display = "";
+          const logs = await api(`/api/automation/jobs/${id}/logs?limit=20`);
+          if (logs && logs.logs && logs.logs.length > 0) {
+            let html = "";
+            logs.logs.forEach((l) => {
+              html += `<div class="queue-item"><b>${escapeHtml(l.message || JSON.stringify(l))}</b><span>${escapeHtml(l.timestamp || "")}</span></div>`;
+            });
+            document.getElementById("job-logs").innerHTML = html;
+          } else {
+            document.getElementById("job-logs").innerHTML = "<div class='queue-item'><b>No logs yet</b><span>—</span></div>";
+          }
+          document.title = `${jobData.name} — Aries`;
+        };
+        document.getElementById("pauseBtn").addEventListener("click", async () => {
+          await api(`/api/automation/jobs/${id}/pause`, { method: "POST" });
+          loadJob();
+        });
+        document.getElementById("resumeBtn").addEventListener("click", async () => {
+          await api(`/api/automation/jobs/${id}/resume`, { method: "POST" });
+          loadJob();
+        });
+        document.getElementById("cancelBtn").addEventListener("click", async () => {
+          if (confirm("Cancel this job?")) {
+            await api(`/api/automation/jobs/${id}`, { method: "DELETE" });
+            window.location.href = "dashboard.html#automation";
+          }
+        });
+        loadJob();
+      })();
+    </script>
+  </body>
+</html>

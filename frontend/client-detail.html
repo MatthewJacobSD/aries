@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client — Aries</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/aries.css" />
+  </head>
+  <body class="app">
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="settings.html">Settings</a>
+        <span id="authSlot"></span>
+      </nav>
+    </header>
+    <div class="app-shell">
+      <div class="dash">
+        <aside class="dash-side">
+          <div class="mark">ARIES</div>
+          <nav class="dash-nav">
+            <a class="dash-nav-link" href="dashboard.html">Overview</a>
+            <a class="dash-nav-link" href="dashboard.html#clients">Clients</a>
+            <button class="active" type="button">Client</button>
+          </nav>
+        </aside>
+        <div class="dash-main detail-shell">
+          <div id="loading" class="empty-state">
+            <p>Loading client...</p>
+          </div>
+          <div id="content" style="display: none">
+            <div class="detail-top">
+              <div>
+                <span class="kicker">Client record</span>
+                <h1 id="client-name"></h1>
+                <p id="client-desc" class="subhead"></p>
+              </div>
+              <span class="live-dot" id="client-status"></span>
+            </div>
+
+            <section class="detail-section">
+              <div class="detail-section-head">
+                <div>
+                  <span class="kicker">At a glance</span>
+                  <h3>Client information</h3>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="ledger">
+                  <thead>
+                    <tr><th>Field</th><th>Value</th></tr>
+                  </thead>
+                  <tbody id="client-details"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="detail-section">
+              <div class="detail-section-head">
+                <div>
+                  <span class="kicker">Campaigns</span>
+                  <h3>Client campaigns</h3>
+                </div>
+                <a class="cta" href="dashboard.html#campaigns">View campaigns</a>
+              </div>
+              <div class="queue" id="client-campaigns"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/session.js"></script>
+    <script src="js/detail.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        const { api, getParam, escapeHtml, showContent } = window.AriesDetail;
+        const id = getParam("id");
+        if (!id) {
+          window.location.href = "dashboard.html#clients";
+          return;
+        }
+        (async () => {
+          const client = await api(`/api/clients/${id}`);
+          if (!client) {
+            document.getElementById("loading").innerHTML = "<p>Client not found.</p>";
+            return;
+          }
+          document.getElementById("loading").style.display = "none";
+          showContent("content");
+          document.getElementById("client-name").textContent = client.name;
+          document.getElementById("client-desc").textContent = client.contact_email;
+          document.getElementById("client-status").textContent = client.status;
+          document.getElementById("client-details").innerHTML = `<tr><td>Email</td><td>${escapeHtml(client.contact_email)}</td></tr><tr><td>Industry</td><td>${escapeHtml(client.industry || "\u2014")}</td></tr><tr><td>Status</td><td>${escapeHtml(client.status)}</td></tr>`;
+          document.getElementById("client-campaigns").innerHTML = "<div class='queue-item'><b>Campaigns load from campaign API</b><span>—</span></div>";
+          document.title = `${client.name} — Aries`;
+        })();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payouts — Aries</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/aries.css" />
+  </head>
+  <body class="app">
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="settings.html">Settings</a>
+        <span id="authSlot"></span>
+      </nav>
+    </header>
+    <div class="app-shell">
+      <div class="dash">
+        <aside class="dash-side">
+          <div class="mark">ARIES</div>
+          <nav class="dash-nav">
+            <a class="dash-nav-link" href="dashboard.html">Dashboard</a>
+            <a class="dash-nav-link" href="invoices.html">Invoices</a>
+            <button class="active" type="button">Payouts</button>
+          </nav>
+        </aside>
+        <div class="dash-main">
+          <div class="dash-top">
+            <div>
+              <h3>Payouts</h3>
+              <p class="subhead">Creator payout records and status.</p>
+            </div>
+            <button class="cta solid" type="button" id="createBtn">Create Payout</button>
+          </div>
+
+          <div class="empty-state" id="payouts-empty">
+            <div class="empty-state-icon">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3>No payouts yet</h3>
+            <p>Create a payout when a creator's earnings are ready.</p>
+          </div>
+
+          <div class="filled" id="payouts-filled" style="display: none">
+            <table class="ledger">
+              <thead>
+                <tr>
+                  <th>Payout</th>
+                  <th>Creator</th>
+                  <th>Amount</th>
+                  <th>Currency</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="payouts-list"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay" style="display: none">
+      <div class="modal">
+        <div class="modal-head">
+          <h3>Create Payout</h3>
+          <button class="modal-close" type="button" id="modal-close">&times;</button>
+        </div>
+        <form id="payoutForm">
+          <div class="field">
+            <label for="creatorId">Creator ID</label>
+            <input id="creatorId" name="creator_id" type="text" required />
+          </div>
+          <div class="field">
+            <label for="amount">Amount</label>
+            <input id="amount" name="amount" type="number" step="0.01" required />
+          </div>
+          <div class="field">
+            <label for="currency">Currency</label>
+            <input id="currency" name="currency" type="text" value="usd" />
+          </div>
+          <div class="field">
+            <label for="description">Description</label>
+            <input id="description" name="description" type="text" />
+          </div>
+          <button class="btn" type="submit">Create</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/session.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        const API_URL = "http://localhost:8000";
+        const TOKEN_KEY = "aries_token";
+
+        const api = async (endpoint, opts = {}) => {
+          const token = localStorage.getItem(TOKEN_KEY);
+          const headers = { "Content-Type": "application/json", ...opts.headers };
+          if (token) { headers["Authorization"] = `Bearer ${token}`; }
+          const res = await fetch(`${API_URL}${endpoint}`, { ...opts, headers });
+          if (res.status === 401) { window.location.href = "login.html"; return null; }
+          if (!res.ok) return null;
+          return res.json();
+        };
+
+        const loadPayouts = async () => {
+          const data = await api("/api/payments/payouts?page=1&limit=50");
+          if (!data || !data.items || data.items.length === 0) {
+            document.getElementById("payouts-empty").style.display = "";
+            document.getElementById("payouts-filled").style.display = "none";
+            return;
+          }
+          document.getElementById("payouts-empty").style.display = "none";
+          document.getElementById("payouts-filled").style.display = "";
+          let rows = "";
+          data.items.forEach((p) => {
+            rows += `<tr><td>${p.id.slice(0, 8)}</td><td>${p.creator_id.slice(0, 8)}</td><td>$${Number(p.amount).toLocaleString()}</td><td>${p.currency}</td><td><span class="badge">${p.status}</span></td></tr>`;
+          });
+          document.getElementById("payouts-list").innerHTML = rows;
+        };
+
+        document.getElementById("createBtn").addEventListener("click", () => {
+          document.getElementById("modal-overlay").style.display = "";
+        });
+        document.getElementById("modal-close").addEventListener("click", () => {
+          document.getElementById("modal-overlay").style.display = "none";
+        });
+
+        document.getElementById("payoutForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const body = {
+            creator_id: document.getElementById("creatorId").value,
+            amount: parseFloat(document.getElementById("amount").value),
+            currency: document.getElementById("currency").value,
+            description: document.getElementById("description").value,
+          };
+          await api("/api/payments/payouts", { method: "POST", body: JSON.stringify(body) });
+          document.getElementById("modal-overlay").style.display = "none";
+          loadPayouts();
+        });
+
+        loadPayouts();
+      })();
+    </script>
+  </body>
+</html>

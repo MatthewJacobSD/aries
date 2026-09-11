@@ -186,7 +186,7 @@
     showFilled("creators");
     let rows = "";
     data.items.forEach((c) => {
-      rows += `<tr><td>${escapeHtml(c.name)}</td><td>${escapeHtml(c.platform)}</td><td>${escapeHtml(c.status)}</td><td>${Math.round(c.revenue_share * 100)}%</td></tr>`;
+      rows += `<tr><td><a href="creator-detail.html?id=${c.id}">${escapeHtml(c.name)}</a></td><td>${escapeHtml(c.platform)}</td><td>${escapeHtml(c.status)}</td><td>${Math.round(c.revenue_share * 100)}%</td></tr>`;
     });
     document.getElementById("creators-list").innerHTML = rows;
   };
@@ -201,7 +201,7 @@
     showFilled("campaigns");
     let html = "";
     data.items.forEach((c) => {
-      html += `<div class="queue-item"><b>${escapeHtml(c.name)}</b><span>${escapeHtml(c.status)}</span></div>`;
+      html += `<div class="queue-item"><b><a href="campaign-detail.html?id=${c.id}">${escapeHtml(c.name)}</a></b><span>${escapeHtml(c.status)}</span></div>`;
     });
     document.getElementById("campaigns-list").innerHTML = html;
   };
@@ -231,7 +231,7 @@
     showFilled("clients");
     let html = "";
     data.forEach((c) => {
-      html += `<div class="queue-item"><b>${escapeHtml(c.name)}</b><span>${escapeHtml(c.status)}</span></div>`;
+      html += `<div class="queue-item"><b><a href="client-detail.html?id=${c.id}">${escapeHtml(c.name)}</a></b><span>${escapeHtml(c.status)}</span></div>`;
     });
     document.getElementById("clients-list").innerHTML = html;
   };

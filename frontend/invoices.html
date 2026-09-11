@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoices — Aries</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/aries.css" />
+  </head>
+  <body class="app">
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="settings.html">Settings</a>
+        <span id="authSlot"></span>
+      </nav>
+    </header>
+    <div class="app-shell">
+      <div class="dash">
+        <aside class="dash-side">
+          <div class="mark">ARIES</div>
+          <nav class="dash-nav">
+            <a class="dash-nav-link" href="dashboard.html">Dashboard</a>
+            <button class="active" type="button">Invoices</button>
+            <a class="dash-nav-link" href="payouts.html">Payouts</a>
+          </nav>
+        </aside>
+        <div class="dash-main">
+          <div class="dash-top">
+            <div>
+              <h3>Invoices</h3>
+              <p class="subhead">Client billing and payment records.</p>
+            </div>
+            <button class="cta solid" type="button" id="createBtn">Create Invoice</button>
+          </div>
+
+          <div class="empty-state" id="invoices-empty">
+            <div class="empty-state-icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <h3>No invoices yet</h3>
+            <p>Create an invoice when you need to bill a client.</p>
+          </div>
+
+          <div class="filled" id="invoices-filled" style="display: none">
+            <table class="ledger">
+              <thead>
+                <tr>
+                  <th>Invoice</th>
+                  <th>Client</th>
+                  <th>Amount</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="invoices-list"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay" style="display: none">
+      <div class="modal">
+        <div class="modal-head">
+          <h3>Create Invoice</h3>
+          <button class="modal-close" type="button" id="modal-close">&times;</button>
+        </div>
+        <form id="invoiceForm">
+          <div class="field">
+            <label for="clientId">Client ID</label>
+            <input id="clientId" name="client_id" type="text" required />
+          </div>
+          <div class="field">
+            <label for="campaignId">Campaign ID (optional)</label>
+            <input id="campaignId" name="campaign_id" type="text" />
+          </div>
+          <div class="field">
+            <label for="amount">Amount</label>
+            <input id="amount" name="amount" type="number" step="0.01" required />
+          </div>
+          <div class="field">
+            <label for="currency">Currency</label>
+            <input id="currency" name="currency" type="text" value="usd" />
+          </div>
+          <div class="field">
+            <label for="dueDate">Due Date</label>
+            <input id="dueDate" name="due_date" type="date" />
+          </div>
+          <button class="btn" type="submit">Create</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/session.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        const API_URL = "http://localhost:8000";
+        const TOKEN_KEY = "aries_token";
+
+        const api = async (endpoint, opts = {}) => {
+          const token = localStorage.getItem(TOKEN_KEY);
+          const headers = { "Content-Type": "application/json", ...opts.headers };
+          if (token) { headers["Authorization"] = `Bearer ${token}`; }
+          const res = await fetch(`${API_URL}${endpoint}`, { ...opts, headers });
+          if (res.status === 401) { window.location.href = "login.html"; return null; }
+          if (!res.ok) return null;
+          return res.json();
+        };
+
+        const loadInvoices = async () => {
+          const data = await api("/api/payments/invoices?page=1&limit=50");
+          if (!data || !data.items || data.items.length === 0) {
+            document.getElementById("invoices-empty").style.display = "";
+            document.getElementById("invoices-filled").style.display = "none";
+            return;
+          }
+          document.getElementById("invoices-empty").style.display = "none";
+          document.getElementById("invoices-filled").style.display = "";
+          let rows = "";
+          data.items.forEach((inv) => {
+            rows += `<tr><td>${inv.id.slice(0, 8)}</td><td>${inv.client_id.slice(0, 8)}</td><td>$${Number(inv.amount).toLocaleString()}</td><td>${inv.due_date || "\u2014"}</td><td><span class="badge">${inv.status}</span></td></tr>`;
+          });
+          document.getElementById("invoices-list").innerHTML = rows;
+        };
+
+        document.getElementById("createBtn").addEventListener("click", () => {
+          document.getElementById("modal-overlay").style.display = "";
+        });
+        document.getElementById("modal-close").addEventListener("click", () => {
+          document.getElementById("modal-overlay").style.display = "none";
+        });
+
+        document.getElementById("invoiceForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const body = {
+            client_id: document.getElementById("clientId").value,
+            campaign_id: document.getElementById("campaignId").value || "",
+            amount: parseFloat(document.getElementById("amount").value),
+            currency: document.getElementById("currency").value,
+            due_date: document.getElementById("dueDate").value,
+          };
+          await api("/api/payments/invoices", { method: "POST", body: JSON.stringify(body) });
+          document.getElementById("modal-overlay").style.display = "none";
+          loadInvoices();
+        });
+
+        loadInvoices();
+      })();
+    </script>
+  </body>
+</html>

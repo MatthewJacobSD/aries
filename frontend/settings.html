@@ -4,14 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings — Aries</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="css/aries.css" />
   </head>
 
@@ -40,179 +38,145 @@
         <main class="dash-main">
           <div class="dash-top">
             <div>
-              <h3>Workspace · Settings</h3>
-              <p class="subhead">North Atelier</p>
+              <h3>Settings</h3>
+              <p class="subhead" id="workspaceName">Workspace</p>
             </div>
-
-            <span class="live-dot">Demo</span>
+            <span class="live-dot" id="roleBadge"></span>
           </div>
 
-          <div class="settings-notice">
-            <span class="badge">Demo workspace</span>
-            <p>
-              These settings describe the workspace structure but are not currently saved to a
-              server.
-            </p>
-          </div>
-
-          <section class="settings-section" aria-labelledby="workspace-heading">
+          <section class="settings-section" aria-labelledby="profile-heading">
             <div class="settings-section-head">
               <div>
-                <span class="kicker">Workspace</span>
-                <h3 id="workspace-heading">Where the work lives</h3>
+                <span class="kicker">Profile</span>
+                <h3 id="profile-heading">Your account</h3>
               </div>
-
-              <span class="settings-status">Configured</span>
+              <span class="settings-status" id="profileStatus">Loading...</span>
             </div>
 
-            <div class="settings-field">
-              <label for="workspace-name">Workspace name</label>
-
-              <input
-                id="workspace-name"
-                name="workspace-name"
-                type="text"
-                value="North Atelier"
-                readonly
-              />
-
-              <p>The name shown across the workspace and its internal records.</p>
-            </div>
+            <form id="profileForm">
+              <div class="settings-field">
+                <label for="fullName">Full name</label>
+                <input id="fullName" name="full_name" type="text" />
+              </div>
+              <div class="settings-field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" />
+              </div>
+              <button class="cta" type="submit" style="margin-top: 0.75rem">Save changes</button>
+            </form>
           </section>
 
-          <section class="settings-section" aria-labelledby="people-heading">
+          <section class="settings-section" aria-labelledby="password-heading">
             <div class="settings-section-head">
               <div>
-                <span class="kicker">Access</span>
-                <h3 id="people-heading">People and roles</h3>
+                <span class="kicker">Security</span>
+                <h3 id="password-heading">Change password</h3>
               </div>
-
-              <span class="settings-status">4 members</span>
             </div>
 
-            <p class="settings-description">
-              Roles determine which parts of the workspace each person can access. Keep internal
-              operations separate from creator and client visibility.
-            </p>
-
-            <div class="table-wrap">
-              <table class="ledger settings-table">
-                <thead>
-                  <tr>
-                    <th>Person</th>
-                    <th>Role</th>
-                    <th>Access</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr>
-                    <td>A. Quinn</td>
-                    <td>Owner</td>
-                    <td>Full workspace</td>
-                    <td class="mono">you</td>
-                  </tr>
-
-                  <tr>
-                    <td>Night desk</td>
-                    <td>Operator</td>
-                    <td>Campaigns, rooms</td>
-                    <td class="mono">active</td>
-                  </tr>
-
-                  <tr>
-                    <td>Vesper Finance</td>
-                    <td>Finance</td>
-                    <td>Revenue records</td>
-                    <td class="mono">invited</td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <a href="creator-voss.html">M. Voss</a>
-                    </td>
-                    <td>Creator</td>
-                    <td>Own workspace data</td>
-                    <td class="mono">active</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="settings-footnote">
-              <p>
-                Client and creator access should expose only the records they need to work with.
-                Internal notes, other clients, credentials, and agency-wide financial information
-                remain restricted.
-              </p>
-            </div>
+            <form id="passwordForm">
+              <div class="settings-field">
+                <label for="currentPassword">Current password</label>
+                <input id="currentPassword" name="current_password" type="password" autocomplete="current-password" />
+              </div>
+              <div class="settings-field">
+                <label for="newPassword">New password</label>
+                <input id="newPassword" name="new_password" type="password" autocomplete="new-password" />
+              </div>
+              <button class="cta" type="submit" style="margin-top: 0.75rem">Change password</button>
+            </form>
+            <div id="passwordAlert" class="alert" role="status" style="margin-top: 0.75rem"></div>
           </section>
 
           <section class="settings-section" aria-labelledby="sessions-heading">
             <div class="settings-section-head">
               <div>
-                <span class="kicker">Security</span>
-                <h3 id="sessions-heading">Sessions</h3>
-              </div>
-
-              <span class="settings-status">2 sessions</span>
-            </div>
-
-            <p class="settings-description">Review where the workspace is currently signed in.</p>
-
-            <div class="queue settings-sessions">
-              <div class="queue-item">
-                <div>
-                  <b>workstation-4</b>
-                  <span>Current session</span>
-                </div>
-
-                <span class="badge">Current</span>
-              </div>
-
-              <div class="queue-item">
-                <div>
-                  <b>Phone</b>
-                  <span>Last seen 2 days ago</span>
-                </div>
-
-                <button class="settings-action" type="button">Revoke</button>
+                <span class="kicker">Session</span>
+                <h3 id="sessions-heading">Account actions</h3>
               </div>
             </div>
-          </section>
-
-          <section class="settings-section" aria-labelledby="credentials-heading">
-            <div class="settings-section-head">
-              <div>
-                <span class="kicker">Connections</span>
-                <h3 id="credentials-heading">Credentials</h3>
-              </div>
-
-              <span class="settings-status">Restricted</span>
-            </div>
-
-            <p class="settings-description">
-              API keys, integration secrets, session tokens, and signing credentials should never be
-              displayed directly in the workspace.
-            </p>
-
-            <div class="settings-security">
-              <div>
-                <strong>Secrets stay outside the interface.</strong>
-                <p>
-                  A live implementation should expose actions for rotating or revoking credentials
-                  without revealing their stored values.
-                </p>
-              </div>
-
-              <a class="cta" href="integration.html"> Manage integrations </a>
-            </div>
+            <button class="cta" type="button" id="signOutBtn" style="border-color: rgba(229, 80, 80, 0.5); color: #e55;">Sign out</button>
           </section>
         </main>
       </div>
     </div>
+    <script src="js/session.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        const API_URL = "http://localhost:8000";
+        const TOKEN_KEY = "aries_token";
 
-    <script src="js/dashboard.js"></script>
+        const api = async (endpoint, opts = {}) => {
+          const token = localStorage.getItem(TOKEN_KEY);
+          const headers = { "Content-Type": "application/json", ...opts.headers };
+          if (token) { headers["Authorization"] = `Bearer ${token}`; }
+          const res = await fetch(`${API_URL}${endpoint}`, { ...opts, headers });
+          if (res.status === 401) { window.location.href = "login.html"; return null; }
+          return res.json();
+        };
+
+        const showAlert = (el, type, text) => {
+          if (!el) return;
+          el.className = `alert show ${type}`;
+          el.textContent = text;
+        };
+
+        const loadProfile = async () => {
+          const user = await api("/api/auth/me");
+          if (!user) return;
+          document.getElementById("fullName").value = user.full_name || "";
+          document.getElementById("email").value = user.email || "";
+          document.getElementById("workspaceName").textContent = user.full_name || user.email;
+          document.getElementById("roleBadge").textContent = user.role;
+          document.getElementById("profileStatus").textContent = "Active";
+        };
+
+        document.getElementById("profileForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const body = {
+            full_name: document.getElementById("fullName").value.trim(),
+            email: document.getElementById("email").value.trim(),
+          };
+          const result = await api("/api/auth/me", { method: "PUT", body: JSON.stringify(body) });
+          if (result && result.id) {
+            const session = JSON.parse(localStorage.getItem("aries_session") || "{}");
+            session.name = body.full_name;
+            session.email = body.email;
+            localStorage.setItem("aries_session", JSON.stringify(session));
+            document.getElementById("profileStatus").textContent = "Saved";
+            setTimeout(() => { document.getElementById("profileStatus").textContent = "Active"; }, 2000);
+          }
+        });
+
+        document.getElementById("passwordForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const alertBox = document.getElementById("passwordAlert");
+          const current = document.getElementById("currentPassword").value;
+          const newPwd = document.getElementById("newPassword").value;
+          if (newPwd.length < 8) {
+            showAlert(alertBox, "err", "Password must be at least 8 characters.");
+            return;
+          }
+          const result = await api("/api/auth/change-password", {
+            method: "POST",
+            body: JSON.stringify({ current_password: current, new_password: newPwd }),
+          });
+          if (result && result.message) {
+            showAlert(alertBox, "ok", "Password changed.");
+            document.getElementById("currentPassword").value = "";
+            document.getElementById("newPassword").value = "";
+          } else {
+            showAlert(alertBox, "err", "Failed to change password.");
+          }
+        });
+
+        document.getElementById("signOutBtn").addEventListener("click", () => {
+          window.AriesSession.signOut();
+        });
+
+        loadProfile();
+      })();
+    </script>
   </body>
 </html>

@@ -5,8 +5,9 @@
 /* Base design system (variables, reset, typography, components) */
 @import url("./index.css");
 
-/* Empty state component */
+/* Shared components */
 @import url("./empty-state.css");
+@import url("./components.css");
 
 /* Page-specific styles */
 @import url("./auth.css");

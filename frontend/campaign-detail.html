@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campaign — Aries</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/aries.css" />
+  </head>
+  <body class="app">
+    <header class="site">
+      <a class="logo" href="index.html">Aries</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="settings.html">Settings</a>
+        <span id="authSlot"></span>
+      </nav>
+    </header>
+    <div class="app-shell">
+      <div class="dash">
+        <aside class="dash-side">
+          <div class="mark">ARIES</div>
+          <nav class="dash-nav">
+            <a class="dash-nav-link" href="dashboard.html">Overview</a>
+            <a class="dash-nav-link" href="dashboard.html#campaigns">Campaigns</a>
+            <button class="active" type="button">Campaign</button>
+          </nav>
+        </aside>
+        <div class="dash-main detail-shell">
+          <div id="loading" class="empty-state">
+            <p>Loading campaign...</p>
+          </div>
+          <div id="content" style="display: none">
+            <div class="detail-top">
+              <div>
+                <span class="kicker">Campaign record</span>
+                <h1 id="campaign-name"></h1>
+                <p id="campaign-desc" class="subhead"></p>
+              </div>
+              <span class="live-dot" id="campaign-status"></span>
+            </div>
+
+            <section class="detail-section">
+              <div class="detail-section-head">
+                <div>
+                  <span class="kicker">At a glance</span>
+                  <h3>Campaign position</h3>
+                </div>
+              </div>
+              <div class="metrics" id="campaign-metrics"></div>
+            </section>
+
+            <section class="detail-section">
+              <div class="detail-section-head">
+                <div>
+                  <span class="kicker">Details</span>
+                  <h3>Campaign information</h3>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="ledger">
+                  <thead>
+                    <tr><th>Field</th><th>Value</th></tr>
+                  </thead>
+                  <tbody id="campaign-details"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="detail-section">
+              <div class="detail-section-head">
+                <div>
+                  <span class="kicker">Tasks</span>
+                  <h3>Campaign tasks</h3>
+                </div>
+                <a class="cta" href="dashboard.html#tasks">View tasks</a>
+              </div>
+              <div class="queue" id="campaign-tasks"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/session.js"></script>
+    <script src="js/detail.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        const { api, getParam, escapeHtml, showContent } = window.AriesDetail;
+        const id = getParam("id");
+        if (!id) {
+          window.location.href = "dashboard.html#campaigns";
+          return;
+        }
+        (async () => {
+          const campaign = await api(`/api/campaigns/${id}`);
+          if (!campaign) {
+            document.getElementById("loading").innerHTML = "<p>Campaign not found.</p>";
+            return;
+          }
+          document.getElementById("loading").style.display = "none";
+          showContent("content");
+          document.getElementById("campaign-name").textContent = campaign.name;
+          document.getElementById("campaign-desc").textContent = `Client: ${campaign.client_id.slice(0, 8)}`;
+          document.getElementById("campaign-status").textContent = campaign.status;
+          document.getElementById("campaign-metrics").innerHTML = `<div class="metric"><span>Budget</span><strong>$${Number(campaign.budget).toLocaleString()}</strong></div><div class="metric"><span>Status</span><strong>${escapeHtml(campaign.status)}</strong></div>`;
+          document.getElementById("campaign-details").innerHTML = `<tr><td>Client</td><td>${campaign.client_id.slice(0, 8)}</td></tr><tr><td>Start date</td><td>${campaign.start_date || "\u2014"}</td></tr><tr><td>End date</td><td>${campaign.end_date || "\u2014"}</td></tr><tr><td>Creators</td><td>${campaign.creator_ids || "None"}</td></tr>`;
+          document.getElementById("campaign-tasks").innerHTML = "<div class='queue-item'><b>Tasks load from task API</b><span>—</span></div>";
+          document.title = `${campaign.name} — Aries`;
+        })();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+/* ------------------------[Modal Component]------------------------ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12, 11, 9, 0.75);
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  width: min(28rem, 90vw);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 1.5rem;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.modal-head h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+.modal-close:hover {
+  color: var(--cream);
+}
+
+/* ------------------------[Detail Page]------------------------ */
+.detail-shell {
+  padding: 1.5rem 2rem 3rem;
+}
+
+.detail-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-top h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0.3rem 0 0.5rem;
+}
+
+.detail-section {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.detail-section:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.detail-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.detail-section-head h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+/* ------------------------[Responsive]------------------------ */
+@media (max-width: 800px) {
+  .detail-shell {
+    padding: 1.25rem 1rem 2rem;
+  }
+  .detail-top {
+    flex-direction: column;
+  }
+  .detail-section-head {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .detail-shell {
+    padding: 1rem 0.75rem 2rem;
+  }
+}
