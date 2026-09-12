@@ -1,0 +1,32 @@
+$kind: http-request
+name: Get Task
+method: GET
+url: '{{baseUrl}}/api/tasks/{{taskId}}'
+order: 2000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Response time under 2000ms", () => pm.expect(pm.response.responseTime).to.be.below(2000));
+      pm.test("Task returned", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+        pm.expect(json).to.have.property("title");
+      });
+      pm.test("Schema is valid", () => {
+        const schema = {
+          type: "object",
+          required: ["id", "title", "status"],
+          properties: {
+            id: { type: "string" },
+            title: { type: "string" },
+            campaign_id: { type: "string" },
+            assigned_to: { type: "string" },
+            due_date: { type: "string" },
+            priority: { type: "string" },
+            status: { type: "string" }
+          }
+        };
+        pm.response.to.have.jsonSchema(schema);
+      });
